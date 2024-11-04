@@ -35,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $NAME = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $steamID64 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +128,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNAME(string $NAME): static
     {
         $this->NAME = $NAME;
+
+        return $this;
+    }
+
+    public function getSteamID64(): ?string
+    {
+        return $this->steamID64;
+    }
+
+    public function setSteamID64(?string $steamID64): static
+    {
+        $this->steamID64 = $steamID64;
 
         return $this;
     }
