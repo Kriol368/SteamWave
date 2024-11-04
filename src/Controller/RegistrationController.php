@@ -15,14 +15,17 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
+    private HttpClientInterface $httpClient;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, HttpClientInterface $httpClient)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->httpClient = $httpClient;
     }
 
     #[Route('/register', name: 'app_register')]
@@ -33,7 +36,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Hash the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -41,10 +44,21 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Retrieve Steam account information
+            $steamProfileUrl = $form->get('steamProfileUrl')->getData();
+            if ($steamProfileUrl) {
+                $steamData = $this->fetchSteamData($steamProfileUrl);
+                if ($steamData) {
+                    $user->setSteamID64($steamData['steamid']);
+                    $user->setSteamUsername($steamData['personaname']);
+                }
+            }
+
+            // Save the user
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
+            // Send email verification
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('kriol368@gmail.com', 'Kriol'))
@@ -52,7 +66,6 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');
         }
@@ -62,23 +75,28 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    private function fetchSteamData(string $steamProfileUrl): ?array
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // Replace STEAM_API_KEY with your actual Steam Web API key
+        $steamApiKey = 'STEAM_API_KEY';
+        $steamId = $this->extractSteamIDFromUrl($steamProfileUrl);
 
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+        if ($steamId) {
+            $response = $this->httpClient->request('GET', "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$steamApiKey}&steamids={$steamId}");
+            $data = $response->toArray();
 
-            return $this->redirectToRoute('app_register');
+            if (isset($data['response']['players'][0])) {
+                return $data['response']['players'][0];
+            }
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        return null;
+    }
 
-        return $this->redirectToRoute('app_register');
+    private function extractSteamIDFromUrl(string $url): ?string
+    {
+        // Extract Steam ID from the profile URL
+        preg_match('/https?:\/\/steamcommunity\.com\/profiles\/(\d+)/', $url, $matches);
+        return $matches[1] ?? null;
     }
 }
