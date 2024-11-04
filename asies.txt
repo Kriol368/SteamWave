@@ -1,0 +1,6 @@
+-NOMBRE:
+-Steam API
+	-Juegos, Logros(Pestaña a parte), juegos recientes, juegos favoritos, juegos con platino
+-Log in/Register(Poder meter tu steam directamente)
+-User:
+	-Posts, MD, 
