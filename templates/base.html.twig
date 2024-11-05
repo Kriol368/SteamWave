@@ -7,10 +7,12 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="css/reset.css"/>
             <link rel="stylesheet" href="css/base.css"/>
         {% endblock %}
 
         {% block javascripts %}
+            <script src="js/base.js"></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
@@ -22,6 +24,7 @@
         <a href="#">Clients</a>
         <a href="#">Contact</a>
     </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
         {% block body %}{% endblock %}
     </body>
 </html>
