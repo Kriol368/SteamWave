@@ -3,7 +3,7 @@ body {
     font-family: "Lato", sans-serif;
 }
 .main {
-    margin-left: 200px; /* Same as the width of the sidenav */
+    margin-left: auto; /* Same as the width of the sidenav */
 }
 
 /* =========0 barra lateral =================0 */
@@ -16,7 +16,7 @@ body {
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 1rem;
 }
 
 .sidenav img {
@@ -36,18 +36,10 @@ body {
     ;
 }
 
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
 .profile-picture{
     position: absolute;
     bottom: 40px;
-    right: 63px; /* set the right to 0 */
+    right: auto; /* set the right to 0 */
 }
 .profile-picture img{
     height: 100%;
