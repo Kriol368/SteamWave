@@ -16,21 +16,23 @@
         {% endblock %}
     </head>
     <body>
-    <!-- ===================================0
-            barra lateral izquierda     -    tecnicamente el header-->
-    <header>
-        <div id="mySidenav" class="sidenav">
-            <div> <!-- parte de arriba -->
-                <img id="home-btn" src="res/icons/home.svg">
-                <img id="likes-btn" src="res/icons/heart.svg">
-                <img id="star-btn" src="res/icons/star.svg">
-            </div> <!-- pfp -->
-            <div class="profile-picture">
-                <img id="user" src="res/icons/meh.svg">
+        <!-- ===================================0
+                barra lateral izquierda     -    tecnicamente el header-->
+        <header>
+            <div id="mySidenav" class="sidenav">
+                <div> <!-- parte de arriba -->
+                    <img id="home-btn" src="res/icons/home.svg">
+                    <img id="likes-btn" src="res/icons/heart.svg">
+                    <img id="star-btn" src="res/icons/star.svg">
+                </div> <!-- pfp -->
+                <div class="profile-picture">
+                    <img id="user" src="res/icons/meh.svg">
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
+        <!-- ===================================0
+                cuerpo del texto    -->
+            {% block body %}    {% endblock %}
 
-        {% block body %}    {% endblock %}
     </body>
 </html>

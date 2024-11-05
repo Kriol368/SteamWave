@@ -1,13 +1,22 @@
+/* ====================00
+            la barra de la derecha
+ */
+
 .container {
-    width: 200px;
-    height: 400px;
+    float: right;
+    width: 300px;
+    height: 650px;
     border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    background-color: #e7dede;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
-.speech-bubble {
+.chat-section {
     width: 80%;
     height: 20%;
     border: 2px solid black;
@@ -16,7 +25,7 @@
     position: relative;
 }
 
-.speech-bubble::after {
+.chat-section::after {
     content: "";
     position: absolute;
     bottom: -10px;
