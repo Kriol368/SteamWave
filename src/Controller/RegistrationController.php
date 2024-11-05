@@ -129,7 +129,7 @@ class RegistrationController extends AbstractController
 
     private function resolveVanityURLToSteamID(string $vanityName): ?string
     {
-        $steamApiKey = $this->getParameter('steam.api_key');
+        $steamApiKey = '562D15EBA45FEC235C627957E91296DE';
         $response = $this->httpClient->request('GET', "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key={$steamApiKey}&vanityurl={$vanityName}");
         $data = $response->toArray();
 
