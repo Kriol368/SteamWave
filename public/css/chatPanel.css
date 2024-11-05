@@ -4,14 +4,15 @@
 
 .container {
 
-    position: absolute;
+    position: fixed;
     float: right;
-    height: auto;
+    height: 95%;
     width: 30%;
 
     z-index: 1;
-    top: 20px;
-    right: 20px;
+    top: 1%;
+    bottom: 1%;
+    right: 1%;
     background: #eee;
     overflow-x: hidden;
     padding:  10px;
