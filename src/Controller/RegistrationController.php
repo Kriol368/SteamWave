@@ -48,6 +48,7 @@ class RegistrationController extends AbstractController
             $steamProfileUrl = $form->get('steamProfileUrl')->getData();
             if ($steamProfileUrl) {
                 $steamData = $this->fetchSteamData($steamProfileUrl);
+                dump($form->get('steamProfileUrl')->getData());
                 if ($steamData) {
                     $user->setSteamID64($steamData['steamid']);
                     $user->setSteamUsername($steamData['personaname']);
@@ -75,10 +76,27 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    #[Route('/verify/email', name: 'app_verify_email')]
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        try {
+            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+            return $this->redirectToRoute('app_register');
+        }
+
+        $this->addFlash('success', 'Your email address has been verified.');
+        return $this->redirectToRoute('app_home'); // or any appropriate route after verification
+    }
+
+
     private function fetchSteamData(string $steamProfileUrl): ?array
     {
         // Replace STEAM_API_KEY with your actual Steam Web API key
-        $steamApiKey = 'STEAM_API_KEY';
+        $steamApiKey = '562D15EBA45FEC235C627957E91296DE';
         $steamId = $this->extractSteamIDFromUrl($steamProfileUrl);
 
         if ($steamId) {
@@ -95,8 +113,27 @@ class RegistrationController extends AbstractController
 
     private function extractSteamIDFromUrl(string $url): ?string
     {
-        // Extract Steam ID from the profile URL
-        preg_match('/https?:\/\/steamcommunity\.com\/profiles\/(\d+)/', $url, $matches);
-        return $matches[1] ?? null;
+        // Check for profile URL with SteamID64
+        if (preg_match('/https?:\/\/steamcommunity\.com\/profiles\/(\d+)/', $url, $matches)) {
+            return $matches[1];
+        }
+
+        // Check for vanity URL
+        if (preg_match('/https?:\/\/steamcommunity\.com\/id\/([^\/]+)/', $url, $matches)) {
+            $vanityName = $matches[1];
+            return $this->resolveVanityURLToSteamID($vanityName); // Resolves the vanity URL to a SteamID64
+        }
+
+        return null;
     }
+
+    private function resolveVanityURLToSteamID(string $vanityName): ?string
+    {
+        $steamApiKey = '562D15EBA45FEC235C627957E91296DE';
+        $response = $this->httpClient->request('GET', "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key={$steamApiKey}&vanityurl={$vanityName}");
+        $data = $response->toArray();
+
+        return $data['response']['success'] == 1 ? $data['response']['steamid'] : null;
+    }
+
 }
