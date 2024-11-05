@@ -3,17 +3,19 @@
  */
 
 .container {
-    float: right;
-    width: 300px;
-    height: 650px;
-    border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
-    background-color: #e7dede;
+    position: absolute;
+    float: right;
+    height: auto;
+    width: 30%;
+
+    z-index: 1;
+    top: 20px;
+    right: 20px;
+    background: #eee;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding:  10px;
+    border-radius: 20px;
 }
 
 .chat-section {
