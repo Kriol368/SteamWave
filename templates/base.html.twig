@@ -17,14 +17,18 @@
         {% endblock %}
     </head>
     <body>
+    <!-- ===================================0
+            barra lateral izquierda     -->
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <div> <!-- parte de arriba -->
+            <img id="home-btn" src="res/icons/home.svg">
+            <img id="likes-btn" src="res/icons/heart.svg">
+            <img id="star-btn" src="res/icons/star.svg">
+        </div> <!-- pfp -->
+        <div class="profile-picture">
+            <img id="user" src="res/icons/meh.svg">
+        </div>
     </div>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
         {% block body %}{% endblock %}
     </body>
 </html>

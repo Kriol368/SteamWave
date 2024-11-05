@@ -1,8 +1,12 @@
+/* Page content */
 body {
     font-family: "Lato", sans-serif;
 }
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+}
 
-/* The sidenav */
+/* =========0 barra lateral =================0 */
 .sidenav {
     height: 100%;
     width: 100px;
@@ -15,22 +19,21 @@ body {
     padding-top: 20px;
 }
 
-/* Page content */
-.main {
-    margin-left: 200px; /* Same as the width of the sidenav */
-}
-
-.sidenav a {
+.sidenav img {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
-.sidenav a:hover {
-    color: #f1f1f1;
+.sidenav img:hover {
+    color: #f0f0f0;
+    background-color: #333;
+    border-collapse: collapse;
+    border-radius: 10px;
+    ;
 }
 
 .sidenav .closebtn {
@@ -40,6 +43,18 @@ body {
     font-size: 36px;
     margin-left: 50px;
 }
+
+.profile-picture{
+    position: absolute;
+    bottom: 40px;
+    right: 63px; /* set the right to 0 */
+}
+.profile-picture img{
+    height: 100%;
+    width: 100%;
+}
+
+/* ================ no se =================*/
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
