@@ -18,9 +18,13 @@ class Chat
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'chat')]
     private Collection $messages;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chats')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,6 +57,33 @@ class Chat
             if ($message->getChat() === $this) {
                 $message->setChat(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addChat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeChat($this);
         }
 
         return $this;
