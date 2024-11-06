@@ -4,19 +4,19 @@
 
 {% block body %}
     <!--    barra de busqueda central   -->
-    <link rel="stylesheet" href="css/searchBar.css"/>
+    <link rel="stylesheet" href="{{ asset('css/searchBar.css') }}"/>
     <div class="wrapper">
         <div class="searchBar">
             <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
             <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                <img src="/res/icons/search.svg">
+                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
             </button>
         </div>
     </div>
 
     <!--    feed    =====================================0
                aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post -->
-    <link rel="stylesheet" href="css/main_content.css"/>
+    <link rel="stylesheet" href="{{ asset('css/main_content.css') }}"/>
     <div class="feed">
         {{ include ('partials/_feedEntry.html.twig') }}
         <div>
@@ -67,11 +67,11 @@
 
     <!--    boton para postear  -->
     <div class="post-button">
-        <img src="/res/icons/star.svg">
+        <img src="{{ asset('res/icons/star.svg') }}" alt="Star Icon">
     </div>
 
     <!--    panel lateral derecho   -->
-    <link rel="stylesheet" href="css/chatPanel.css"/>
+    <link rel="stylesheet" href="{{ asset('css/chatPanel.css') }}"/>
     <aside class="rigth-aside">
         {{ include ('partials/_chatPanel.html.twig') }}
     </aside>
