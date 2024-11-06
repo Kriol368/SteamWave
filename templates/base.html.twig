@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}instagram2{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        <link rel="stylesheet" />
-        <link rel="stylesheet" href={{ asset('css/base.css') }}/>
-        {% block stylesheets %}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    {#===========0 el titulo se tiene que pasar por php y el favicon se tiene que cambiar =================#}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="favicon" href="{{ asset('res/icons/feather.svg')}}">
 
-        <script src="{{ asset('js/base.js') }}"></script>
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
+    <link rel="stylesheet" href="{{ asset('css/reset.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/base.css')}}"/>
+
+    {% block stylesheets %} {#{ encore_entry_link_tags('app') }#}
+    {% endblock %}
+
+    <script src="{{ asset('js/base.js')}}"></script
+
+    {% block javascripts %} {#{ encore_entry_script_tags('app') }#}>
+    {% endblock %}
+</head>
+<body>
+<!-- ===================================0
+        barra lateral izquierda     -    tecnicamente el header-->
+<header>
     <div id="mySidenav" class="sidenav">
-        <!--Aqui habria que hacerlo semantico -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <div> <!-- parte de arriba -->
+            <img id="home-btn" src="{{ asset('res/icons/home.svg')}}">
+            <img id="likes-btn" src="{{ asset('res/icons/heart.svg')}}">
+            <img id="star-btn" src="{{ asset('res/icons/star.svg')}}">
+        </div> <!-- pfp -->
+        <div class="profile-picture">
+            <img id="user" src="{{ asset('res/icons/meh.svg')}}">
+        </div>
     </div>
-    <!--Aqui tambien -->
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-        {% block body %}{% endblock %}
-    </body>
+</header>
+<!-- ===================================0
+        cuerpo del texto    -->
+{% block body %}    {% endblock %}
+
+</body>
 </html>
