@@ -1,0 +1,8 @@
+.feed-entry{
+    width: 80%;
+    height: 20%;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+}
