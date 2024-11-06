@@ -3,19 +3,24 @@
 {% block title %}instagram 2{% endblock %}
 
 {% block body %}
-    <link rel="stylesheet" href="css/main_content.css"/>
     <!--    barra de busqueda central   -->
-    <div class="feed">
-        <div class="wrapper">
-            <div class="searchBar">
-                <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
-                <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                    <img src="/res/icons/search.svg">
-                </button>
-            </div>
+    <div class="wrapper">
+        <div class="searchBar">
+            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
+            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                <img src="/res/icons/search.svg">
+            </button>
         </div>
+    </div>
 
-        <!--    feed    -->
+    <link rel="stylesheet" href="css/main_content.css"/>
+
+    <div class="feed">
+
+
+
+        <!--    feed    =====================================0
+                aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post-->
 
         <div>
             <h2>el pepe</h2>
@@ -61,8 +66,13 @@
 
                 Praesent auctor rutrum mollis. Morbi velit dolor, fringilla quis nunc sit amet, auctor iaculis mauris. Sed aliquet euismod mi, cursus mattis leo lobortis eget. Nullam tristique efficitur luctus. Aenean sit amet iaculis felis, non dapibus nisi. Proin felis mauris, pellentesque eget ex et, dapibus ultricies turpis. Nullam dui ante, iaculis eget tempus id, tempor non enim. Donec eu arcu rutrum, pretium elit ut, pulvinar velit. Duis leo lacus, aliquet ac tincidunt quis, ornare vel dolor. Pellentesque ipsum enim, vestibulum quis augue sit amet, venenatis accumsan lorem. Nulla facilisi. Vestibulum neque odio, euismod quis justo et, interdum efficitur mi. Duis in ante commodo leo consequat ultricies a sit amet velit. Duis fermentum nunc ut nisi condimentum, consectetur cursus ex rutrum. Nullam elementum sed quam sed semper. </p>
         </div>
-    </div>
 
+    </div>
+    <!--    boton para postear  -->
+    <div class="post-button">
+        <img src="/res/icons/star.svg">
+    </div>
+    <!--    panel lateral derecho   -->
     <link rel="stylesheet" href="css/chatPanel.css"/>
     <aside class="rigth-aside">
         {{ include ('partials/_chatPanel.html.twig') }}
