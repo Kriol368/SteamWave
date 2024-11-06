@@ -1,0 +1,15 @@
+/*  ===================================
+    centramos el contenido principal
+ */
+.feed{
+    padding-left: 110px;
+    padding-right: 35%;
+
+    max-width: 90%;
+}
+/*  ===================================
+    boton para postear
+ */
+.post-button{
+    position: fixed;
+}
