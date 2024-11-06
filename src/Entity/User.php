@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $image;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
-    private Collection $comment;
+    private Collection $comments;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
     private Collection $messages;
@@ -64,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->image = new ArrayCollection();
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->chats = new ArrayCollection();
         $this->followers = new ArrayCollection();
@@ -222,15 +222,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Comment>
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): static
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
             $comment->setUser($this);
         }
 
@@ -239,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeComment(Comment $comment): static
     {
-        if ($this->comment->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);

@@ -25,8 +25,9 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Post $post = null;
 
-    #[ORM\ManyToOne(inversedBy: 'isChildComment')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     private ?User $user = null;
+
 
     #[ORM\Column]
     private ?bool $isChildComment = null;
