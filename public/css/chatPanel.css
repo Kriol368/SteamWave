@@ -1,0 +1,64 @@
+/* ====================00
+            la barra de la derecha
+ */
+
+.container {
+
+    position: fixed;
+    float: right;
+    height: 95%;
+    width: 30%;
+
+    z-index: 1;
+    top: 1%;
+    bottom: 1%;
+    right: 1%;
+    background: #eee;
+    overflow-x: hidden;
+    padding:  10px;
+    border-radius: 20px;
+}
+
+.chat-section {
+    width: 80%;
+    height: 20%;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.chat-section::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid black;
+}
+
+.profile-section {
+    width: 100%;
+    height: 40%;
+    border-top: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-text {
+    font-size: 14px;
+    color: black;
+}

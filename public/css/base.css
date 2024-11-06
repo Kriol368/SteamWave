@@ -1,0 +1,56 @@
+/* Page content */
+body {
+    font-family: "Lato", sans-serif;
+}
+.main {
+    margin-left: auto; /* Same as the width of the sidenav */
+}
+
+/* =========0 barra lateral =================0 */
+.sidenav {
+    height: 100%;
+    width: 100px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 1rem;
+}
+
+.sidenav img {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.2s;
+}
+
+.sidenav img:hover {
+    color: #f0f0f0;
+    background-color: #333;
+    border-collapse: collapse;
+    border-radius: 10px;
+    ;
+}
+
+.profile-picture{
+    position: absolute;
+    bottom: 40px;
+    right: auto; /* set the right to 0 */
+}
+.profile-picture img{
+    height: 100%;
+    width: 100%;
+}
+
+
+
+/* ================ no se =================*/
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
