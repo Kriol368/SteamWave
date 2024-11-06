@@ -2,7 +2,8 @@
     estilo para la barra de busqueda
  */
 .wrapper {
-    width: 100%;
+    padding-left: 110px;
+    padding-right: 36%;
     max-width: 90%;
     margin: 1rem ;
 }
