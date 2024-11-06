@@ -18,3 +18,12 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/.idea/.gitignore
+/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+/.idea/instagram2.iml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/phpunit.xml
+/.idea/commandlinetools/Symfony_31_10_24__10_02.xml
+/.idea/vcs.xml
+/migrations/Version20241106123254.php
