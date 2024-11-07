@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Chat;
 use App\Form\ChatFormType;
 use App\Repository\ChatRepository;
-use Doctrine\ORM\EntityManagerInterface; // Import the EntityManagerInterface
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,19 +22,16 @@ class ChatController extends AbstractController
     {
         $this->chatRepository = $chatRepository;
         $this->security = $security;
-        $this->entityManager = $entityManager; // Inject the EntityManagerInterface
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/chat', name: 'app_chat')]
     public function index(): Response
     {
         $currentUser = $this->security->getUser();
-
-        // Fetch chats where the current user is a participant
         $chats = $this->chatRepository->findByUser($currentUser);
 
         return $this->render('chat/index.html.twig', [
-            'controller_name' => 'ChatController',
             'chats' => $chats,
         ]);
     }
@@ -42,39 +39,35 @@ class ChatController extends AbstractController
     #[Route('/chat/create', name: 'app_chat_create')]
     public function create(Request $request): Response
     {
-        // Create a new Chat entity
         $chat = new Chat();
         $currentUser = $this->security->getUser();
-
-        // Create the form using the ChatFormType class
         $form = $this->createForm(ChatFormType::class, $chat);
-
-        // Handle the request (populate the form with submitted data)
         $form->handleRequest($request);
 
-        // Check if the form is submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
-            // Add the current user to the chat
             $chat->addUser($currentUser);
+            $this->entityManager->persist($chat);
+            $this->entityManager->flush();
 
-            // Persist the chat to the database
-            $this->entityManager->persist($chat); // Use the injected EntityManager
-            $this->entityManager->flush(); // Flush changes to the database
-
-            // Redirect to the list of chats after successful creation
             return $this->redirectToRoute('app_chat');
         }
 
-        // Render the form in the template, passing 'form' variable
         return $this->render('chat/create.html.twig', [
-            'form' => $form->createView(), // Pass the form variable
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/chat/{id}', name: 'chat_show')]
-    public function show(Chat $chat): Response
+    public function show(int $id, ChatRepository $chatRepository): Response
     {
-        // Now Symfony will automatically fetch the Chat entity by its ID
+        // Fetch the chat using the ChatRepository by id
+        $chat = $chatRepository->find($id);
+
+        // Handle the case when chat is not found
+        if (!$chat) {
+            throw $this->createNotFoundException('Chat not found');
+        }
+
         return $this->render('chat/show.html.twig', [
             'chat' => $chat,
         ]);

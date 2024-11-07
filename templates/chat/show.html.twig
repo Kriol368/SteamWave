@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ chat.name }}{% endblock %}
+{% block title %}Placeholder{% endblock %}
 
 {% block body %}
-    <h1>Chat: {{ chat.name }}</h1>
+    <h1>Chat: Placeholder</h1>
 
     <h3>Participants:</h3>
     <ul>
         {% for user in chat.users %}
-            <li>{{ user.name }}</li> <!-- Assuming 'name' is the property of the User entity -->
+            <li>{{ user.name }}</li>
         {% else %}
             <li>No participants</li>
         {% endfor %}
