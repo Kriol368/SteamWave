@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Placeholder{% endblock %}
+
+{% block body %}
+    <h1>Chat: Placeholder</h1>
+
+    <h3>Participants:</h3>
+    <ul>
+        {% for user in chat.users %}
+            <li>{{ user.name }}</li>
+        {% else %}
+            <li>No participants</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
+
+{% endblock %}
