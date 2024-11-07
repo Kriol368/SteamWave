@@ -26,7 +26,7 @@ class Post
     private ?User $postUser = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $string = null;
+    private ?string $image = null;
 
     #[ORM\Column]
     private ?int $numLikes = null;
@@ -82,14 +82,14 @@ class Post
         return $this;
     }
 
-    public function getString(): ?string
+    public function getImage(): ?string
     {
-        return $this->string;
+        return $this->image;
     }
 
-    public function setString(?string $string): static
+    public function setImage(?string $image): static
     {
-        $this->string = $string;
+        $this->image = $image;
 
         return $this;
     }
