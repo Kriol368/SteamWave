@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}All Posts{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="example-wrapper">
+        <h1>All Posts</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {% if posts is empty %}
+            <p>No posts available.</p>
+        {% else %}
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <strong>{{ post.content }}</strong> <br>
+                        Published at: {{ post.publishedAt|date('Y-m-d H:i') }} <br>
+                        <small>By: {{ post.postUser.name }}</small> <!-- Using name instead of username -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock %}

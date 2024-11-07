@@ -3,11 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Post;
-use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -16,13 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class PostFormType extends AbstractType
 {
-    private Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -41,7 +32,7 @@ class PostFormType extends AbstractType
                 ],
             ])
             ->add('publishedAt', DateTimeType::class, [
-                'data' => new DateTime(),
+                'data' => new \DateTime(),
                 'widget' => 'single_text',
                 'label' => false,
                 'html5' => true,
@@ -55,13 +46,13 @@ class PostFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new Assert\File([
-                        'maxSize' => '10M', // Increase size limit to accommodate video files
+                        'maxSize' => '10M',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
                             'image/gif',
                             'video/mp4',
-                            'video/quicktime', // Common video MIME types
+                            'video/quicktime',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG, GIF) or video (MP4, MOV) file',
                     ]),
@@ -69,10 +60,6 @@ class PostFormType extends AbstractType
             ])
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
-            ])
-            ->add('postUser', HiddenType::class, [
-                'data' => $this->security->getUser(),
-                'mapped' => false,
             ])
         ;
     }
