@@ -74,7 +74,7 @@ class ChatController extends AbstractController
     #[Route('/chat/{id}', name: 'chat_show')]
     public function show(Chat $chat): Response
     {
-        // Here you can access the $chat entity
+        // Now Symfony will automatically fetch the Chat entity by its ID
         return $this->render('chat/show.html.twig', [
             'chat' => $chat,
         ]);

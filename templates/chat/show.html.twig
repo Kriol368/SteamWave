@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ chat.name }}{% endblock %}
+
+{% block body %}
+    <h1>Chat: {{ chat.name }}</h1>
+
+    <h3>Participants:</h3>
+    <ul>
+        {% for user in chat.users %}
+            <li>{{ user.name }}</li> <!-- Assuming 'name' is the property of the User entity -->
+        {% else %}
+            <li>No participants</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
+
+{% endblock %}
