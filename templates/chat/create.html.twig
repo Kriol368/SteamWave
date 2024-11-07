@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a New Chat{% endblock %}
+
+{% block body %}
+    <h1>Create a New Chat</h1>
+
+    {{ form_start(form) }}
+    <div>
+        <label for="chat_users">Select Users</label>
+        {{ form_widget(form.users) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Chat</button>
+    {{ form_end(form) }}
+
+    <br>
+    <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
+{% endblock %}
