@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create a New Post</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.numLikes) }} {# This will be hidden #}
+    {{ form_row(form.postUser) }} {# This will be hidden #}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}
