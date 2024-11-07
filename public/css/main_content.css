@@ -1,16 +1,31 @@
 /*  ===================================
     estilo para la barra de arriba
  */
-.feed-buttons{
+.feed-options{
     padding-left: 110px;
     padding-right: 36%;
     max-width: 90%;
     margin: 1rem ;
 
     width: 100%;
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
+
+}
+
+.feed-buttons{
+    width: 100%;
+    height: 2.8rem;
+    background: #f0f0f0;
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 0 3.5rem 0 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+}
+.feed-button{
 
 }
 /*  ===================================
