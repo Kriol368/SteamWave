@@ -1,3 +1,7 @@
+@font-face {
+    font-family: UserHeader;
+    src: url('../res/fonts/Poppins-Bold.ttf');
+}
 .feed-entry{
     padding: 20px;
     width: 80%;
@@ -6,4 +10,8 @@
     border-radius: 20px;
     margin: 20px auto;
     position: relative;
+}
+.user{
+    font-size: 16pt;
+    font-family: "UserHeader", sans-serif;
 }
