@@ -1,5 +1,7 @@
 <?php
 
+// src/Controller/PostController.php
+
 namespace App\Controller;
 
 use App\Entity\Post;
@@ -10,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class PostController extends AbstractController
 {
@@ -26,46 +29,34 @@ class PostController extends AbstractController
         ]);
     }
 
-
     #[Route('/post/new', name: 'app_post_new')]
-    public function newPost(Request $request, EntityManagerInterface $entityManager): Response
+    public function newPost(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
-        // Define the Post entity and form
         $post = new Post();
+        $user = $security->getUser();  // Get the logged-in user automatically
+
+        // Set the user on the post
+        $post->setPostUser($user);
+
+        // Create the form
         $form = $this->createForm(PostFormType::class, $post);
 
-        // Handle form submission
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file upload and form data
-            $file = $form->get('image')->getData();
-            if ($file) {
-                $newFilename = uniqid().'.'.$file->guessExtension();
-                $file->move(
-                    $this->getParameter('media_directory'),
-                    $newFilename
-                );
-                $post->setImage($newFilename);
-            }
-
-            $post->setNumLikes(0);
-            $post->setPublishedAt(new \DateTime());
-            $post->setPostUser($this->getUser());
-
-            // Save the post
+            // Save the new post to the database
             $entityManager->persist($post);
             $entityManager->flush();
 
+            // Optionally add a flash message to notify the user
+            $this->addFlash('success', 'Your post has been created successfully!');
+
+            // Redirect to the post list page (or the newly created post's page)
             return $this->redirectToRoute('app_post');
         }
 
-        // Render the template, passing controller_name
-        return $this->render('post/create_post.html.twig', [
+        return $this->render('post/create.html.twig', [
             'form' => $form->createView(),
-            'controller_name' => 'PostController', // Pass this as needed
         ]);
     }
-
-
-
 }

@@ -33,8 +33,21 @@ class ProfileController extends AbstractController
     #[Route('/user/games', name: 'user_games')]
     public function showUserGamesPage(): Response
     {
-        // Render the template directly without any form or additional data
-        return $this->render('profile/user_games.html.twig');
+        $user = $this->security->getUser();
+
+        if (!$user || !$user->getSteamID64()) {
+            // Handle case where the user doesn't have a SteamID64
+            return $this->render('profile/user_games.html.twig', [
+                'games' => [],  // Return an empty list if the user doesn't have SteamID64
+            ]);
+        }
+
+        // Fetch the user's games using SteamAppService
+        $games = $this->steamAppService->getUserGames($user->getSteamID64());
+
+        return $this->render('profile/user_games.html.twig', [
+            'games' => $games,
+        ]);
     }
 
     #[Route('/user/games-list', name: 'user_games_list')]

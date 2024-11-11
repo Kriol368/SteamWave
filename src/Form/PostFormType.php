@@ -8,30 +8,36 @@ use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpClient\HttpClient;
 
 class PostFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Fetch JSON data from the /user/games-list route
+        $client = HttpClient::create();
+        // This should be replaced when in prod env
+        $response = $client->request('GET', 'http://127.0.0.1:8000/user/games-list');
+
+        $gamesData = $response->toArray(); // Get the JSON as an array
+
+        // Extract the names of the games (assuming the second property is the name)
+        $gameChoices = [];
+        foreach ($gamesData as $game) {
+            $gameChoices[$game[1]] = $game[1];  // Using the second property as the label and value
+        }
+
         $builder
             ->add('content', TextareaType::class, [
                 'label' => 'Post Content',
                 'attr' => [
                     'placeholder' => 'Write your post here...',
                     'rows' => 5,
-                ],
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Content cannot be blank']),
-                    new Assert\Length([
-                        'max' => 500,
-                        'maxMessage' => 'Content cannot exceed {{ limit }} characters',
-                    ]),
                 ],
             ])
             ->add('publishedAt', DateTimeType::class, [
@@ -47,19 +53,6 @@ class PostFormType extends AbstractType
                 'label' => 'Attach Image or Video (Optional)',
                 'required' => false,
                 'mapped' => false,
-                'constraints' => [
-                    new Assert\File([
-                        'maxSize' => '10M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                            'video/mp4',
-                            'video/quicktime',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG, GIF) or video (MP4, MOV) file',
-                    ]),
-                ],
             ])
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
@@ -67,12 +60,11 @@ class PostFormType extends AbstractType
             ->add('tag', ChoiceType::class, [
                 'label' => 'Tag a Game',
                 'placeholder' => 'Select a game',
-                'choices' => [], // Empty choices initially
+                'choices' => $gameChoices, // Pass the game choices
                 'attr' => [
                     'id' => 'tag_select', // Set an ID to access with JavaScript
                 ],
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
