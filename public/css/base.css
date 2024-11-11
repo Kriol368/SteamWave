@@ -54,9 +54,13 @@ body {
     ajustes
 */
 .options{
-    position: absolute;
-    bottom: 40px;
-    right: auto;
+    position: absolute;   /* Posicionamiento absoluto dentro del contenedor */
+    bottom: 20px;         /* 20px desde el borde inferior del contenedor */
+    left: 20px;           /* 20px desde el borde izquierdo del contenedor */
+    background-color: #333;  /* Fondo para el div flotante */
+    color: white;         /* Color del texto */
+    padding: 10px;        /* Espaciado interno */
+    border-radius: 5px;   /* Bordes redondeados */
 }
 .options img{
     height: 100%;

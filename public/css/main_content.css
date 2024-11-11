@@ -27,9 +27,6 @@
     justify-content: center;
 
 }
-.feed-button{
-
-}
 /*  ===================================
     centramos el contenido principal
  */
@@ -42,5 +39,26 @@
     boton para postear
  */
 .post-button{
-    position: fixed;
+    position: fixed;  /* Fija la posición del botón */
+    bottom: 20px;     /* Lo sitúa a 20px del borde inferior */
+    right: 35%;      /* Lo sitúa a 20px del borde derecho */
+    width: 60px;      /* Ancho del botón */
+    height: 60px;     /* Alto del botón */
+    background-color: #1456ff;  /* Color de fondo */
+    color: white;     /* Color del texto */
+    font-size: 30px;   /* Tamaño de la fuente */
+    border: none;     /* Sin borde */
+    border-radius: 50%; /* Hace el botón redondo */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Sombra suave */
+    cursor: pointer; /* Apunta al cursor como mano */
+    transition: background-color 0.3s ease;  /* Animación suave al pasar el cursor */
+}
+.post-button img{
+    margin: auto;
+
+    height: 75%;
+    width: 75%;
+}
+.post-button:hover{
+    background-color: #5283ff;  /* Cambia el color al pasar el mouse */
 }
