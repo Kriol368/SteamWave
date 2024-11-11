@@ -1,3 +1,5 @@
+{# templates/post/create_post.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -6,6 +8,11 @@
     {{ form_start(form) }}
     {{ form_row(form.content) }}
     {{ form_row(form.image) }}
+    {{ form_row(form.tag) }}
     <button type="submit" class="btn btn-primary">Submit</button>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/populateTagSelect.js') }}"></script>
 {% endblock %}

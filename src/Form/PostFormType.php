@@ -1,5 +1,7 @@
 <?php
 
+// src/Form/PostFormType.php
+
 namespace App\Form;
 
 use App\Entity\Post;
@@ -10,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PostFormType extends AbstractType
@@ -61,6 +64,14 @@ class PostFormType extends AbstractType
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
             ])
+            ->add('tag', ChoiceType::class, [
+                'label' => 'Tag a Game',
+                'placeholder' => 'Select a game',
+                'choices' => [], // Empty choices initially
+                'attr' => [
+                    'id' => 'tag_select', // Set an ID to access with JavaScript
+                ],
+            ]);
         ;
     }
 
