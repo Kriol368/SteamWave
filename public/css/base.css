@@ -1,6 +1,10 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../res/fonts/Poppins-Regular.ttf');
+}
 /* Page content */
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 .main {
     margin-left: auto; /* Same as the width of the sidenav */
@@ -34,7 +38,6 @@ body {
     margin-bottom: 15px;
     width: 50%;
 
-
 }
 
 .sidenav button:hover {
@@ -42,14 +45,14 @@ body {
     background-color: #333;
     border-collapse: collapse;
     border-radius: 10px;
-    ;
 }
 .sidenav img {
-
     height: 100%;
     width: 100%;
 }
-/*
+/* =======================================
+    ajustes
+*/
 .options{
     position: absolute;
     bottom: 40px;
@@ -59,8 +62,6 @@ body {
     height: 100%;
     width: 100%;
 }
-*/
-
 
 /* ================ no se =================*/
 
