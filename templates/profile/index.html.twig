@@ -3,18 +3,30 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
+    <div class="user">
+        <div class="profile-picture">
+            <img src="{{ asset('res/favicon.ico')}}" alt="Foto de perfil">
+        </div>
+        <div class="user-data">
+            <div>
+                <span>Nombre:</span> {{ user.NAME }}
+            </div>
+            <div>
+                <span>Correo:</span> {{ user.email }}
+            </div>
+            <div>
+                <span>SteamUser:</span> {{ user.steamUsername }}
+            </div>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {# La contraseña no debe mostrarse por seguridad #}
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#" class="selected">Publicaciones</a></li> <!-- Marcar este como seleccionado -->
+            <li><a href="#">Me gusta</a></li>
+            <li><a href="#">Guardados</a></li>
+        </ul>
+    </nav>
 {% endblock %}
