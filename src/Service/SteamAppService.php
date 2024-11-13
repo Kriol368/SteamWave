@@ -22,17 +22,45 @@ class SteamAppService
             'query' => [
                 'key' => $this->apiKey,
                 'steamid' => $steamID64,
-                'include_appinfo' => true,
+                'include_appinfo' => true,      // Include game info like name and icon
+                'include_played_free_games' => true,  // Include free games if available
                 'format' => 'json',
             ],
         ]);
 
         $data = $response->toArray();
 
+        $games = [];
+
         if (isset($data['response']['games'])) {
-            return array_column($data['response']['games'], 'name', 'appid');
+            foreach ($data['response']['games'] as $game) {
+                $games[$game['appid']] = [
+                    'name' => $game['name'] ?? 'Unknown Game',
+                    'playtime_forever' => $game['playtime_forever'] ?? 0, // in minutes
+                    'icon' => $this->getGameIconUrl($game['appid'], $game['img_icon_url'] ?? null),
+                    'logo' => $this->getGameLogoUrl($game['appid'], $game['img_logo_url'] ?? null),
+                ];
+            }
         }
 
-        return [];
+        return $games;
+    }
+
+    private function getGameIconUrl(int $appId, ?string $iconHash): ?string
+    {
+        if ($iconHash) {
+            return "http://media.steampowered.com/steamcommunity/public/images/apps/{$appId}/{$iconHash}.jpg";
+        }
+
+        return null;
+    }
+
+    private function getGameLogoUrl(int $appId, ?string $logoHash): ?string
+    {
+        if ($logoHash) {
+            return "http://media.steampowered.com/steamcommunity/public/images/apps/{$appId}/{$logoHash}.jpg";
+        }
+
+        return null;
     }
 }
