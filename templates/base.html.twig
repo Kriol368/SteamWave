@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         {#===========0 el titulo se tiene que pasar por php y el favicon se tiene que cambiar =================#}
         <title>{% block title %}{% endblock %}</title>
-        <link rel="favicon" href="{{ asset('res/icons/feather.svg')}}">
+        <link rel="icon" href="{{ asset('res/favicon.ico') }}">
 
         <link rel="stylesheet" href="{{ asset('css/reset.css')}}"/>
         <link rel="stylesheet" href="{{ asset('css/base.css')}}"/>
@@ -14,7 +14,7 @@
 
         <script src="{{ asset('js/base.js')}}"></script>
 
-        {% block javascripts %} {#{ encore_entry_script_tags('app') }#}>
+        {% block javascripts %} {#{ encore_entry_script_tags('app') }#}
         {% endblock %}
     </head>
     <body>
