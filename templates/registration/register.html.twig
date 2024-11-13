@@ -1,24 +1,45 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {#===========0 el titulo se tiene que pasar por php y el favicon se tiene que cambiar =================#}
+        <title>register</title>
+        <link rel="favicon" href="{{ asset('res/icons/feather.svg')}}">
 
-{% block title %}Register{% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/reset.css')}}"/>
+        <link rel="stylesheet" href="{{ asset('css/base.css')}}"/>
 
-{% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+        {% block stylesheets %} {#{ encore_entry_link_tags('app') }#}
+        {% endblock %}
 
-    <h1>Register</h1>
+        <script src="{{ asset('js/base.js')}}"></script>
 
-    {{ form_errors(registrationForm) }}
+        {% block javascripts %} {#{ encore_entry_script_tags('app') }#}
+        {% endblock %}
+    </head>
+    <body>
+        <link rel="stylesheet" href="{{ asset('css/login.css')}}"/>
+        <div class="center background">
+        {% block body %}
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.name) }}
-    {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <h1>Register</h1>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.name) }}
+            {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        {% endblock %}
+        </div>
+    </body>
+</html>
