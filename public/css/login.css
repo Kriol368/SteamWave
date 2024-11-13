@@ -1,8 +1,10 @@
-.login{
-
-    margin: auto;
+.center{
     width: 50%;
-    border-radius: 30px;
     padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.background{
+    border-radius: 30px;
     background-color: #bfbfbf;
 }
