@@ -19,14 +19,13 @@
     </head>
     <body>
         <link rel="stylesheet" href="{{ asset('css/login.css')}}"/>
-        <div class="center background">
+        <div class="center background container">
         {% block body %}
             {% for flash_error in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
             {% endfor %}
-
             <h1>Register</h1>
-
+            <div class="line"></div>
             {{ form_errors(registrationForm) }}
 
             {{ form_start(registrationForm) }}
