@@ -1,15 +1,64 @@
 /*  ===================================
+    estilo para la barra de arriba
+ */
+.feed-options{
+    padding-left: 110px;
+    padding-right: 36%;
+    max-width: 90%;
+    margin: 1rem ;
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.feed-buttons{
+    width: 100%;
+    height: 2.8rem;
+    background: #f0f0f0;
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 10px 3.5rem 0 1.5rem;
+    font-size: 1rem;
+    display:flex;
+    justify-content: center;
+
+}
+/*  ===================================
     centramos el contenido principal
  */
 .feed{
     padding-left: 110px;
-    padding-right: 35%;
-
+    padding-right: 25%;
     max-width: 90%;
 }
 /*  ===================================
     boton para postear
  */
 .post-button{
-    position: fixed;
+    position: fixed;  /* Fija la posición del botón */
+    bottom: 20px;     /* Lo sitúa a 20px del borde inferior */
+    right: 35%;      /* Lo sitúa a 20px del borde derecho */
+    width: 60px;      /* Ancho del botón */
+    height: 60px;     /* Alto del botón */
+    background-color: #1456ff;  /* Color de fondo */
+    color: white;     /* Color del texto */
+    font-size: 30px;   /* Tamaño de la fuente */
+    border: none;     /* Sin borde */
+    border-radius: 50%; /* Hace el botón redondo */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Sombra suave */
+    cursor: pointer; /* Apunta al cursor como mano */
+    transition: background-color 0.3s ease;  /* Animación suave al pasar el cursor */
+}
+.post-button img{
+    margin: auto;
+
+    height: 75%;
+    width: 75%;
+}
+.post-button:hover{
+    background-color: #5283ff;  /* Cambia el color al pasar el mouse */
 }
