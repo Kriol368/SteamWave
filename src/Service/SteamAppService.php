@@ -30,7 +30,7 @@ class SteamAppService
         $data = $response->toArray();
 
         if (isset($data['response']['games'])) {
-            return array_column($data['response']['games'], 'name', 'appid'); // App ID as key, Name as value
+            return array_column($data['response']['games'], 'name', 'appid');
         }
 
         return [];
