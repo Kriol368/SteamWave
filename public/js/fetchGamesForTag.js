@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Debugging: Check if tag-select element is found in the DOM
-    const tagSelect = document.getElementById('tag-select');
+    const tagSelect = document.getElementById('post_form_tag');
 
     if (!tagSelect) {
-        console.error('The dropdown element with ID "tag-select" was not found.');
+        console.error('The dropdown element with ID "post_form_tag" was not found.');
         return;
     }
 
-    // Fetch the game list from the server
+    console.log('Dropdown found:', tagSelect); // Log when the dropdown is found
+
     fetch('/user/games-list')
         .then(response => {
             if (!response.ok) {
@@ -16,18 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            // Ensure the data is in the expected format
             if (typeof data !== 'object') {
                 console.error('Unexpected data format:', data);
                 return;
             }
 
-            // Populate the dropdown with the fetched data
-            Object.entries(data).forEach(([gameId, gameTitle]) => {
-                const option = document.createElement('option');
-                option.value = gameId;
-                option.textContent = gameTitle;
-                tagSelect.appendChild(option);
+            console.log('Fetched data:', data); // Log the fetched data
+
+            Object.entries(data).forEach(([gameId, gameInfo]) => {
+                if (gameInfo && gameInfo.name) {
+                    const option = document.createElement('option');
+                    option.value = gameId;
+                    option.textContent = gameInfo.name;
+                    tagSelect.appendChild(option);
+                } else {
+                    console.warn('Invalid game data for ID:', gameId, gameInfo);
+                }
             });
         })
         .catch(error => console.error('Error fetching game list:', error));
