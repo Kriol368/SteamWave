@@ -8,8 +8,15 @@
     {{ form_start(form) }}
     {{ form_row(form.content) }}
     {{ form_row(form.image) }}
-    {{ form_row(form.tag) }}  {# This will now display a select dropdown with games #}
+
+    <div id="tag-container">
+        {{ form_row(form.tag, {'attr': {'id': 'tag-select'}}) }}
+    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/fetchGamesForTag.js') }}"></script>
 {% endblock %}
