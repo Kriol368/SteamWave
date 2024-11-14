@@ -10,7 +10,6 @@
     border-radius: 10px;
 }
 .center{
-
     margin-left: auto;
     margin-right: auto;
 }
@@ -21,4 +20,12 @@
 .btn{
     margin-left: 235px;
     border-radius: 25px;
+}
+.if{
+    margin-left: auto;
+    margin-right: auto;
+
+
+    padding: 20px;
+    width: 350px;
 }
