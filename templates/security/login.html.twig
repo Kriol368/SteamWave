@@ -19,7 +19,7 @@
     </head>
     <body>
         <link rel="stylesheet" href="{{ asset('css/login.css')}}"/>
-        <div class="center background">
+        <div class="center background container">
             {% block body %}
                 <form method="post">
                     {% if error %}
@@ -33,10 +33,11 @@
                     {% endif %}
 
                     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                    <div class="line"></div>
                     <label for="username">Email</label>
-                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-                    <label for="password">Password</label>
-                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus> <br>
+                    <label for="password">Password</label><br>
+                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required><br>
 
                     <input type="hidden" name="_csrf_token"
                            value="{{ csrf_token('authenticate') }}"
@@ -44,13 +45,13 @@
                     {#
                     Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
                     See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
+                    #}
+                    <br><div class="checkbox mb-3">
                         <label>
                             <input type="checkbox" name="_remember_me"> Remember me
                         </label>
                     </div>
-                    #}
+
 
                     <button class="btn btn-lg btn-primary center" type="submit">
                         Sign in
