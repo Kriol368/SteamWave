@@ -1,0 +1,31 @@
+.container{
+    margin-top: 10%;
+    padding: 20px;
+    height: auto;
+    width: 350px;
+}
+.line{
+    border: 10px solid #38466a;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+.background{
+    border-radius: 30px;
+    background-color: #bfbfbf;
+}
+.btn{
+    margin-left: 235px;
+    border-radius: 25px;
+}
+.if{
+    margin-left: auto;
+    margin-right: auto;
+
+
+    padding: 20px;
+    width: 350px;
+}
