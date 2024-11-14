@@ -5,6 +5,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,6 @@ class PostFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('content', TextareaType::class, [
                 'label' => 'Post Content',
@@ -28,7 +28,7 @@ class PostFormType extends AbstractType
                 ],
             ])
             ->add('publishedAt', DateTimeType::class, [
-                'data' => new \DateTime(),
+                'data' => new DateTime(),
                 'widget' => 'single_text',
                 'label' => false,
                 'html5' => true,
@@ -44,13 +44,19 @@ class PostFormType extends AbstractType
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
             ])
-            ->add('tag', ChoiceType::class, [
-                'label' => 'Tag',
-                'choices' => [], // Populated via JavaScript
-                'placeholder' => 'Select a game',
-                'attr' => ['id' => 'tag-select'],
-                'mapped' => false, // Not mapped directly to the entity
-            ]);
+           ->add('tag', ChoiceType::class, [
+               'label' => 'Tag',
+               'choices' => [],
+               'attr' => ['id' => 'tag-select'],
+               'mapped' => false,
+               'expanded' => false,
+               'multiple' => false,
+               'required' => false,
+               'choice_value' => fn($choice) => $choice,
+               'choice_label' => fn($choice) => $choice,
+           ]);
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

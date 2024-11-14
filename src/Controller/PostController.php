@@ -37,13 +37,14 @@ class PostController extends AbstractController
 
         // Set the user on the post
         $post->setPostUser($user);
-
+        $post->setTag("sdfsf");
         // Create the form
         $form = $this->createForm(PostFormType::class, $post);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             // Save the new post to the database
             $entityManager->persist($post);
             $entityManager->flush();
