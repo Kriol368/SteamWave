@@ -1,6 +1,8 @@
 .container{
     margin-top: 10%;
     padding: 20px;
+    height: auto;
+    width: 350px;
 }
 .line{
     border: 10px solid #38466a;
@@ -8,11 +10,15 @@
     border-radius: 10px;
 }
 .center{
-    width: 50%;
+
     margin-left: auto;
     margin-right: auto;
 }
 .background{
     border-radius: 30px;
     background-color: #bfbfbf;
+}
+.btn{
+    margin-left: 235px;
+    border-radius: 25px;
 }
