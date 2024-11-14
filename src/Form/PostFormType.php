@@ -8,6 +8,8 @@ use App\Entity\Post;
 use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -44,19 +46,33 @@ class PostFormType extends AbstractType
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
             ])
-           ->add('tag', ChoiceType::class, [
-               'label' => 'Tag',
-               'choices' => [],
-               'attr' => ['id' => 'tag-select'],
-               'mapped' => false,
-               'expanded' => false,
-               'multiple' => false,
-               'required' => false,
-               'choice_value' => fn($choice) => $choice,
-               'choice_label' => fn($choice) => $choice,
-           ]);
+            ->add('tag', ChoiceType::class, [
+                'label' => 'Tag',
+                'choices' => [],
+                'attr' => ['id' => 'tag-select'],
+                'mapped' => true,
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+            ]);
 
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $submittedData = $event->getData();
 
+            $tag = $submittedData['tag'] ?? null;
+
+            if ($tag) {
+                $form->add('tag', ChoiceType::class, [
+                    'choices' => [$tag => $tag], // Ensure $tag is used here
+                    'attr' => ['id' => 'tag-select'],
+                    'mapped' => false,
+                    'expanded' => false,
+                    'multiple' => false,
+                    'required' => false,
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

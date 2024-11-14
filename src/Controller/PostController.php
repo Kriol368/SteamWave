@@ -37,22 +37,26 @@ class PostController extends AbstractController
 
         // Set the user on the post
         $post->setPostUser($user);
-        $post->setTag("sdfsf");
+
         // Create the form
         $form = $this->createForm(PostFormType::class, $post);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Retrieve and set the tag manually if it's unmapped in the form
+            $tag = $form->get('tag')->getData();
+            if ($tag) {
+                $post->setTag($tag); // Ensure setTag method exists in Post entity
+            }
 
             // Save the new post to the database
             $entityManager->persist($post);
             $entityManager->flush();
 
-            // Optionally add a flash message to notify the user
+            // Add a flash message to notify the user
             $this->addFlash('success', 'Your post has been created successfully!');
 
-            // Redirect to the post list page (or the newly created post's page)
+            // Redirect to the post list page
             return $this->redirectToRoute('app_post');
         }
 
