@@ -11,8 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostController extends AbstractController
 {
@@ -25,7 +27,7 @@ class PostController extends AbstractController
         // Render the template and pass the posts to it
         return $this->render('post/index.html.twig', [
             'controller_name' => 'PostController',
-            'posts' => $posts,  // Pass the posts to the template
+            'posts' => $posts,
         ]);
     }
 
@@ -33,7 +35,7 @@ class PostController extends AbstractController
     public function newPost(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $post = new Post();
-        $user = $security->getUser();  // Get the logged-in user automatically
+        $user = $security->getUser(); // Get the logged-in user
 
         // Set the user on the post
         $post->setPostUser($user);
@@ -43,6 +45,29 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle the uploaded image file
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                // Generate a unique filename
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
+                try {
+                    // Move the file to the uploads directory
+                    $imageFile->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+
+                    // Set the image filename in the Post entity
+                    $post->setImage($newFilename);
+                } catch (FileException $e) {
+                    // Handle exception if file upload fails
+                    $this->addFlash('error', 'Could not upload image.');
+                }
+            }
+
             // Retrieve and set the tag manually if it's unmapped in the form
             $tag = $form->get('tag')->getData();
             if ($tag) {
