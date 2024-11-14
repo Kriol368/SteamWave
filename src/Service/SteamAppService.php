@@ -1,0 +1,66 @@
+<?php
+
+// src/Service/SteamAppService.php
+namespace App\Service;
+
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+class SteamAppService
+{
+    private HttpClientInterface $client;
+    private string $apiKey;
+
+    public function __construct(HttpClientInterface $client, string $apiKey)
+    {
+        $this->client = $client;
+        $this->apiKey = $apiKey;
+    }
+
+    public function getUserGames(string $steamID64): array
+    {
+        $response = $this->client->request('GET', 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', [
+            'query' => [
+                'key' => $this->apiKey,
+                'steamid' => $steamID64,
+                'include_appinfo' => true,      // Include game info like name and icon
+                'include_played_free_games' => true,  // Include free games if available
+                'format' => 'json',
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        $games = [];
+
+        if (isset($data['response']['games'])) {
+            foreach ($data['response']['games'] as $game) {
+                $games[$game['appid']] = [
+                    'name' => $game['name'] ?? 'Unknown Game',
+                    'playtime_forever' => $game['playtime_forever'] ?? 0, // in minutes
+                    'icon' => $this->getGameIconUrl($game['appid'], $game['img_icon_url'] ?? null),
+                    'logo' => $this->getGameLogoUrl($game['appid'], $game['img_logo_url'] ?? null),
+                ];
+            }
+        }
+
+        return $games;
+    }
+
+    private function getGameIconUrl(int $appId, ?string $iconHash): ?string
+    {
+        if ($iconHash) {
+            return "http://media.steampowered.com/steamcommunity/public/images/apps/{$appId}/{$iconHash}.jpg";
+        }
+
+        return null;
+    }
+
+    private function getGameLogoUrl(int $appId, ?string $logoHash): ?string
+    {
+        if ($logoHash) {
+            return "http://media.steampowered.com/steamcommunity/public/images/apps/{$appId}/{$logoHash}.jpg";
+        }
+
+        return null;
+    }
+}
