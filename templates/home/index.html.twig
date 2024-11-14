@@ -3,7 +3,9 @@
 {% block title %}instagram 2{% endblock %}
 
 {% block body %}
-    <!--    barra de busqueda central   -->
+    <!--    ==========================================
+            barra de busqueda central
+
     <link rel="stylesheet" href="{{ asset('css/searchBar.css') }}"/>
     <div class="wrapper">
         <div class="searchBar">
@@ -14,9 +16,20 @@
         </div>
     </div>
 
+    -->
+    <link rel="stylesheet" href="{{ asset('css/main_content.css') }}"/>
+    <div class="feed-options">
+        <div class="feed-buttons">
+            <div class="feed-button">
+                <button> steamwave </button>
+            </div>
+            <div class="feed-button">
+                <button> feed </button>
+            </div>
+        </div>
+    </div>
     <!--    feed    =====================================0
                aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post -->
-    <link rel="stylesheet" href="{{ asset('css/main_content.css') }}"/>
     <div class="feed">
         {{ include ('partials/_feedEntry.html.twig') }}
         <div>
@@ -73,6 +86,7 @@
     <!--    panel lateral derecho   -->
     <link rel="stylesheet" href="{{ asset('css/chatPanel.css') }}"/>
     <aside class="rigth-aside">
+
         {{ include ('partials/_chatPanel.html.twig') }}
     </aside>
 

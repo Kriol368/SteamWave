@@ -1,6 +1,10 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../res/fonts/Poppins-Regular.ttf');
+}
 /* Page content */
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 .main {
     margin-left: auto; /* Same as the width of the sidenav */
@@ -19,34 +23,49 @@ body {
     padding-top: 1rem;
 }
 
-.sidenav img {
-    padding: 8px 8px 8px 32px;
+.sidenav button {
+
+    background-color: #111;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.2s;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: 15px;
+    width: 50%;
+
 }
 
-.sidenav img:hover {
+.sidenav button:hover {
     color: #f0f0f0;
     background-color: #333;
     border-collapse: collapse;
     border-radius: 10px;
-    ;
 }
-
-.profile-picture{
-    position: absolute;
-    bottom: 40px;
-    right: auto; /* set the right to 0 */
-}
-.profile-picture img{
+.sidenav img {
     height: 100%;
     width: 100%;
 }
-
-
+/* =======================================
+    ajustes
+*/
+.options{
+    position: absolute;   /* Posicionamiento absoluto dentro del contenedor */
+    bottom: 20px;         /* 20px desde el borde inferior del contenedor */
+    left: 20px;           /* 20px desde el borde izquierdo del contenedor */
+    background-color: #333;  /* Fondo para el div flotante */
+    color: white;         /* Color del texto */
+    padding: 10px;        /* Espaciado interno */
+    border-radius: 5px;   /* Bordes redondeados */
+}
+.options img{
+    height: 100%;
+    width: 100%;
+}
 
 /* ================ no se =================*/
 
