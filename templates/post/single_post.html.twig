@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="post-details">
+        <h1>Post Details</h1>
+        <div class="post-card">
+            <h2>Content</h2>
+            <p>{{ post.content }}</p>
+
+            <h3>Details</h3>
+            <ul>
+                <li><strong>Published At:</strong> {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
+                <li><strong>Author:</strong> {{ post.postUser ? post.postUser.name : 'Anonymous' }}</li>
+                <li><strong>Game:</strong> {{ gameName }}</li>
+                <li><strong>Likes:</strong> {{ post.numLikes }}</li>
+            </ul>
+
+            {% if post.image %}
+                <div class="post-media">
+                    <h3>Media</h3>
+                    {% if post.image matches '/\.(mp4|webm|ogg)$/i' %}
+                        <video controls>
+                            <source src="{{ asset('uploads/media/' ~ post.image) }}" type="video/{{ post.image|slice(-3) }}">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% elseif post.image matches '/\.(jpg|jpeg|png|gif)$/i' %}
+                        <img src="{{ asset('uploads/media/' ~ post.image) }}" alt="Post Media">
+                    {% else %}
+                        <p>Unsupported media format.</p>
+                    {% endif %}
+                    <form action="{{ path('app_post_like', {'id': post.id}) }}" method="post">
+                        <button class="btn btn-success" type="submit">Like</button>
+                    </form>
+                </div>
+            {% else %}
+                <p>No media provided for this post.</p>
+            {% endif %}
+
+
+            <h3>Comments</h3>
+            {% if post.comments is not empty %}
+                <ul class="comments-list">
+                    {% for comment in post.comments %}
+                        <li>
+                            <p>{{ comment.text }}</p>
+                            <small>By {{ comment.user.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No comments yet.</p>
+            {% endif %}
+
+            <h3>Add a Comment</h3>
+            {{ form_start(commentForm) }}
+            {{ form_row(commentForm.text, {'label': 'Your Comment'}) }}
+            <button class="btn btn-primary" type="submit">Submit Comment</button>
+            {{ form_end(commentForm) }}
+        </div>
+
+        <a href="{{ path('app_post') }}" class="btn btn-secondary">Back to all posts</a>
+    </div>
+{% endblock %}
