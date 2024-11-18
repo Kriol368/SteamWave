@@ -22,17 +22,21 @@
         barra lateral izquierda     -    tecnicamente el header-->
         <header>
             <div class="sidenav"> <!-- parte de arriba  https://feathericons.com/ -->
-                <button href="{{ path('app_home') }}"><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button"></button>
-                <button href="{{ path('app_home') }}"><img id="likes-btn" src="{{ asset('res/icons/heart.svg') }}" alt="Likes button"></button>
-                <button href="{{ path('app_home') }}"><img id="star-btn" src="{{ asset('res/icons/star.svg') }}" alt="Star button"></button>
-                <button href="{{ path('app_profile') }}"><img id="user" src="{{ asset('res/icons/meh.svg') }}" alt="User profile picture"></button>
-            </div> <!-- pfp -->
-            <div class="options">
-                <button href=""><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Setiings button"></button>
+                <a href="{{ path('app_home') }}"><button><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button"></button></a>
+                <a href="{{ path('app_search') }}"><button><img id="search-btn" src="{{ asset('res/icons/search.svg') }}" alt="Likes button"></button></a>
+                <a href="{{ path('app_chat') }}"><button><img id="chat-btn" src="{{ asset('res/icons/message-circle.svg') }}" alt="Star button"></button></a>
+
+                {% if app.user %}
+                    <a href="{{ path('app_profile') }}"><button><img id="user-btn" src="{# {{ app.user.photo }} #}" alt="User profile picture"></button></a>
+                {% else %}
+                    <a href="{{ path('app_login') }}"><button><img id="user-btn" src="{{ asset('res/icons/user.svg') }}" alt="User profile picture"></button></a>
+                {% endif %}
+                <a href="{# {{ path('app_settings') }} #}"><button class="settings"><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Settings button"></button></a>
             </div>
         </header>
 <!-- ===================================0
         cuerpo del texto    -->
+
         {% block body %}    {% endblock %}
 
     </body>

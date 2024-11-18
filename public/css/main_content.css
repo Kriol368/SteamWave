@@ -13,7 +13,6 @@
     align-items: center;
 
 }
-
 .feed-buttons{
     width: 100%;
     height: 2.8rem;
@@ -25,7 +24,17 @@
     font-size: 1rem;
     display:flex;
     justify-content: center;
+}
+.feed-buttons button{
+    border: 0;
+    background-color: #11111100;
+}
 
+.feed-buttons button:hover {
+    color: #2e4681;
+    background-color: #b1b1b1;
+    border-collapse: collapse;
+    border-radius: 1.625rem;
 }
 /*  ===================================
     centramos el contenido principal
@@ -55,7 +64,6 @@
 }
 .post-button img{
     margin: auto;
-
     height: 75%;
     width: 75%;
 }
