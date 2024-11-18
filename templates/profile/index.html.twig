@@ -19,14 +19,36 @@
                 <span>SteamUser:</span> {{ user.steamUsername }}
             </div>
         </div>
+        <div class="user-games">
+            <div>
+                <span>Total games:</span> {{ user.NAME }}
+            </div>
+        </div>
 
         {# La contraseña no debe mostrarse por seguridad #}
     </div>
     <nav class="nav-bar">
         <ul>
-            <li><a href="#" class="selected">Publicaciones</a></li> <!-- Marcar este como seleccionado -->
-            <li><a href="#">Me gusta</a></li>
-            <li><a href="#">Guardados</a></li>
+            <li><a href="#" class="nav-link" data-target="publicaciones">Publicaciones</a></li>
+            <li><a href="#" class="nav-link" data-target="me-gusta">Me gusta</a></li>
+            <li><a href="#" class="nav-link" data-target="guardados">Guardados</a></li>
+            <li><a href="#" class="nav-link" data-target="juegos">Juegos</a></li>
         </ul>
     </nav>
+
+    <div id="publicaciones" class="content">
+        <p>Contenido de Publicaciones</p>
+    </div>
+    <div id="me-gusta" class="content" style="display: none;">
+        <p>Contenido de Me gusta</p>
+    </div>
+    <div id="guardados" class="content" style="display: none;">
+        <p>Contenido de Guardados</p>
+    </div>
+    <div id="juegos" class="content" style="display: none;">
+        <p>Contenido de Juegos</p>
+    </div>
+
+    <script src="{{ asset('js/profile.js') }}"></script>
+
 {% endblock %}

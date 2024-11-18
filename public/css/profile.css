@@ -46,15 +46,29 @@
     font-weight: bold; /* Resalta los nombres de los campos */
 }
 
+/* Datos de los juegos del usuario */
+.user-games {
+    flex: 1; /* Ocupa el espacio restante */
+    font-size: 18px; /* Tamaño de fuente */
+}
+
+.user-games div {
+    margin-bottom: 10px; /* Espacio entre cada dato */
+}
+
+.user-games span {
+    font-weight: bold; /* Resalta los nombres de los campos */
+}
+
 /* Barra de navegación horizontal */
 nav.nav-bar {
     width: calc(100% - 120px); /* Ajusta al 100% menos el margen izquierdo de la barra lateral */
-    margin-left: 10px; /* Alinea la barra a la derecha del sidenav */
+    margin-left: 20px; /* Alinea la barra a la derecha del sidenav */
     background-color: #333; /* Fondo oscuro para la barra */
     border-radius: 10px; /* Bordes redondeados */
     padding: 10px 0; /* Espaciado dentro de la barra */
     margin-top: 240px; /* Separación con el contenedor .user */
-    max-width: calc(100% - 120px); /* Se ajusta al 100% menos el espacio de la barra lateral */
+    max-width: calc(100% - 148px); /* Se ajusta al 100% menos el espacio de la barra lateral */
     position: absolute; /* Posicionamiento absoluto */
     left: 110px; /* Alinea el contenedor justo después de la barra lateral */
     top: 15px; /* Espacio desde la parte superior de la ventana */
@@ -91,3 +105,15 @@ nav.nav-bar ul li a.selected {
 nav.nav-bar ul li a:hover {
     color: #f0f0f0; /* Cambio de color cuando se pasa el mouse */
 }
+
+/* content */
+.content {
+    position: absolute;
+    margin-top: 310px;
+    margin-left: 20px;
+    left: 110px; /* Alinea el contenedor justo después de la barra lateral */
+    top: 15px; /* Espacio desde la parte superior de la ventana */
+    right: 0; /* Evita que el contenedor invada el borde derecho */
+
+}
+
