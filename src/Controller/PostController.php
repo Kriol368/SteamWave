@@ -9,6 +9,7 @@ use App\Entity\Post;
 use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{id}', name: 'app_post_show', requirements: ['id' => '\d+'])]
-    public function show(int $id, EntityManagerInterface $entityManager, Request $request): Response
+    public function show(int $id, EntityManagerInterface $entityManager, Request $request, SteamAppService $steamAppService): Response
     {
         $post = $entityManager->getRepository(Post::class)->find($id);
 
@@ -57,10 +58,13 @@ class PostController extends AbstractController
 
             return $this->redirectToRoute('app_post_show', ['id' => $id]);
         }
+        $gameName = $steamAppService->getGameName((int) $post->getTag());
+
 
         return $this->render('post/single_post.html.twig', [
             'post' => $post,
             'commentForm' => $form->createView(),
+            'gameName' => $gameName ?? 'Unknown Game',
         ]);
     }
 
