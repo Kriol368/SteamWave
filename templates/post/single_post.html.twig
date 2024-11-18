@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.content[:50] }} - Post Details{% endblock %}
+
+{% block body %}
+    <div class="post-details">
+        <h1>Post Details</h1>
+        <div class="post-card">
+            <h2>Content</h2>
+            <p>{{ post.content }}</p>
+
+            <h3>Details</h3>
+            <ul>
+                <li><strong>Published At:</strong> {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
+                <li><strong>Author:</strong> {{ post.postUser ? post.postUser.name : 'Anonymous' }}</li>
+                <li><strong>Tags:</strong> {{ post.tag ?: 'No tags' }}</li>
+                <li><strong>Likes:</strong> {{ post.numLikes }}</li>
+            </ul>
+
+            {% if post.image %}
+                <div class="post-image">
+                    <h3>Image</h3>
+                    <img src="{{ asset('uploads/media/' ~ post.image) }}" alt="Post Image">
+                </div>
+            {% else %}
+                <p>No image provided for this post.</p>
+            {% endif %}
+<!--
+            <h3>Comments</h3>
+            {% if post.comments is not empty %}
+                <ul class="comments-list">
+                    {% for comment in post.comments %}
+                        <li>
+                            <p>{{ comment.content }}</p>
+                            <small>By {{ comment.author.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No comments yet.</p>
+            {% endif %}
+        </div>
+-->
+        <a href="{{ path('app_post') }}" class="btn btn-secondary">Back to all posts</a>
+    </div>
+{% endblock %}

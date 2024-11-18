@@ -31,6 +31,20 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/post/{id}', name: 'app_post_show', requirements: ['id' => '\d+'])]
+    public function show(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // Fetch the post manually
+        $post = $entityManager->getRepository(Post::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
+        return $this->render('post/single_post.html.twig', [
+            'post' => $post,
+        ]);
+    }
     #[Route('/post/new', name: 'app_post_new')]
     public function newPost(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
