@@ -22,10 +22,10 @@
         barra lateral izquierda     -    tecnicamente el header-->
         <header>
             <div class="sidenav"> <!-- parte de arriba  https://feathericons.com/ -->
-                <button href="{{ path('app_home') }}"><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button"></button>
-                <button href="{{ path('app_home') }}"><img id="likes-btn" src="{{ asset('res/icons/heart.svg') }}" alt="Likes button"></button>
-                <button href="{{ path('app_home') }}"><img id="star-btn" src="{{ asset('res/icons/star.svg') }}" alt="Star button"></button>
-                <button href="{{ path('app_profile') }}"><img id="user" src="{{ asset('res/icons/meh.svg') }}" alt="User profile picture"></button>
+                <a href="{{ path('app_home') }}"><button><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button"></button></a>
+                <a href="{{ path('app_chat') }}"><button><img id="likes-btn" src="{{ asset('res/icons/heart.svg') }}" alt="Likes button"></button></a>
+                <a href="{{ path('app_search') }}"><button><img id="star-btn" src="{{ asset('res/icons/star.svg') }}" alt="Star button"></button></a>
+                <a href="{{ path('app_profile') }}" ><button><img id="user" src="{{ asset('res/icons/meh.svg') }}" alt="User profile picture"></button></a>
             </div> <!-- pfp -->
             <div class="options">
                 <button href=""><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Setiings button"></button>
