@@ -63,6 +63,27 @@ class PostController extends AbstractController
             'commentForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/post/{id}/like', name: 'app_post_like', methods: ['POST'])]
+    public function like(int $id, PostRepository $postRepository, EntityManagerInterface $em): Response
+    {
+        // Fetch the post by ID
+        $post = $postRepository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        // Increment likes
+        $post->setNumLikes($post->getNumLikes() + 1);
+
+        $em->persist($post);
+        $em->flush();
+
+        return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
+    }
+
+
     #[Route('/post/new', name: 'app_post_new')]
     public function newPost(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
