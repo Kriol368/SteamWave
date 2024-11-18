@@ -1,16 +1,21 @@
 <?php
 
+// src/Form/PostFormType.php
+
 namespace App\Form;
 
 use App\Entity\Post;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PostFormType extends AbstractType
 {
@@ -23,16 +28,9 @@ class PostFormType extends AbstractType
                     'placeholder' => 'Write your post here...',
                     'rows' => 5,
                 ],
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Content cannot be blank']),
-                    new Assert\Length([
-                        'max' => 500,
-                        'maxMessage' => 'Content cannot exceed {{ limit }} characters',
-                    ]),
-                ],
             ])
             ->add('publishedAt', DateTimeType::class, [
-                'data' => new \DateTime(),
+                'data' => new DateTime(),
                 'widget' => 'single_text',
                 'label' => false,
                 'html5' => true,
@@ -44,24 +42,37 @@ class PostFormType extends AbstractType
                 'label' => 'Attach Image or Video (Optional)',
                 'required' => false,
                 'mapped' => false,
-                'constraints' => [
-                    new Assert\File([
-                        'maxSize' => '10M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                            'video/mp4',
-                            'video/quicktime',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG, GIF) or video (MP4, MOV) file',
-                    ]),
-                ],
             ])
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
             ])
-        ;
+            ->add('tag', ChoiceType::class, [
+                'label' => 'Tag',
+                'choices' => [],
+                'attr' => ['id' => 'tag-select'],
+                'mapped' => true,
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+            ]);
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $submittedData = $event->getData();
+
+            $tag = $submittedData['tag'] ?? null;
+
+            if ($tag) {
+                $form->add('tag', ChoiceType::class, [
+                    'choices' => [$tag => $tag], // Ensure $tag is used here
+                    'attr' => ['id' => 'tag-select'],
+                    'mapped' => false,
+                    'expanded' => false,
+                    'multiple' => false,
+                    'required' => false,
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

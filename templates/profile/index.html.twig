@@ -3,18 +3,52 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
+    <div class="user">
+        <div class="profile-picture">
+            <img src="{{ asset('res/favicon.ico')}}" alt="Foto de perfil">
+        </div>
+        <div class="user-data">
+            <div>
+                <span>Nombre:</span> {{ user.NAME }}
+            </div>
+            <div>
+                <span>Correo:</span> {{ user.email }}
+            </div>
+            <div>
+                <span>SteamUser:</span> {{ user.steamUsername }}
+            </div>
+        </div>
+        <div class="user-games">
+            <div>
+                <span>Total games:</span> {{ user.NAME }}
+            </div>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {# La contraseña no debe mostrarse por seguridad #}
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#" class="nav-link" data-target="publicaciones">Publicaciones</a></li>
+            <li><a href="#" class="nav-link" data-target="me-gusta">Me gusta</a></li>
+            <li><a href="#" class="nav-link" data-target="guardados">Guardados</a></li>
+            <li><a href="#" class="nav-link" data-target="juegos">Juegos</a></li>
+        </ul>
+    </nav>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div id="publicaciones" class="content">
+        <p>Contenido de Publicaciones</p>
+    </div>
+    <div id="me-gusta" class="content" style="display: none;">
+        <p>Contenido de Me gusta</p>
+    </div>
+    <div id="guardados" class="content" style="display: none;">
+        <p>Contenido de Guardados</p>
+    </div>
+    <div id="juegos" class="content" style="display: none;">
+        <p>Contenido de Juegos</p>
+    </div>
+
+    <script src="{{ asset('js/profile.js') }}"></script>
+
 {% endblock %}

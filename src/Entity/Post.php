@@ -34,6 +34,9 @@ class Post
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post')]
     private Collection $comments;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tag = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -132,6 +135,18 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?string
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?string $tag): static
+    {
+        $this->tag = $tag;
 
         return $this;
     }
