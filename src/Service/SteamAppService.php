@@ -63,4 +63,22 @@ class SteamAppService
 
         return null;
     }
+
+    public function getGameName(int $appId): ?string
+    {
+        $response = $this->client->request('GET', 'http://store.steampowered.com/api/appdetails', [
+            'query' => [
+                'appids' => $appId,
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        if (isset($data[$appId]['success']) && $data[$appId]['success']) {
+            return $data[$appId]['data']['name'] ?? null;
+        }
+
+        return null;
+    }
+
 }

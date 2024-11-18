@@ -4,9 +4,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +33,60 @@ class PostController extends AbstractController
             'posts' => $posts,
         ]);
     }
+
+    #[Route('/post/{id}', name: 'app_post_show', requirements: ['id' => '\d+'])]
+    public function show(int $id, EntityManagerInterface $entityManager, Request $request, SteamAppService $steamAppService): Response
+    {
+        $post = $entityManager->getRepository(Post::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
+        $comment = new Comment();
+        $comment->setPost($post);
+        $comment->setPublishedAt(new \DateTime());
+        $comment->setUser($this->getUser());
+        $comment->setIsChildComment(false);
+
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_post_show', ['id' => $id]);
+        }
+        $gameName = $steamAppService->getGameName((int) $post->getTag());
+
+
+        return $this->render('post/single_post.html.twig', [
+            'post' => $post,
+            'commentForm' => $form->createView(),
+            'gameName' => $gameName ?? 'Unknown Game',
+        ]);
+    }
+
+    #[Route('/post/{id}/like', name: 'app_post_like', methods: ['POST'])]
+    public function like(int $id, PostRepository $postRepository, EntityManagerInterface $em): Response
+    {
+        // Fetch the post by ID
+        $post = $postRepository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        // Increment likes
+        $post->setNumLikes($post->getNumLikes() + 1);
+
+        $em->persist($post);
+        $em->flush();
+
+        return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
+    }
+
 
     #[Route('/post/new', name: 'app_post_new')]
     public function newPost(Request $request, EntityManagerInterface $entityManager, Security $security): Response
