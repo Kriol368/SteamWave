@@ -2,12 +2,9 @@
     font-family: Poppins;
     src: url('../res/fonts/Poppins-Regular.ttf');
 }
-/* Page content */
 body {
     font-family: "Poppins", sans-serif;
-}
-.main {
-    margin-left: auto; /* Same as the width of the sidenav */
+    margin-left: auto;
 }
 
 /* =========0 barra lateral =================0 */
@@ -15,34 +12,29 @@ body {
     height: 100%;
     width: 100px;
     position: fixed;
-    z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
-    overflow-x: hidden;
+    background-color: #111111FF;
     padding-top: 1rem;
 }
 
 .sidenav button {
+    border: 0;
 
-    background-color: #111;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.2s;
+    height: 60px;
+    width: 60px;
+    background-color: #11111100;
 
     margin-left: auto;
     margin-right: auto;
-
     margin-bottom: 15px;
-    width: 50%;
 
+    display: block;
+    transition: 0.2s;
 }
 
 .sidenav button:hover {
-    color: #f0f0f0;
-    background-color: #333;
+    background-color: #3e3e3e;
     border-collapse: collapse;
     border-radius: 10px;
 }
@@ -53,20 +45,9 @@ body {
 /* =======================================
     ajustes
 */
-.options{
-    position: absolute;   /* Posicionamiento absoluto dentro del contenedor */
-    bottom: 20px;         /* 20px desde el borde inferior del contenedor */
-    left: 20px;           /* 20px desde el borde izquierdo del contenedor */
-    background-color: #333;  /* Fondo para el div flotante */
-    color: white;         /* Color del texto */
-    padding: 10px;        /* Espaciado interno */
-    border-radius: 5px;   /* Bordes redondeados */
-}
-.options img{
-    height: 100%;
-    width: 100%;
-}
+.settings{
 
+}
 /* ================ no se =================*/
 
 @media screen and (max-height: 450px) {
