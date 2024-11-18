@@ -1,3 +1,4 @@
+//mostrar contenido de abajo
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function (event) {

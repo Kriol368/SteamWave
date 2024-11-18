@@ -1,19 +1,22 @@
-/* datos del usuario */
 /* Perfil - Ajustes para el contenedor principal */
 .user {
     display: flex;
-    align-items: center; /* Alineación vertical */
+    align-items: center;
     justify-content: flex-start;
-    border-radius: 15px; /* Bordes redondeados */
-    border: 2px solid #ddd; /* Borde opcional */
+    border-radius: 15px;
+    border: 2px solid #ddd;
     padding: 20px;
-    background-color: #f9f9f9; /* Fondo ligero */
-    max-width: calc(100% - 120px); /* Se ajusta al 100% menos el espacio de la barra lateral */
-    margin: 20px; /* Centrado automático */
-    position: absolute; /* Posicionamiento absoluto */
-    left: 110px; /* Alinea el contenedor justo después de la barra lateral */
-    top: 15px; /* Espacio desde la parte superior de la ventana */
-    right: 0; /* Evita que el contenedor invada el borde derecho */
+    background-color: #f9f9f9;
+    max-width: calc(100% - 120px);
+    margin: 20px;
+    position: absolute;
+    left: 110px;
+    top: 15px;
+    right: 0;
+    background-image: url('../res/tempImg/header.jpg');
+    background-size: auto 100%; /* Asegura que la imagen cubra todo el fondo */
+    background-position: right;
+    background-repeat: no-repeat;
 }
 
 /* Imagen de perfil */
@@ -21,89 +24,88 @@
     width: 150px;
     height: 150px;
     overflow: hidden;
-    border-radius: 50%; /* Imagen circular */
-    border: 2px solid #ccc; /* Borde alrededor de la imagen */
-    margin-right: 20px; /* Espacio entre la imagen y los datos */
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 20px;
 }
 
 .profile-picture img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta la imagen para que cubra el círculo */
+    object-fit: cover;
 }
 
 /* Datos del usuario */
 .user-data {
-    flex: 1; /* Ocupa el espacio restante */
-    font-size: 18px; /* Tamaño de fuente */
+    flex: 1;
+    font-size: 18px;
 }
 
 .user-data div {
-    margin-bottom: 10px; /* Espacio entre cada dato */
+    margin-bottom: 10px;
 }
 
 .user-data span {
-    font-weight: bold; /* Resalta los nombres de los campos */
+    font-weight: bold;
 }
 
 /* Datos de los juegos del usuario */
 .user-games {
-    flex: 1; /* Ocupa el espacio restante */
-    font-size: 18px; /* Tamaño de fuente */
+    flex: 1;
+    font-size: 18px;
 }
 
 .user-games div {
-    margin-bottom: 10px; /* Espacio entre cada dato */
+    margin-bottom: 10px;
 }
 
 .user-games span {
-    font-weight: bold; /* Resalta los nombres de los campos */
+    font-weight: bold;
 }
 
 /* Barra de navegación horizontal */
 nav.nav-bar {
-    width: calc(100% - 120px); /* Ajusta al 100% menos el margen izquierdo de la barra lateral */
-    margin-left: 20px; /* Alinea la barra a la derecha del sidenav */
-    background-color: #333; /* Fondo oscuro para la barra */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 10px 0; /* Espaciado dentro de la barra */
-    margin-top: 240px; /* Separación con el contenedor .user */
-    max-width: calc(100% - 148px); /* Se ajusta al 100% menos el espacio de la barra lateral */
-    position: absolute; /* Posicionamiento absoluto */
-    left: 110px; /* Alinea el contenedor justo después de la barra lateral */
-    top: 15px; /* Espacio desde la parte superior de la ventana */
-    right: 0; /* Evita que el contenedor invada el borde derecho */
-
+    width: calc(100% - 120px);
+    margin-left: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin-top: 240px;
+    max-width: calc(100% - 148px);
+    position: absolute;
+    left: 110px;
+    top: 15px;
+    right: 0;
 }
 
 nav.nav-bar ul {
-    list-style-type: none; /* Elimina los puntos de la lista */
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Flexbox para disposición horizontal */
-    justify-content: center; /* Centra los elementos dentro de la barra */
+    display: flex;
+    justify-content: center;
 }
 
 nav.nav-bar ul li {
-    margin: 0 15px; /* Espaciado entre los elementos de la barra */
+    margin: 0 15px;
 }
 
 nav.nav-bar ul li a {
-    text-decoration: none; /* Elimina el subrayado de los enlaces */
-    color: white; /* Texto blanco */
-    font-size: 18px; /* Tamaño de fuente */
-    font-weight: bold; /* Texto en negrita */
-    transition: color 0.3s; /* Transición para el cambio de color */
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
 }
 
 /* Estilo para el enlace seleccionado */
 nav.nav-bar ul li a.selected {
-    color: #b0b0b0; /* Color más claro para el enlace seleccionado */
-    font-weight: bold; /* Asegura que el texto se vea más destacado */
+    color: #b0b0b0;
+    font-weight: bold;
 }
 
 nav.nav-bar ul li a:hover {
-    color: #f0f0f0; /* Cambio de color cuando se pasa el mouse */
+    color: #f0f0f0;
 }
 
 /* content */
@@ -111,9 +113,11 @@ nav.nav-bar ul li a:hover {
     position: absolute;
     margin-top: 310px;
     margin-left: 20px;
-    left: 110px; /* Alinea el contenedor justo después de la barra lateral */
-    top: 15px; /* Espacio desde la parte superior de la ventana */
-    right: 0; /* Evita que el contenedor invada el borde derecho */
-
+    left: 110px;
+    top: 15px;
+    right: 0;
+    border-radius: 10px;
+    padding: 10px 10px;
+    border: 2px solid #ddd;
+    max-width: calc(100% - 148px);
 }
-
