@@ -4,7 +4,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,17 +34,33 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{id}', name: 'app_post_show', requirements: ['id' => '\d+'])]
-    public function show(int $id, EntityManagerInterface $entityManager): Response
+    public function show(int $id, EntityManagerInterface $entityManager, Request $request): Response
     {
-        // Fetch the post manually
         $post = $entityManager->getRepository(Post::class)->find($id);
 
         if (!$post) {
             throw $this->createNotFoundException('The post does not exist');
         }
 
+        $comment = new Comment();
+        $comment->setPost($post);
+        $comment->setPublishedAt(new \DateTime());
+        $comment->setUser($this->getUser());
+        $comment->setIsChildComment(false);
+
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_post_show', ['id' => $id]);
+        }
+
         return $this->render('post/single_post.html.twig', [
             'post' => $post,
+            'commentForm' => $form->createView(),
         ]);
     }
     #[Route('/post/new', name: 'app_post_new')]

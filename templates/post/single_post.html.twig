@@ -1,7 +1,4 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}{{ post.content[:50] }} - Post Details{% endblock %}
-
 {% block body %}
     <div class="post-details">
         <h1>Post Details</h1>
@@ -25,22 +22,28 @@
             {% else %}
                 <p>No image provided for this post.</p>
             {% endif %}
-<!--
+
             <h3>Comments</h3>
             {% if post.comments is not empty %}
                 <ul class="comments-list">
                     {% for comment in post.comments %}
                         <li>
-                            <p>{{ comment.content }}</p>
-                            <small>By {{ comment.author.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
+                            <p>{{ comment.text }}</p>
+                            <small>By {{ comment.user.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
                 <p>No comments yet.</p>
             {% endif %}
+
+            <h3>Add a Comment</h3>
+            {{ form_start(commentForm) }}
+            {{ form_row(commentForm.text, {'label': 'Your Comment'}) }}
+            <button class="btn btn-primary" type="submit">Submit Comment</button>
+            {{ form_end(commentForm) }}
         </div>
--->
+
         <a href="{{ path('app_post') }}" class="btn btn-secondary">Back to all posts</a>
     </div>
 {% endblock %}
