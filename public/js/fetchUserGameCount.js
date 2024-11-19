@@ -9,8 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            const gamesList = document.getElementById('user_games_list');
 
+            const userGames = document.getElementById('user_game_count');
+
+            let count = Object.keys(data).length;
+
+            userGames.innerHTML += count;
         })
+
         .catch(error => console.error('There was a problem with the fetch operation:', error));
 });
