@@ -4,7 +4,7 @@
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
-    <div class="user">
+    <div class="user-banner">
         <div class="profile-picture">
             <img src="{{ asset('res/favicon.ico')}}" alt="Foto de perfil">
         </div>
@@ -47,6 +47,7 @@
     </div>
     <div id="juegos" class="content" style="display: none;">
         <p>Contenido de Juegos</p>
+        {{ include ('partials/_feedEntry.html.twig') }}
     </div>
 
     <script src="{{ asset('js/profile.js') }}"></script>
