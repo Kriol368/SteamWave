@@ -32,14 +32,6 @@
     border-radius: 1.625rem;
 }
 /*  ===================================
-    centramos el contenido principal
- */
-.feed{
-    padding-left: 110px;
-    padding-right: 25%;
-    max-width: 90%;
-}
-/*  ===================================
     boton para postear
  */
 .post-button{
