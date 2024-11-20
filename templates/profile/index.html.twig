@@ -4,7 +4,7 @@
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
-    <div class="user">
+    <div class="user-banner">
         <div class="profile-picture">
             <img src="{{ asset('res/favicon.ico')}}" alt="Foto de perfil">
         </div>
@@ -20,8 +20,8 @@
             </div>
         </div>
         <div class="user-games">
-            <div>
-                <span>Total games:</span> {{ user.NAME }}
+            <div id="user_game_count">
+                <span>Total games:</span>
             </div>
         </div>
 
@@ -46,9 +46,10 @@
         <p>Contenido de Guardados</p>
     </div>
     <div id="juegos" class="content" style="display: none;">
-        <p>Contenido de Juegos</p>
+        {{ include ('partials/_userGames.html.twig') }}
     </div>
 
     <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/fetchUserGameCount.js') }}"></script>
 
 {% endblock %}
