@@ -30,9 +30,13 @@ class HomeController extends AbstractController
             $steamID64 = $post->getPostUser()->getSteamId64();
             $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
+            // Fetch the game name using the post tag (Steam App ID)
+            $gameName = $this->steamAppService->getGameName($post->getTag());
+
             $postsWithImages[] = [
+                'id'=>$post->getId(),
                 'content' => $post->getContent(),
-                'tag' => $post->getTag(),
+                'tag' => $gameName,
                 'image' => $post->getImage(),
                 'profilePicture' => $profileImage,
                 'username' => $post->getPostUser()->getSteamUsername(),

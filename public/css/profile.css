@@ -109,7 +109,7 @@ nav.nav-bar ul li a:hover {
 }
 
 /* content */
-.content {
+.nav-content {
     position: absolute;
     margin-top: 310px;
     margin-left: 20px;
