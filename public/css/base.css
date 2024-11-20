@@ -43,6 +43,17 @@ body {
     width: 100%;
 }
 /* =======================================
+    demás contenido
+*/
+.content{
+    padding-top: 10px;
+    padding-left: 110px;
+    padding-right: 25%;
+    max-width: 90%;
+}
+
+
+/* =======================================
     ajustes
 */
 .settings{
