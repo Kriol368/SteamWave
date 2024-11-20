@@ -81,4 +81,23 @@ class SteamAppService
         return null;
     }
 
+    public function getUserProfileImage(string $steamID64): ?string
+    {
+        $response = $this->client->request('GET', 'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', [
+            'query' => [
+                'key' => $this->apiKey,
+                'steamids' => $steamID64,
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        if (isset($data['response']['players'][0]['avatarfull'])) {
+            return $data['response']['players'][0]['avatarfull']; // Return the full-size avatar URL
+        }
+
+        return null; // Return null if no avatar is found
+    }
+
+
 }

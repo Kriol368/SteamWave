@@ -1,13 +1,9 @@
 {# templates/profile/user_games.html.twig #}
 
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Your Steam Games</h1>
+    <h1>Tus juegos</h1>
 
     <ul id="user_games_list">
     </ul>
-{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/fetchUserGames.js') }}"></script>

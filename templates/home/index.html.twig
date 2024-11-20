@@ -31,7 +31,7 @@
     <!--    feed    =====================================0
                aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post -->
     <div class="feed">
-        {{ include ('partials/_feedEntry.html.twig') }}
+        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
     </div>
 
     <!--    boton para postear  -->
