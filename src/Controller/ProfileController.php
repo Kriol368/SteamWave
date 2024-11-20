@@ -34,6 +34,8 @@ class ProfileController extends AbstractController
             throw $this->createAccessDeniedException('Debe estar autenticado para ver esta página.');
         }
 
+
+
         // En este caso, asumimos que $user ya es la entidad `User`
         return $this->render('profile/index.html.twig', [
             'user' => $user,

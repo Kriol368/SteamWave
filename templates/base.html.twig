@@ -27,9 +27,15 @@
                 <a href="{{ path('app_chat') }}"><button><img id="chat-btn" src="{{ asset('res/icons/message-circle.svg') }}" alt="Star button"></button></a>
 
                 {% if app.user %}
-                    <a href="{{ path('app_profile') }}"><button><img id="user-btn" src="{# {{ app.user.photo }} #}" alt="User profile picture"></button></a>
+                    <a href="{{ path('app_profile') }}">
+                        <button>
+                            <img id="user-btn" src="{{ steam_profile_image(app.user.steamID64) }}" alt="User profile picture">
+                        </button>
+                    </a>
                 {% else %}
-                    <a href="{{ path('app_login') }}"><button><img id="user-btn" src="{{ asset('res/icons/user.svg') }}" alt="User profile picture"></button></a>
+                    <a href="{{ path('app_login') }}">
+                        <button><img id="user-btn" src="{{ asset('res/favicon.ico') }}" alt="User profile picture"></button>
+                    </a>
                 {% endif %}
                 <a href="{# {{ path('app_settings') }} #}"><button class="settings"><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Settings button"></button></a>
             </div>
