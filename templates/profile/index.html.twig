@@ -37,7 +37,7 @@
     </nav>
 
     <div id="publicaciones" class="nav-content">
-        <p>Contenido de Publicaciones</p>
+        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
     </div>
     <div id="me-gusta" class="nav-content" style="display: none;">
         <p>Contenido de Me gusta</p>
