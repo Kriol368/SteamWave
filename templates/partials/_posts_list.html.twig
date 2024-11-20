@@ -1,48 +1,5 @@
 {# templates/partials/_posts_list.html.twig #}
-<style>
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
-
-    .example-wrapper code {
-        background: #F5F5F5;
-        padding: 2px 6px;
-    }
-
-    .post-item {
-        border-bottom: 1px solid #ddd;
-        padding: 1em 0;
-        display: flex;
-        gap: 1em;
-        align-items: flex-start;
-    }
-
-    .profile-picture {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .post-content {
-        flex: 1;
-    }
-
-    .post-image, .post-video {
-        max-width: 150px;
-        height: auto;
-        margin-top: 0.5em;
-    }
-
-    .post-video {
-        max-width: 300px;
-    }
-
-    /* Optional, adjust video preview size */
-</style>
+<link rel="stylesheet" href="{{ asset('css/feedEntry.css') }}"/>
 
 <div class="example-wrapper">
     {% if posts is empty %}
