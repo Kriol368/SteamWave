@@ -5,7 +5,10 @@
 body {
     font-family: "Poppins", sans-serif;
     margin-left: auto;
+    background: linear-gradient(#1b2939, #213d58);
+    background-attachment: fixed;
 }
+
 
 /* =========0 barra lateral =================0 */
 .sidenav {
@@ -14,7 +17,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #111111FF;
+    background-color: #171D25;
     padding-top: 1rem;
 }
 
@@ -23,7 +26,7 @@ body {
 
     height: 60px;
     width: 60px;
-    background-color: #11111100;
+    background-color: #171D25;
 
     margin-left: auto;
     margin-right: auto;
@@ -34,7 +37,7 @@ body {
 }
 
 .sidenav button:hover {
-    background-color: #3e3e3e;
+    background-color: #2D333C;
     border-collapse: collapse;
     border-radius: 10px;
 }
@@ -53,4 +56,12 @@ body {
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+}
+
+/* colores */
+h1, h2, h3 {
+    color: #c1dbf4;
+}
+p, a {
+    color: #ffffff;
 }

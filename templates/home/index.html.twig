@@ -19,21 +19,19 @@
     -->
     <link rel="stylesheet" href="{{ asset('css/main_content.css') }}"/>
     <div class="feed-options">
-        <div class="feed-buttons">
-            <div class="feed-button">
+        <ul class="feed-buttons">
+            <li class="feed-button">
                 <button> steamwave </button>
-            </div>
-            <div class="feed-button">
-                <button> feed </button>
-            </div>
-        </div>
+            </li>
+            <li class="feed-button">
+                <button> following </button>
+            </li>
+        </ul>
     </div>
     <!--    feed    =====================================0
                aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post -->
     <div class="feed">
-
         {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
-
     </div>
 
     <!--    boton para postear  -->
