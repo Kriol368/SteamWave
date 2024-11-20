@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
     <div class="user-banner">
         <div class="profile-picture">
-            <img src="{{ asset('res/favicon.ico')}}" alt="Foto de perfil">
+            <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
         </div>
         <div class="user-data">
             <div>
