@@ -11,5 +11,22 @@
                 <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
             </button>
         </div>
+
+        <!--//TODO =============================================0
+            hay que acabar de ratearle l codigo al marc pa que funcione y se vea bonito
+
+        -->
+        <div id="publicaciones" class="nav-content">
+            <p>Contenido de Publicaciones</p>
+        </div>
+        <div id="me-gusta" class="nav-content" style="display: none;">
+            <p>Contenido de Me gusta</p>
+        </div>
+        <div id="guardados" class="nav-content" style="display: none;">
+            <p>Contenido de Guardados</p>
+        </div>
+        <div id="juegos" class="nav-content" style="display: none;">
+            {{ include ('partials/_userGames.html.twig') }}
+        </div>
     </div>
 {% endblock %}
