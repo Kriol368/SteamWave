@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('selected'));
             this.classList.add('selected');
 
-            document.querySelectorAll('.content').forEach(content => {
+            document.querySelectorAll('.nav-content').forEach(content => {
                 content.style.display = 'none';
             });
 
