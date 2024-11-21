@@ -1,3 +1,9 @@
+/*  EN ESTE STYLESHEET HAY MUCHAS DECLARACIONES QUE SON REDUNDANTES
+    Y QUE POR "A" O POR "B" NO SE ACABAN APLICANDO.
+
+    MUCHO OJO
+ */
+
 /*  ===================================
     estilo para la barra de busqueda
  */
@@ -90,8 +96,6 @@ nav.nav-bar ul li a:hover {
 /* content */
 .nav-content {
     margin-top: 20px;
-    top: 15px;
-    right: 0;
     border-radius: 1.625rem;
     padding: 10px 10px;
     border: 2px solid #ddd;
