@@ -14,19 +14,22 @@
 
         <!--//TODO =============================================0
             hay que acabar de ratearle l codigo al marc pa que funcione y se vea bonito
-
         -->
-        <div id="publicaciones" class="nav-content">
-            <p>Contenido de Publicaciones</p>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#" class="nav-link" data-target="posts">Publicaciones</a></li>
+                <li><a href="#" class="nav-link" data-target="usuarios">Usuarios</a></li>
+            </ul>
+        </nav>
+
+        <div id="posts" class="nav-content">
+            <p>busqueda de publicaciones</p>
         </div>
-        <div id="me-gusta" class="nav-content" style="display: none;">
-            <p>Contenido de Me gusta</p>
-        </div>
-        <div id="guardados" class="nav-content" style="display: none;">
-            <p>Contenido de Guardados</p>
-        </div>
-        <div id="juegos" class="nav-content" style="display: none;">
-            {{ include ('partials/_userGames.html.twig') }}
+        <div id="usuarios" class="nav-content" style="display: none;">
+            <p>busqueda de usuarios</p>
         </div>
     </div>
+
+    <script src="{{ asset('js/profile.js') }}"></script>
+    {# por increible que parezca este script es universal, puedes cambiar los ids y toddo sigue funcionando bien #}
 {% endblock %}

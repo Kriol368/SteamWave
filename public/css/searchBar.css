@@ -42,3 +42,65 @@
 #searchQuerySubmit:hover {
     cursor: pointer;
 }
+/* ==================================================
+    estilo rumaneado del marc
+ */
+
+/* Barra de navegación horizontal */
+nav.nav-bar {
+    width: calc(100% - 120px);
+    margin-left: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin-top: 240px;
+    max-width: calc(100% - 148px);
+    position: absolute;
+    left: 110px;
+    top: 15px;
+    right: 0;
+}
+
+nav.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav.nav-bar ul li {
+    margin: 0 15px;
+}
+
+nav.nav-bar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Estilo para el enlace seleccionado */
+nav.nav-bar ul li a.selected {
+    color: #b0b0b0;
+    font-weight: bold;
+}
+
+nav.nav-bar ul li a:hover {
+    color: #f0f0f0;
+}
+
+/* content */
+.nav-content {
+    position: absolute;
+    margin-top: 310px;
+    margin-left: 20px;
+    left: 110px;
+    top: 15px;
+    right: 0;
+    border-radius: 10px;
+    padding: 10px 10px;
+    border: 2px solid #ddd;
+    max-width: calc(100% - 148px);
+}
