@@ -17,11 +17,12 @@
         {% if game.platforms.linux %}<li>Linux</li>{% endif %}
     </ul>
 
-    {% if game.price_overview %}
+    {% if game.price_overview is defined and game.price_overview is not empty %}
         <p><strong>Price:</strong> {{ game.price_overview.final_formatted }}</p>
     {% else %}
         <p><strong>Price:</strong> Free</p>
     {% endif %}
+
 
     <h3>Genres:</h3>
     <ul>

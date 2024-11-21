@@ -11,8 +11,13 @@
             <ul>
                 <li><strong>Published At:</strong> {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
                 <li><strong>Author:</strong> {{ post.postUser ? post.postUser.name : 'Anonymous' }}</li>
-                <li><strong>Game:</strong> {{ gameName }}</li>
-                <li><strong>Likes:</strong> {{ post.numLikes }}</li>
+                <strong>Game:</strong>
+                {% if gameId and gameName %}
+                    <a href="{{ path('app_game', {'appId': gameId}) }}">{{ gameName }}</a>
+                {% else %}
+                    Not specified
+                {% endif %}
+                    <li><strong>Likes:</strong> {{ post.numLikes }}</li>
             </ul>
 
             {% if post.image %}
