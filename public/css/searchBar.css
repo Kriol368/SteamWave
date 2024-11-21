@@ -13,7 +13,7 @@
 
 .searchBar {
     width: 100%;
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
 }
@@ -89,12 +89,11 @@ nav.nav-bar ul li a:hover {
 
 /* content */
 .nav-content {
-    margin-left: 20px;
-    left: 110px;
+    margin-top: 20px;
     top: 15px;
     right: 0;
     border-radius: 1.625rem;
     padding: 10px 10px;
     border: 2px solid #ddd;
-    max-width: calc(100% - 148px);
+    max-width: 100%;
 }
