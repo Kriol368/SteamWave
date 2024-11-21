@@ -1,53 +1,62 @@
-/*  ===================================
-    estilo para la barra de arriba
- */
-.feed-options{
-    padding-top: 20px;
+/* estilo para la barra de arriba */
+.nav-home {
+    padding: 10px 0;
     width: 100%;
     display: flex;
 }
-.feed-buttons{
+
+.nav-home ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
     width: 100%;
-    margin-left: 140px;
-    margin-right: 34%;
-    height: 2.8rem;
-    background: linear-gradient(#e8f5fc, #cce9f9);
+    height: 50px;
+    background: linear-gradient(to right, #3b6591, #3b6591, #122771);
     outline: none;
     border: none;
     border-radius: 1.625rem;
-    padding: 10px 3.5rem 0 1.5rem;
     font-size: 1rem;
-    display:flex;
     justify-content: center;
 }
-.feed-buttons button{
-    border: 0;
-    background-color: #11111100;
+
+.nav-home ul li {
+    display: flex; /* Se asegura de que los hijos usen flex */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    margin: 0 15px;
 }
 
-.feed-buttons button:hover {
-    color: #2e4681;
-    background-color: #b1b1b1;
-    border-collapse: collapse;
-    border-radius: 1.625rem;
+.nav-home ul li a {
+    text-decoration: none;
+    transition: color 0.3s;
+    text-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
 }
-/*  ===================================
-    boton para postear
- */
+
+/* Estilo para el enlace seleccionado */
+.nav-home ul li a.selected {
+    color: #b0b0b0;
+    font-weight: bold;
+}
+
+.nav-home ul li a:hover {
+    color: #f0f0f0;
+}
+
+
+/*  boton para postear */
 .post-button{
-    position: fixed;  /* Fija la posición del botón */
-    bottom: 20px;     /* Lo sitúa a 20px del borde inferior */
-    right: 35%;      /* Lo sitúa a 20px del borde derecho */
-    width: 60px;      /* Ancho del botón */
-    height: 60px;     /* Alto del botón */
-    background-color: #1456ff;  /* Color de fondo */
-    color: white;     /* Color del texto */
-    font-size: 30px;   /* Tamaño de la fuente */
-    border: none;     /* Sin borde */
-    border-radius: 50%; /* Hace el botón redondo */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Sombra suave */
-    cursor: pointer; /* Apunta al cursor como mano */
-    transition: background-color 0.3s ease;  /* Animación suave al pasar el cursor */
+    position: fixed;
+    bottom: 20px;
+    right: 35%;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to right, #3b6591, #3b6591, #122771);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 .post-button img{
     margin: auto;

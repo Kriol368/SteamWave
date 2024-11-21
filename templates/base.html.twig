@@ -23,15 +23,15 @@
         barra lateral izquierda     -    tecnicamente el header-->
 <header>
     <div class="sidenav"> <!-- parte de arriba  https://feathericons.com/ -->
-        <a href="{{ path('app_home') }}"><button><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button"></button></a>
-        <a href="{{ path('app_search') }}"><button><img id="search-btn" src="{{ asset('res/icons/search.svg') }}" alt="Likes button"></button></a>
-        <a href="{{ path('app_chat') }}"><button><img id="chat-btn" src="{{ asset('res/icons/message-circle.svg') }}" alt="Star button"></button></a>
+        <a href="{{ path('app_home') }}"><button><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button" class="sidenav-button-img"></button></a>
+        <a href="{{ path('app_search') }}"><button><img id="search-btn" src="{{ asset('res/icons/search.svg') }}" alt="Likes button" class="sidenav-button-img"></button></a>
+        <a href="{{ path('app_chat') }}"><button><img id="chat-btn" src="{{ asset('res/icons/message-circle.svg') }}" alt="Star button" class="sidenav-button-img"></button></a>
 
 
                 {% if app.user %}
                     <a href="{{ path('view_profile', { 'userId': app.user.id }) }}">
                         <button>
-                            <img id="user-btn" src="{{ steam_profile_image(app.user.steamID64) }}" alt="User profile picture">
+                            <img id="user-btn" src="{{ steam_profile_image(app.user.steamID64) }}" alt="User profile picture" class="profileimg-button">
                         </button>
                     </a>
                 {% else %}
@@ -39,7 +39,7 @@
                         <button><img id="user-btn" src="{{ asset('res/favicon.ico') }}" alt="User profile picture"></button>
                     </a>
                 {% endif %}
-                <a href="{# {{ path('app_settings') }} #}"><button class="settings"><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Settings button"></button></a>
+                <a href="{# {{ path('app_settings') }} #}"><button class="settings"><img id="settings-btn" src="{{ asset('res/icons/settings.svg') }}" alt="Settings button" class="sidenav-button-img"></button></a>
             </div>
         </header>
 <!-- ===================================0
