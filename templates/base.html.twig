@@ -29,7 +29,7 @@
 
 
                 {% if app.user %}
-                    <a href="{{ path('app_profile') }}">
+                    <a href="{{ path('view_profile', { 'userId': app.user.id }) }}">
                         <button>
                             <img id="user-btn" src="{{ steam_profile_image(app.user.steamID64) }}" alt="User profile picture">
                         </button>

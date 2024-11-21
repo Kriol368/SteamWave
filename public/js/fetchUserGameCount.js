@@ -1,7 +1,12 @@
-// public/js/fetchUserGameCount.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/user/games-list')
+    const userId = document.body.dataset.userId; // Fetch the user ID from the body tag
+
+    if (!userId) {
+        console.error('User ID not found. Ensure the "data-user-id" attribute is set.');
+        return;
+    }
+
+    fetch(`/user/${userId}/games-list`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -9,13 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
+            const gameCountValue = document.getElementById('game_count_value');
+            const count = Object.keys(data).length;
 
-            const userGames = document.getElementById('user_game_count');
-
-            let count = Object.keys(data).length;
-
-            userGames.innerHTML += count;
+            gameCountValue.textContent = count; // Update the game count display
         })
-
         .catch(error => console.error('There was a problem with the fetch operation:', error));
 });

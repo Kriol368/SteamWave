@@ -1,7 +1,7 @@
-// public/js/fetchUserGames.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/user/games-list')
+    const userId = document.body.dataset.userId; // Assuming `data-user-id` is set on the <body>
+
+    fetch(`/user/${userId}/games-list`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             const gamesList = document.getElementById('user_games_list');
+            gamesList.innerHTML = ''; // Clear the list before appending new items
             Object.entries(data).forEach(([gameId, gameInfo]) => {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
