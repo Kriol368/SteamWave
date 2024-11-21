@@ -3,7 +3,8 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ asset('css/profile.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}"/>
+    <body data-user-id="{{ user.id }}">
     <div class="user-banner">
         <div class="profile-picture">
             <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
@@ -21,11 +22,9 @@
         </div>
         <div class="user-games">
             <div id="user_game_count">
-                <span>Total games:</span>
+                <span>Total games:</span> <span id="game_count_value">Loading...</span>
             </div>
         </div>
-
-        {# La contraseña no debe mostrarse por seguridad #}
     </div>
     <nav class="nav-bar">
         <ul>
@@ -46,10 +45,10 @@
         <p>Contenido de Guardados</p>
     </div>
     <div id="juegos" class="nav-content" style="display: none;">
-        {{ include ('partials/_userGames.html.twig') }}
+        {{ include('partials/_userGames.html.twig') }}
     </div>
 
     <script src="{{ asset('js/profile.js') }}"></script>
     <script src="{{ asset('js/fetchUserGameCount.js') }}"></script>
-
+    </body>
 {% endblock %}
