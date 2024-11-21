@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PostRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,17 +17,19 @@ class ProfileController extends AbstractController
 
     private SteamAppService $steamAppService;
     private Security $security;
+    private postRepository $postRepository;
 
-    public function __construct(SteamAppService $steamAppService, Security $security)
+    public function __construct(SteamAppService $steamAppService, Security $security, PostRepository $postRepository)
     {
         $this->steamAppService = $steamAppService;
         $this->security = $security;
+        $this->postRepository = $postRepository;
     }
 
 
     #[Route('/profile', name: 'app_profile')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, PostRepository $postRepository): Response
     {
         $user = $this->getUser();
 
@@ -34,11 +37,31 @@ class ProfileController extends AbstractController
             throw $this->createAccessDeniedException('Debe estar autenticado para ver esta página.');
         }
 
+        $posts = $postRepository->findBy(['postUser' => $user->getId()], ['publishedAt' => 'DESC']);
 
+
+        $postsWithImages = [];
+        foreach ($posts as $post) {
+            $steamID64 = $post->getPostUser()->getSteamId64();
+            $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
+
+            // Fetch the game name using the post tag (Steam App ID)
+            $gameName = $this->steamAppService->getGameName($post->getTag());
+
+            $postsWithImages[] = [
+                'id'=>$post->getId(),
+                'content' => $post->getContent(),
+                'tag' => $gameName,
+                'image' => $post->getImage(),
+                'profilePicture' => $profileImage,
+                'username' => $post->getPostUser()->getSteamUsername(),
+            ];
+        }
 
         // En este caso, asumimos que $user ya es la entidad `User`
         return $this->render('profile/index.html.twig', [
             'user' => $user,
+            'posts' => $postsWithImages,
         ]);
     }
 
