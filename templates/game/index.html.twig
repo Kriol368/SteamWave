@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ game.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ game.name }}</h1>
+    <div>
+        <img src="{{ game.header_image }}" alt="{{ game.name }} Header">
+    </div>
+
+    <p><strong>Description:</strong> {{ game.short_description|raw }}</p>
+
+    <h3>Platforms:</h3>
+    <ul>
+        {% if game.platforms.windows %}<li>Windows</li>{% endif %}
+        {% if game.platforms.mac %}<li>Mac</li>{% endif %}
+        {% if game.platforms.linux %}<li>Linux</li>{% endif %}
+    </ul>
+
+    {% if game.price_overview %}
+        <p><strong>Price:</strong> {{ game.price_overview.final_formatted }}</p>
+    {% else %}
+        <p><strong>Price:</strong> Free</p>
+    {% endif %}
+
+    <h3>Genres:</h3>
+    <ul>
+        {% for genre in game.genres %}
+            <li>{{ genre.description }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
