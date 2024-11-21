@@ -55,7 +55,6 @@ nav.nav-bar {
     padding: 10px 0;
     margin-top: 240px;
     max-width: calc(100% - 148px);
-    position: absolute;
     left: 110px;
     top: 15px;
     right: 0;
@@ -93,8 +92,6 @@ nav.nav-bar ul li a:hover {
 
 /* content */
 .nav-content {
-    position: absolute;
-    margin-top: 310px;
     margin-left: 20px;
     left: 110px;
     top: 15px;
