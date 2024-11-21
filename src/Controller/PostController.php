@@ -19,18 +19,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostController extends AbstractController
 {
-    #[Route('/post', name: 'app_post')]
-    public function index(PostRepository $postRepository): Response
-    {
-        // Fetch all posts from the database
-        $posts = $postRepository->findAll();
-
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-            'posts' => $posts,
-        ]);
-    }
-
     #[Route('/post/{id}', name: 'app_post_show', requirements: ['id' => '\d+'])]
     public function show(
         int $id,
