@@ -48,13 +48,10 @@
 
 /* Barra de navegación horizontal */
 nav.nav-bar {
-    width: calc(100% - 120px);
-    margin-left: 20px;
+    width: 100%;
     background-color: #333;
-    border-radius: 10px;
+    border-radius: 1.625rem;
     padding: 10px 0;
-    margin-top: 240px;
-    max-width: calc(100% - 148px);
     left: 110px;
     top: 15px;
     right: 0;
@@ -96,7 +93,7 @@ nav.nav-bar ul li a:hover {
     left: 110px;
     top: 15px;
     right: 0;
-    border-radius: 10px;
+    border-radius: 1.625rem;
     padding: 10px 10px;
     border: 2px solid #ddd;
     max-width: calc(100% - 148px);
