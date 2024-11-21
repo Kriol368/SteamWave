@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Poppins;
-    src: url('../res/fonts/Poppins-Regular.ttf');
+    font-family: "UserHeader", sans-serif;
+    src: url('../res/fonts/Poppins-Bold.ttf');
 }
 .content{
     padding-left: 7%;
@@ -46,8 +46,13 @@ body {
     border-collapse: collapse;
     border-radius: 10px;
 }
-.sidenav img {
+.sidenav-button-img {
     height: 100%;
+    width: 100%;
+}
+.profileimg-button{
+    border-radius: 50%;
+    height: 85%;
     width: 100%;
 }
 /* =======================================
@@ -77,7 +82,9 @@ body {
 /* colores */
 h1, h2, h3 {
     color: #c1dbf4;
+    font-weight: bolder;
 }
 p, a {
     color: #ffffff;
+    text-decoration: none;
 }
