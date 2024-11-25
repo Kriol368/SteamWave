@@ -3,23 +3,27 @@
 {% block title %}Chats{% endblock %}
 
 {% block body %}
-    <h1>Chats</h1>
-    <a href="{{ path('app_chat_create') }}" class="btn btn-primary">Create a Chat</a>
+    <link rel="stylesheet" href="{{ asset('css/chats.css')}}"/>
 
-    <ul>
-        {% for chat in chats %}
-            <li>
-                <a href="{{ path('chat_show', {'id': chat.id}) }}">
-                    Chat: ({{ chat.users|length }} participants)
+    <div class="content chats">
+        <h1>Chats</h1>
+        <a href="{{ path('app_chat_create') }}" class="btn btn-primary">Create a Chat</a>
 
-                    <!-- Display the names of the participants -->
-                    {% for user in chat.users %}
-                        <span>{{ user.name }}</span>
-                    {% endfor %}
-                </a>
-            </li>
-        {% else %}
-            <p>No chats found</p>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for chat in chats %}
+                <li>
+                    <a href="{{ path('chat_show', {'id': chat.id}) }}">
+                        Chat: ({{ chat.users|length }} participants)
+
+                        <!-- Display the names of the participants -->
+                        {% for user in chat.users %}
+                            <span>{{ user.name }}</span>
+                        {% endfor %}
+                    </a>
+                </li>
+            {% else %}
+                <p>No chats found</p>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
