@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Tienes que aceptar los terminos y condiciones de uso.',
                     ]),
                 ],
             ])
@@ -33,11 +33,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Proporciona una contraseña.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Tu contraseña debe contener al menos {{ limit }} caracteres.',
                         'max' => 4096,
                     ]),
                 ],
@@ -45,8 +45,8 @@ class RegistrationFormType extends AbstractType
             ->add('steamProfileUrl', UrlType::class, [
                 'mapped' => false,
                 'required' => false,
-                'label' => 'Steam Profile URL',
-                'attr' => ['placeholder' => 'Enter your Steam profile URL'],
+                'label' => 'Steam URL',
+                'attr' => ['placeholder' => 'Danos tu URL de Steam.'],
             ])
         ;
     }
