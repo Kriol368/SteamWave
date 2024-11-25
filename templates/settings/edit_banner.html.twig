@@ -1,0 +1,21 @@
+{# templates/settings/edit_banner.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Banner{% endblock %}
+
+{% block body %}
+    <h1>Edit Your Banner</h1>
+
+    <form action="{{ path('edit_banner') }}" method="POST">
+        <label for="user_game">Choose a Game for Your Banner:</label>
+        <select id="user_game" name="game_id">
+            <!-- Options will be populated by JavaScript -->
+        </select>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/edit_banner.js') }}"></script>
+{% endblock %}

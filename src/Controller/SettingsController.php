@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\BannerFormType;
 use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class SettingsController extends AbstractController
 {
@@ -57,9 +59,42 @@ class SettingsController extends AbstractController
     }
 
 
-    #[Route('/settings/banner', name: 'edit_banner')]
-    public function editBanner(): Response
-    {
-        return $this->render('settings/edit_banner.html.twig');
+    #[Route('/settings/banner', name: 'edit_banner', methods: ['GET', 'POST'])]
+    public function editBanner(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Security $security
+    ): Response {
+        $user = $security->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
+
+
+        // Create and handle the form for selecting the game
+        $form = $this->createForm(BannerFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Get selected game ID from the form
+            $selectedGameId = $form->get('game_id')->getData();
+
+            // Update user's banner game ID
+            $user->setBanner($selectedGameId);
+
+            // Persist and flush changes to the database
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Your banner has been updated successfully!');
+
+            $this->redirectToRoute('app_settings');
+        }
+
+        return $this->render('settings/edit_banner.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
+
 }
