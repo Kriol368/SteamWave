@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SettingsController!{% endblock %}
+{% block title %}Settings{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div>
+        <h2>Settings</h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div>
+            <p><a href="{{ path('edit_description') }}">Change Description</a></p>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/SettingsController.php'|file_link(0) }}">src/Controller/SettingsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/settings/index.html.twig'|file_link(0) }}">templates/settings/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div>
+            <p><a href="{{ path('edit_banner') }}">Change Banner</a></p>
+        </div>
+    </div>
 {% endblock %}
