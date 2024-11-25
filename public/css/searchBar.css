@@ -1,16 +1,25 @@
+/*  EN ESTE STYLESHEET HAY MUCHAS DECLARACIONES QUE SON REDUNDANTES
+    Y QUE POR "A" O POR "B" NO SE ACABAN APLICANDO.
+
+    MUCHO OJO
+ */
+
 /*  ===================================
     estilo para la barra de busqueda
  */
+.content{
+    padding-left: 100px;
+    padding-right: 0;
+    max-width: 100%;
+}
 .wrapper {
-    padding-left: 110px;
-    padding-right: 36%;
-    max-width: 90%;
+    max-width: 100%;
     margin: 1rem ;
 }
 
 .searchBar {
     width: 100%;
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
 }
@@ -38,4 +47,57 @@
 
 #searchQuerySubmit:hover {
     cursor: pointer;
+}
+/* ==================================================
+    estilo rumaneado del marc
+ */
+
+/* Barra de navegación horizontal */
+nav.nav-bar {
+    width: 100%;
+    background-color: #333;
+    border-radius: 1.625rem;
+    padding: 10px 0;
+    left: 110px;
+    top: 15px;
+    right: 0;
+}
+
+nav.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav.nav-bar ul li {
+    margin: 0 15px;
+}
+
+nav.nav-bar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Estilo para el enlace seleccionado */
+nav.nav-bar ul li a.selected {
+    color: #b0b0b0;
+    font-weight: bold;
+}
+
+nav.nav-bar ul li a:hover {
+    color: #f0f0f0;
+}
+
+/* content */
+.nav-content {
+    margin-top: 20px;
+    border-radius: 1.625rem;
+    padding: 10px 10px;
+    border: 2px solid #ddd;
+    max-width: 100%;
 }

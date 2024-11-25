@@ -81,4 +81,45 @@ class SteamAppService
         return null;
     }
 
+    public function getUserProfileImage(string $steamID64): ?string
+    {
+        $response = $this->client->request('GET', 'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', [
+            'query' => [
+                'key' => $this->apiKey,
+                'steamids' => $steamID64,
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        if (isset($data['response']['players'][0]['avatarfull'])) {
+            return $data['response']['players'][0]['avatarfull']; // Return the full-size avatar URL
+        }
+
+        return null; // Return null if no avatar is found
+    }
+
+    public function getGameDetails(int $appId): ?array
+    {
+        $response = $this->client->request('GET', 'https://store.steampowered.com/api/appdetails', [
+            'query' => [
+                'appids' => $appId,
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        if (isset($data[$appId]['success']) && $data[$appId]['success']) {
+            return $data[$appId]['data'];
+        }
+
+        return null; // Return null if the game details cannot be fetched
+    }
+
+    public function getGameBannerUrl(int $appId): string
+    {
+        return "https://cdn.akamai.steamstatic.com/steam/apps/{$appId}/header.jpg";
+    }
+
+
 }

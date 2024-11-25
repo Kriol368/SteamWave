@@ -1,20 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SearchController!{% endblock %}
+{% block title %}Buscar{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/searchBar.css') }}"/>
+    <div class="wrapper">
+        <div class="searchBar">
+            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
+            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
+            </button>
+            <nav class="nav-bar">
+                <ul>
+                    <li><a href="#" class="nav-link" data-target="posts">Publicaciones</a></li>
+                    <li><a href="#" class="nav-link" data-target="usuarios">Usuarios</a></li>
+                </ul>
+            </nav>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <!--//TODO =============================================0
+            hay que acabar de ratearle l codigo al marc pa que funcione y se vea bonito
+        -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/SearchController.php'|file_link(0) }}">src/Controller/SearchController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/search/index.html.twig'|file_link(0) }}">templates/search/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div id="posts" class="nav-content">
+            <p>busqueda de publicaciones</p>
+        </div>
+        <div id="usuarios" class="nav-content" style="display: none;">
+            <p>busqueda de usuarios</p>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/profile.js') }}"></script>
+    {# por increible que parezca este script es universal, puedes cambiar los ids y toddo sigue funcionando bien #}
+
+    <!-- final de documento -->
 {% endblock %}
