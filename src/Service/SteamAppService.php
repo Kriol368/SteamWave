@@ -116,5 +116,10 @@ class SteamAppService
         return null; // Return null if the game details cannot be fetched
     }
 
+    public function getGameBannerUrl(int $appId): string
+    {
+        return "https://cdn.akamai.steamstatic.com/steam/apps/{$appId}/header.jpg";
+    }
+
 
 }

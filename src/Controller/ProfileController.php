@@ -3,39 +3,41 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\UserRepository;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProfileController extends AbstractController
 {
-
     private SteamAppService $steamAppService;
     private Security $security;
-    private postRepository $postRepository;
+    private PostRepository $postRepository;
     private UserRepository $userRepository;
 
-    public function __construct(SteamAppService $steamAppService, Security $security, PostRepository $postRepository,userRepository $userRepository)
-    {
+    public function __construct(
+        SteamAppService $steamAppService,
+        Security $security,
+        PostRepository $postRepository,
+        UserRepository $userRepository
+    ) {
         $this->steamAppService = $steamAppService;
         $this->security = $security;
         $this->postRepository = $postRepository;
         $this->userRepository = $userRepository;
     }
 
-
     #[Route('/user/{id}/games-list', name: 'user_specific_games_list', methods: ['GET'])]
     public function getUserGamesList(int $id): JsonResponse
     {
-        $user = $this->userRepository->find($id); // Ensure UserRepository is injected and used here.
+        $user = $this->userRepository->find($id);
 
         if (!$user || !$user->getSteamID64()) {
-            return new JsonResponse([], 400);
+            return new JsonResponse(['error' => 'Invalid user or SteamID64 not found'], Response::HTTP_BAD_REQUEST);
         }
 
         $games = $this->steamAppService->getUserGames($user->getSteamID64());
@@ -43,14 +45,13 @@ class ProfileController extends AbstractController
         return new JsonResponse($games);
     }
 
-
-    #[Route('/user/games-list', name: 'user_logged_games_list')]
-    public function geLoggedtUserGamesList(): JsonResponse
+    #[Route('/user/games-list', name: 'user_logged_games_list', methods: ['GET'])]
+    public function getLoggedUserGamesList(): JsonResponse
     {
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
         if (!$user || !$user->getSteamID64()) {
-            return new JsonResponse([], 400);
+            return new JsonResponse(['error' => 'User not authenticated or SteamID64 not found'], Response::HTTP_BAD_REQUEST);
         }
 
         $games = $this->steamAppService->getUserGames($user->getSteamID64());
@@ -59,42 +60,39 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{userId}', name: 'view_profile', defaults: ['userId' => null])]
-    public function viewProfile(
-        ?int $userId,
-        UserRepository $userRepository,
-        PostRepository $postRepository
-    ): Response {
-        $user = $userId ? $userRepository->find($userId) : $this->getUser();
+    public function viewProfile(?int $userId): Response
+    {
+        $user = $userId ? $this->userRepository->find($userId) : $this->getUser();
 
         if (!$user) {
             throw $this->createNotFoundException('User not found.');
         }
 
-        $posts = $postRepository->findBy(['postUser' => $user->getId()], ['publishedAt' => 'DESC']);
+        // Fetch posts by user
+        $posts = $this->postRepository->findBy(['postUser' => $user->getId()], ['publishedAt' => 'DESC']);
 
-        $postsWithImages = [];
-        foreach ($posts as $post) {
+        // Prepare posts with additional data
+        $postsWithImages = array_map(function ($post) {
             $steamID64 = $post->getPostUser()->getSteamId64();
-            $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
-
-            // Fetch the game name using the post tag (Steam App ID)
-            $gameName = $this->steamAppService->getGameName($post->getTag());
-
-            $postsWithImages[] = [
+            return [
                 'id' => $post->getId(),
                 'content' => $post->getContent(),
-                'tag' => $gameName,
+                'tag' => $this->steamAppService->getGameName($post->getTag()),
                 'image' => $post->getImage(),
-                'profilePicture' => $profileImage,
+                'profilePicture' => $this->steamAppService->getUserProfileImage($steamID64),
                 'username' => $post->getPostUser()->getSteamUsername(),
             ];
-        }
+        }, $posts);
+
+        // Fetch the user's banner game ID and retrieve the banner URL
+        $bannerGameId = $user->getBanner();
+        $banner = $bannerGameId ? $this->steamAppService->getGameBannerUrl($bannerGameId) : null;
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'posts' => $postsWithImages,
             'isOwnProfile' => $user === $this->getUser(),
+            'banner' => $banner,
         ]);
     }
-
 }
