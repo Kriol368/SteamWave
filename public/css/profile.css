@@ -13,7 +13,6 @@
     left: 110px;
     top: 15px;
     right: 0;
-    background-image: url('../res/tempImg/header.jpg');
     background-size: auto 100%; /* Asegura que la imagen cubra todo el fondo */
     background-position: right;
     background-repeat: no-repeat;
