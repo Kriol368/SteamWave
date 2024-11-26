@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    fetch('/user/games-list')  // Fetch games from the backend
+    fetch('/user/games-list')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch games: ' + response.statusText);
