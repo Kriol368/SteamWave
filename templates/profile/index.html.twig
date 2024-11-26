@@ -3,7 +3,7 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/profile/profile.css') }}"/>
     <body data-user-id="{{ user.id }}">
     <div class="user-banner"
          style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
@@ -52,7 +52,7 @@
         {{ include('partials/_userGames.html.twig') }}
     </div>
 
-    <script src="{{ asset('js/profile.js') }}"></script>
-    <script src="{{ asset('js/fetchUserGameCount.js') }}"></script>
+    <script src="{{ asset('js/profile/profile.js') }}"></script>
+    <script src="{{ asset('js/profile/fetchUserGameCount.js') }}"></script>
     </body>
 {% endblock %}
