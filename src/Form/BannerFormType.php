@@ -23,7 +23,8 @@ class BannerFormType extends AbstractType
             'required' => false,
         ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
             $form = $event->getForm();
             $submittedDatta = $event->getData();
 
