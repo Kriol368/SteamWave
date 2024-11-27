@@ -11,14 +11,16 @@
 
         <ul>
             {% for chat in chats %}
-                <li>
+                <li class="chat-li">
                     <a href="{{ path('chat_show', {'id': chat.id}) }}">
+                        <div class="chat">
                         Chat: ({{ chat.users|length }} participants)
 
                         <!-- Display the names of the participants -->
                         {% for user in chat.users %}
                             <span>{{ user.name }}</span>
                         {% endfor %}
+                        </div>
                     </a>
                 </li>
             {% else %}
