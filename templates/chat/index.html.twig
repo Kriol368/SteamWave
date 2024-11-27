@@ -5,9 +5,9 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/chats.css')}}"/>
 
-    <div class="content chats">
+    <div class="chats-content">
         <h1>Chats</h1>
-        <a href="{{ path('app_chat_create') }}" class="btn btn-primary">Create a Chat</a>
+        <a href="{{ path('app_chat_create') }}" class="create-btn"><p>Create a Chat</p></a> <!--btn btn-primary-->
 
         <ul>
             {% for chat in chats %}
