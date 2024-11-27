@@ -13,41 +13,42 @@ class BannerFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('banner', ChoiceType::class, [
-                'label' => 'Banner',
-                'choices' => [],
-                'attr' => ['id' => 'banner-select'],
-                'mapped' => true,
-                'expanded' => false,
-                'multiple' => false,
-                'required' => false,
-            ]);
+        $builder->add('banner', ChoiceType::class, [
+            'label' => 'Banner',
+            'choices' => [],  // Populate with dynamic choices
+            'attr' => ['id' => 'banner-select'],
+            'mapped' => true,  // This should be true if you want it linked to the User entity
+            'expanded' => false,
+            'multiple' => false,
+            'required' => false,
+        ]);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
-            $submittedData = $event->getData();
+            $submittedDatta = $event->getData();
 
-            $banner = $submittedData['banner'] ?? null;
+            $banner = $submittedDatta['banner'] ?? null;
 
-            if ($banner) {
-                $form->add('banner', ChoiceType::class, [
-                    'choices' => [$banner => $banner],
-                    'attr' => ['id' => 'banner-select'],
-                    'mapped' => false,
-                    'expanded' => false,
-                    'multiple' => false,
-                    'required' => false,
-                ]);
+            // Dynamically set banner choices
+            if($banner) {
+                 $form->add('banner', ChoiceType::class, [
+                     'choices' => [$banner => $banner],
+                     'mapped' => true,
+                     'expanded' => false,
+                     'multiple' => false,
+                     'required' => false,
+               ]);
+
             }
         });
+
     }
 
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'games' => [], // Default empty array
+            'choices' => [], // Default empty array
         ]);
     }
 }

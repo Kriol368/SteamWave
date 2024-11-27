@@ -73,17 +73,20 @@ class SettingsController extends AbstractController
 
 
         // Create and handle the form for selecting the game
-        $form = $this->createForm(BannerFormType::class, $user);
+        $form = $this->createForm(BannerFormType::class, null, [
+            'method' => 'POST',
+        ]);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Get selected game ID from the form
-            $selectedGameId = $form->get('game_id')->getData();
 
-            // Update user's banner game ID
-            $user->setBanner($selectedGameId);
+            $banner = $form->get('banner')->getData();
+            if ($banner) {
+                $user->setBanner($banner);
+            }
 
-            // Persist and flush changes to the database
+
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tagSelect = document.getElementById('user_game');
+    const bannerSelect = document.querySelector('#banner-select-container select'); // Finds the select element inside #banner-select-container
 
-    if (!tagSelect) {
-        console.error('The dropdown element with ID "post_form_tag" was not found.');
+    if (!bannerSelect) {
+        console.error('The select element for "banner" was not found.');
         return;
     }
 
+    console.log('Select dropdown for banner found:', bannerSelect);
 
     fetch('/user/games-list')
         .then(response => {
@@ -15,24 +16,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (typeof data !== 'object' || Array.isArray(data)) {
-                console.error('Invalid games data format:', data);
+            if (typeof data !== 'object') {
+                console.error('Unexpected data format:', data);
                 return;
             }
 
             console.log('Fetched data:', data);
 
+            // Clear existing options
+            bannerSelect.innerHTML = '';
+
+            // Populate new options
             Object.entries(data).forEach(([gameId, gameInfo]) => {
                 if (gameInfo && gameInfo.name) {
                     const option = document.createElement('option');
                     option.value = gameId;
                     option.textContent = gameInfo.name;
-                    tagSelect.appendChild(option);
+                    bannerSelect.appendChild(option);
                 } else {
                     console.warn('Invalid game data for ID:', gameId, gameInfo);
                 }
             });
         })
         .catch(error => console.error('Error fetching game list:', error));
-
 });
