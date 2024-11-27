@@ -1,28 +1,21 @@
-/* ====================00
-            la barra de la derecha
- */
-
+/* chat pannel */
 .container {
-
-    position: fixed;
-    float: right;
-    height: 95%;
-    width: 30%;
-
-    z-index: 1;
-    top: 1%;
-    bottom: 1%;
-    right: 1%;
-    background: #eee;
-    overflow-x: hidden;
-    padding:  10px;
-    border-radius: 20px;
+    position: fixed; /* Fijo para que permanezca en su lugar al desplazarse */
+    top: 10px;       /* Separación superior de 10px */
+    right: 10px;     /* Separación derecha de 10px */
+    bottom: 10px;    /* Separación inferior de 10px */
+    width: 28%;  /* Máximo ancho del 27% */
+    background: linear-gradient(#184352, #1a344f, #1e2d4b); /* Fondo degradado */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 1rem; /* Espaciado interno */
+    box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
+
 
 .chat-section {
     width: 80%;
     height: 20%;
-    border: 2px solid black;
+    border: 2px solid #c1dbf4;
     border-radius: 20px;
     margin: 20px auto;
     position: relative;
@@ -37,13 +30,13 @@
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid black;
+    border-top: 10px solid #c1dbf4;
 }
 
 .profile-section {
     width: 100%;
     height: 40%;
-    border-top: 2px solid black;
+    border-top: 2px solid #c1dbf4;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,12 +46,12 @@
 .profile-icon {
     width: 40px;
     height: 40px;
-    border: 2px solid black;
+    border: 2px solid #c1dbf4;
     border-radius: 50%;
     margin-right: 10px;
 }
 
 .profile-text {
     font-size: 14px;
-    color: black;
+    color: #c1dbf4;
 }

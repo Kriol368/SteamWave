@@ -1,19 +1,24 @@
 .feed-entry{
     display: flex;
+    padding-top: 15px;
+}
+.example-wrapper{
+    width: 100%;
 }
 .profileImg{
     padding-top: 10px;
     padding-right: 15px;
 }
-
+ul{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
 .post-profile-picture{
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 66px;
     object-fit: cover;
-}
-.feed-entry{
-    padding-top: 15px;
 }
 .post-content {
     flex: auto;
@@ -28,7 +33,7 @@
 .post-content::after {
     content: '';
     position: absolute;
-    top: 23px; /* Ajusta según la posición vertical deseada */
+    top: 34px; /* Ajusta según la posición vertical deseada */
     left: -10px; /* Ajusta según la distancia horizontal desde el post-content */
     width: 0;
     height: 0;
