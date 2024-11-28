@@ -1,6 +1,6 @@
 /* estilo para la barra de arriba */
 .nav-home {
-    padding: 10px 0;
+    padding: 15px 0;
     width: 100%;
     display: flex;
 }
@@ -45,23 +45,25 @@
 
 
 /*  boton para postear */
-.post-button{
+.post-button {
     position: fixed;
     bottom: 20px;
-    right: 35%;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(to right, #3b6591, #3b6591, #122771);
+    right: 32%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(#184352 50%, #1a344f, #1e2d4b);
     border: none;
     border-radius: 50%;
     box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.post-button img{
-    margin: auto;
-    height: 75%;
-    width: 75%;
+.post-button img {
+    height: 60%;
+    width: 60%;
 }
 .post-button:hover{
     background-color: #5283ff;  /* Cambia el color al pasar el mouse */

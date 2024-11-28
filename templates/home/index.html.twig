@@ -18,15 +18,14 @@
 
     <!--    boton para postear  -->
     <a href="{{ path('app_post_new') }}" class="post-button">
-        <img src="{{ asset('res/icons/star.svg') }}" alt="Star Icon">
+        <img src="{{ asset('res/icons/wave.svg') }}" alt="Star Icon">
     </a>
 
 
     <!--    panel lateral derecho   -->
     <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
-
-        {{ include ('partials/_chatPanel.html.twig') }}
+        {% include 'partials/_chatPanel.html.twig' with { user: user } %}
     </aside>
 
 {% endblock %}
