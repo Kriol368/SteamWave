@@ -48,7 +48,7 @@
                     {% for comment in post.comments %}
                         <li>
                             <p>{{ comment.text }}</p>
-                            <small>By {{ comment.user.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
+                                <small>By {{ comment.user.name }} on {{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
                         </li>
                     {% endfor %}
                 </ul>
