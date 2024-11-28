@@ -1,25 +1,30 @@
 .feed-entry{
     display: flex;
+    padding-top: 15px;
+}
+.example-wrapper{
+    width: 100%;
 }
 .profileImg{
     padding-top: 10px;
     padding-right: 15px;
 }
-
+ul{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
 .post-profile-picture{
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 66px;
     object-fit: cover;
-}
-.feed-entry{
-    padding-top: 15px;
 }
 .post-content {
     flex: auto;
     padding: 10px 20px 15px 20px;
     width: 97%;
-    background-color: #2f3c4b;
+    background-color: rgba(47, 60, 75, 0.7);
     border-radius: 10px;
     box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
     position: relative;
@@ -28,11 +33,11 @@
 .post-content::after {
     content: '';
     position: absolute;
-    top: 23px; /* Ajusta según la posición vertical deseada */
+    top: 34px; /* Ajusta según la posición vertical deseada */
     left: -10px; /* Ajusta según la distancia horizontal desde el post-content */
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 10px 10px 10px 0; /* Triángulo hacia la izquierda */
-    border-color: transparent #2f3c4b transparent transparent; /* Color del triángulo */
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent; /* Color del triángulo */
 }
