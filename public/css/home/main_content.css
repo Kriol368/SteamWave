@@ -1,3 +1,8 @@
+/*bloque principal*/
+.main-container{
+    padding-right: 30%;
+    max-width: calc(70% - 100px);
+}
 /* estilo para la barra de arriba */
 .nav-home {
     padding: 15px 0;

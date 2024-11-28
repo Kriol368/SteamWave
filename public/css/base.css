@@ -3,16 +3,14 @@
     src: url('../res/fonts/Poppins-Bold.ttf');
 }
 .content{
-    margin-left: 7%;
-    margin-right: 30%;
-    max-width: 100%;
+    padding-left: 100px;
+    width: auto;
 }
 body {
     font-family: "Poppins", sans-serif;
     margin-left: auto;
     /*background: linear-gradient(#1b2939, #213d58);*/
     background: linear-gradient(#184352, #1a344f, #1e2d4b); /* Fondo degradado */
-
     background-attachment: fixed;
 }
 

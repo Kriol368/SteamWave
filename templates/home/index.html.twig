@@ -5,23 +5,23 @@
 {% block body %}
     <!-- barra de arriba -->
     <link rel="stylesheet" href="{{ asset('css/home/main_content.css') }}"/>
-    <nav class="nav-home">
-        <ul>
-            <li><a href="#" class="nav-element" ><h3>Steamwave</h3></a></li>
-            <li><a href="#" class="nav-element" ><h3>Siguiendo</h3></a></li>
+    <div class="main-container">
+        <nav class="nav-home">
+            <ul>
+                <li><a href="#" class="nav-element" ><h3>Steamwave</h3></a></li>
+                <li><a href="#" class="nav-element" ><h3>Siguiendo</h3></a></li>
             </ul>
-    </nav>
-    <!-- posts -->
-    <div class="feed">
-        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        </nav>
+        <!-- posts -->
+        <div class="feed">
+            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        </div>
+
+        <!--    boton para postear  -->
+        <a href="{{ path('app_post_new') }}" class="post-button">
+            <img src="{{ asset('res/icons/wave.svg') }}" alt="Star Icon">
+        </a>
     </div>
-
-    <!--    boton para postear  -->
-    <a href="{{ path('app_post_new') }}" class="post-button">
-        <img src="{{ asset('res/icons/wave.svg') }}" alt="Star Icon">
-    </a>
-
-
     <!--    panel lateral derecho   -->
     <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
