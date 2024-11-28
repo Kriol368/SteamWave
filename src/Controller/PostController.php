@@ -207,7 +207,7 @@ class PostController extends AbstractController
 
             $this->addFlash('success', 'Your post has been created successfully!');
 
-            return $this->redirectToRoute('app_post');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('post/create_post.html.twig', [
