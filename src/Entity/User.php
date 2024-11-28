@@ -67,6 +67,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 161, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\OneToMany(targetEntity: UserPost::class, mappedBy: 'user')]
+    private Collection $userPosts;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -75,6 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->chats = new ArrayCollection();
         $this->followers = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->userPosts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -361,6 +365,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserPost>
+     */
+    public function getUserPosts(): Collection
+    {
+        return $this->userPosts;
+    }
+
+    public function addUserPost(UserPost $userPost): static
+    {
+        if (!$this->userPosts->contains($userPost)) {
+            $this->userPosts->add($userPost);
+            $userPost->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPost(UserPost $userPost): static
+    {
+        if ($this->userPosts->removeElement($userPost)) {
+            // set the owning side to null (unless already changed)
+            if ($userPost->getUser() === $this) {
+                $userPost->setUser(null);
+            }
+        }
 
         return $this;
     }
