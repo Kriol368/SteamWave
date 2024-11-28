@@ -25,8 +25,7 @@
     <!--    panel lateral derecho   -->
     <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
-
-        {{ include ('partials/_chatPanel.html.twig') }}
+        {% include 'partials/_chatPanel.html.twig' with { user: user } %}
     </aside>
 
 {% endblock %}

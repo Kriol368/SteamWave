@@ -24,6 +24,14 @@ class HomeController extends AbstractController
     {
         $posts = $postRepository->findBy([], ['publishedAt' => 'DESC']);
 
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $bannerGameId = $user->getBanner();
+        $banner = $bannerGameId ? $this->steamAppService->getGameBannerUrl($bannerGameId) : null;
 
         $postsWithImages = [];
         foreach ($posts as $post) {
@@ -46,6 +54,8 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'posts' => $postsWithImages,
+            'user' => $user,
+            'banner' => $banner,
         ]);
     }
 }

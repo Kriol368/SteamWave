@@ -24,7 +24,7 @@ ul{
     flex: auto;
     padding: 10px 20px 15px 20px;
     width: 97%;
-    background-color: #2f3c4b;
+    background-color: rgba(47, 60, 75, 0.7);
     border-radius: 10px;
     box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
     position: relative;
@@ -39,5 +39,5 @@ ul{
     height: 0;
     border-style: solid;
     border-width: 10px 10px 10px 0; /* Triángulo hacia la izquierda */
-    border-color: transparent #2f3c4b transparent transparent; /* Color del triángulo */
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent; /* Color del triángulo */
 }
