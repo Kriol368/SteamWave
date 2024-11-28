@@ -1,14 +1,14 @@
 /* chat pannel */
 .container {
-    position: fixed; /* Fijo para que permanezca en su lugar al desplazarse */
-    top: 10px;       /* Separación superior de 10px */
-    right: 10px;     /* Separación derecha de 10px */
-    bottom: 10px;    /* Separación inferior de 10px */
-    width: 28%;  /* Máximo ancho del 27% */
-    background: linear-gradient(#184352, #1a344f, #1e2d4b); /* Fondo degradado */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 1rem; /* Espaciado interno */
-    box-sizing: border-box; /* Incluye el padding en las dimensiones */
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: 28%;
+    background: linear-gradient(#184352, #1a344f, #1e2d4b);
+    border-radius: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 

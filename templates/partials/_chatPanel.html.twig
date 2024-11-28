@@ -1,10 +1,24 @@
+{% block title %}Hello ProfileController!{% endblock %}
+
 <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
 <div class="container">
     <div class="chat-section">
 
     </div>
     <div class="profile-section">
-        <div class="profile-icon"></div>
-        <p class="profile-text">PERFIL</p>
+        <div class="user-data" data-user-id="{{ user.id }}">
+            <div>
+                <span>Nombre:</span> {{ user.NAME }}
+            </div>
+            <div>
+                <span>Correo:</span> {{ user.email }}
+            </div>
+            <div>
+                <span>SteamUser:</span> {{ user.steamUsername }}
+            </div>
+            <div>
+                <span>Descripción:</span> {{ user.description }}
+            </div>
+        </div>
     </div>
 </div>
