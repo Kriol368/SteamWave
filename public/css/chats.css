@@ -3,7 +3,10 @@
     max-width: 100%;
     padding-right: 20px;
 }
-
+.boton-de-mierda{
+    background-color: #00000000;
+    border: 0;
+}
 a{
     color:black;
 }
@@ -22,6 +25,16 @@ a{
 .create-btn p{
     color: #f0f0f0;
     padding: 5px;
+    border: #2e4681;
+    background-color: #2e4681;
+    border-radius: 30px;
+
+    margin-bottom: 20px;
+}
+.create-chat{
+    color: #f0f0f0;
+    padding: 5px;
+    border: #2e4681;
     background-color: #2e4681;
     border-radius: 30px;
 

@@ -15,7 +15,6 @@
                     <a href="{{ path('chat_show', {'id': chat.id}) }}">
                         <div class="chat">
                         Chat: ({{ chat.users|length }} participants)
-
                         <!-- Display the names of the participants -->
                         {% for user in chat.users %}
                             <span>{{ user.name }}</span>
