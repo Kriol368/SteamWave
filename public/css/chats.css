@@ -4,6 +4,9 @@
     padding-right: 20px;
 }
 
+a{
+    color:black;
+}
 .chats-content{
     padding: 10px;
     margin-left: 20px;
@@ -11,9 +14,11 @@
     background-color: #f0f0f0;
     border-radius: 30px;
 }
-a{
-    color:black;
+
+.title{
+    padding-left: 10px;
 }
+
 .create-btn p{
     color: #f0f0f0;
     padding: 5px;
