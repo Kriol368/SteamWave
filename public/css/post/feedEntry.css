@@ -6,6 +6,8 @@
     width: 100%;
 }
 .profileImg{
+    width: 70px;
+    height: 70px;
     padding-top: 10px;
     padding-right: 15px;
 }
@@ -17,7 +19,7 @@ ul{
 .post-profile-picture{
     border-radius: 50%;
     width: 70px;
-    height: 66px;
+    height: 70px;
     object-fit: cover;
 }
 .post-content {
