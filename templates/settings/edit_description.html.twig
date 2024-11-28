@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Description{% endblock %}
+
+{% block body %}
+    <div>
+        <h3>Edit Description</h3>
+
+        <form method="POST" action="{{ path('edit_description') }}">
+            <textarea name="description" maxlength="161" required>{{ app.user.description }}</textarea>
+            <button type="submit">Save Description</button>
+        </form>
+    </div>
+{% endblock %}

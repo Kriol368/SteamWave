@@ -1,0 +1,22 @@
+{# templates/settings/edit_banner.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="banner-edit">
+        <h1>Edit Your Banner</h1>
+
+        {{ form_start(form) }}
+
+        <div id="banner-select-container">
+            {{ form_row(form.banner) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/settings/edit_banner.js') }}"></script>
+{% endblock %}
