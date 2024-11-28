@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\UserPost;
 use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Repository\UserPostRepository;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class PostController extends AbstractController
 {
@@ -75,22 +78,41 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{id}/like', name: 'app_post_like', methods: ['POST'])]
-    public function like(
-        int $id,
-        PostRepository $postRepository,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $post = $postRepository->find($id);
+    public function like(Post $post, EntityManagerInterface $em, UserPostRepository $userPostRepository): Response
+    {
+        $user = $this->getUser();
 
-        if (!$post) {
-            throw $this->createNotFoundException('Post not found');
+        $userPost = $userPostRepository->findOneBy(['user' => $user, 'post' => $post]);
+
+        if (!$userPost) {
+            $userPost = new UserPost();
+            $userPost->setUser($user);
+            $userPost->setPost($post);
+            $em->persist($userPost);
         }
 
-        // Increment the number of likes
-        $post->setNumLikes($post->getNumLikes() + 1);
+        $userPost->setLiked(!$userPost->isLiked()); // Toggle like
+        $em->flush();
 
-        $entityManager->persist($post);
-        $entityManager->flush();
+        return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
+    }
+
+    #[Route('/post/{id}/save', name: 'app_post_save', methods: ['POST'])]
+    public function save(Post $post, EntityManagerInterface $em, UserPostRepository $userPostRepository): Response
+    {
+        $user = $this->getUser();
+
+        $userPost = $userPostRepository->findOneBy(['user' => $user, 'post' => $post]);
+
+        if (!$userPost) {
+            $userPost = new UserPost();
+            $userPost->setUser($user);
+            $userPost->setPost($post);
+            $em->persist($userPost);
+        }
+
+        $userPost->setSaved(!$userPost->isSaved()); // Toggle save
+        $em->flush();
 
         return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
     }
