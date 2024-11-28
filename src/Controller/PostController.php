@@ -12,6 +12,7 @@ use App\Repository\UserPostRepository;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -22,6 +23,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/post', name: 'app_post')]
     public function index(PostRepository $postRepository): Response
     {
@@ -77,44 +85,80 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/{id}/like', name: 'app_post_like', methods: ['POST'])]
-    public function like(Post $post, EntityManagerInterface $em, UserPostRepository $userPostRepository): Response
-    {
+    #[Route('/like/{postId}', name: 'app_post_like')]
+    public function likePost(
+        int $postId,
+        PostRepository $postRepository,
+        UserPostRepository $userPostRepository
+    ): Response {
         $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
 
-        $userPost = $userPostRepository->findOneBy(['user' => $user, 'post' => $post]);
+        $post = $postRepository->find($postId);
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        $userPost = $userPostRepository->findOneBy([
+            'user' => $user,
+            'post' => $post,
+        ]);
 
         if (!$userPost) {
+            // Create a new UserPost if it doesn't exist
             $userPost = new UserPost();
             $userPost->setUser($user);
             $userPost->setPost($post);
-            $em->persist($userPost);
+            $userPost->setLiked(true); // Mark as liked
+            $this->entityManager->persist($userPost);
+        } else {
+            // Toggle the like status
+            $userPost->setLiked(!$userPost->isLiked());
         }
 
-        $userPost->setLiked(!$userPost->isLiked()); // Toggle like
-        $em->flush();
+        $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
+        return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/post/{id}/save', name: 'app_post_save', methods: ['POST'])]
-    public function save(Post $post, EntityManagerInterface $em, UserPostRepository $userPostRepository): Response
-    {
+    #[Route('/save/{postId}', name: 'app_post_save')]
+    public function savePost(
+        int $postId,
+        PostRepository $postRepository,
+        UserPostRepository $userPostRepository
+    ): Response {
         $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
 
-        $userPost = $userPostRepository->findOneBy(['user' => $user, 'post' => $post]);
+        $post = $postRepository->find($postId);
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        $userPost = $userPostRepository->findOneBy([
+            'user' => $user,
+            'post' => $post,
+        ]);
 
         if (!$userPost) {
+            // Create a new UserPost if it doesn't exist
             $userPost = new UserPost();
             $userPost->setUser($user);
             $userPost->setPost($post);
-            $em->persist($userPost);
+            $userPost->setSaved(true); // Mark as saved
+            $this->entityManager->persist($userPost);
+        } else {
+            // Toggle the saved status
+            $userPost->setSaved(!$userPost->isSaved());
         }
 
-        $userPost->setSaved(!$userPost->isSaved()); // Toggle save
-        $em->flush();
+        $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/post/new', name: 'app_post_new')]
