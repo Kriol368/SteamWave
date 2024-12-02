@@ -48,6 +48,7 @@ class HomeController extends AbstractController
                 'image' => $post->getImage(),
                 'profilePicture' => $profileImage,
                 'username' => $post->getPostUser()->getSteamUsername(),
+                'userId' => $post->getPostUser()->getId(),
             ];
         }
 
