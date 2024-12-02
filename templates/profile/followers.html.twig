@@ -9,7 +9,7 @@
         <ul>
             {% for follower in followers %}
                 <li>
-                    <a href="{{ path('view_profile', {userId: follower.id}) }}">{{ follower.getName }}</a>
+                    <a href="{{ path('view_profile', {userId: follower.id}) }}">{{ follower.getSteamUsername }}</a>
                 </li>
             {% endfor %}
         </ul>
