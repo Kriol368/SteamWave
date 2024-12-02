@@ -28,7 +28,7 @@ class ChatController extends AbstractController
     #[Route('/chat', name: 'app_chat')]
     public function index(): Response
     {
-        $currentUser = $this->security->getUser();
+        $currentUser = $this->getUser();
         $chats = $this->chatRepository->findByUser($currentUser);
 
         return $this->render('chat/index.html.twig', [
