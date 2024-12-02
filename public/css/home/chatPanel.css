@@ -24,6 +24,7 @@
     position: relative;
     flex: 7;
 }
+/* profile section */
 
 .sideprofile-section {
     flex: 2;
@@ -37,12 +38,14 @@
     background-size: 100% auto; /* Asegura que la imagen cubra todo el fondo */
     background-position: right;
     background-repeat: no-repeat;
+    background: none; /* No establecer ninguna imagen por defecto */
+
 }
 
 .sideprofile-icon {
     width: 100px;
     height: 100px;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-right: 10px;
     margin-left: 10px;
 }
@@ -53,9 +56,13 @@
     border-radius: 50%;
 }
 .sideprofile-text{
-    margin-top: 40px;
+    margin-top: 25px;
     margin-right: 10px;
-    margin-left: 10px;
+}
+.sideprofile-content{
+    display: flex;
+    flex: 1;
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Colores predeterminados */
 }
 
 
