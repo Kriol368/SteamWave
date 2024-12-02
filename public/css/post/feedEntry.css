@@ -6,6 +6,10 @@
     width: 100%;
 }
 .profileImg{
+    max-height: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    min-width: 70px;
     width: 70px;
     height: 70px;
     padding-top: 10px;
@@ -18,6 +22,10 @@ ul{
 }
 .post-profile-picture{
     border-radius: 50%;
+    max-height: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    min-width: 70px;
     width: 70px;
     height: 70px;
     object-fit: cover;
