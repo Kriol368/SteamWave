@@ -108,6 +108,41 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/{userId}/followers', name: 'user_followers')]
+    public function viewFollowers(int $userId, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Get the followers of the user
+        $followers = $user->getFollowers();
+
+        return $this->render('profile/followers.html.twig', [
+            'user' => $user,
+            'followers' => $followers,
+        ]);
+    }
+
+    #[Route('/profile/{userId}/following', name: 'user_following')]
+    public function viewFollowing(int $userId, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Get the users that this user is following
+        $following = $user->getFollowing();
+
+        return $this->render('profile/following.html.twig', [
+            'user' => $user,
+            'following' => $following,
+        ]);
+    }
 
 
     #[Route('/profile/follow/{id}', name: 'follow_user')]

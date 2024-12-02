@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.getName }} is Following{% endblock %}
+
+{% block body %}
+    <h1>{{ user.getName }} is Following</h1>
+
+    {% if following|length > 0 %}
+        <ul>
+            {% for followedUser in following %}
+                <li>
+                    <a href="{{ path('view_profile', {userId: followedUser.id}) }}">{{ followedUser.getName }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Not following anyone yet.</p>
+    {% endif %}
+
+    <a href="{{ path('view_profile', { userId: user.id }) }}">Back to Profile</a>
+{% endblock %}

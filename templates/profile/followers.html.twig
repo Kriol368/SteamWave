@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.getName }}'s Followers{% endblock %}
+
+{% block body %}
+    <h1>{{ user.getName }}'s Followers</h1>
+
+    {% if followers|length > 0 %}
+        <ul>
+            {% for follower in followers %}
+                <li>
+                    <a href="{{ path('view_profile', {userId: follower.id}) }}">{{ follower.getName }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No followers yet.</p>
+    {% endif %}
+
+    <a href="{{ path('view_profile', { userId: user.id }) }}">Back to Profile</a>
+{% endblock %}
