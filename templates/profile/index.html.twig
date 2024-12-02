@@ -43,10 +43,10 @@
         {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
     </div>
     <div id="me-gusta" class="nav-content" style="display: none;">
-        <p>Contenido de Me gusta</p>
+        {% include 'partials/_posts_list.html.twig' with { posts: likedPosts } %}
     </div>
     <div id="guardados" class="nav-content" style="display: none;">
-        <p>Contenido de Guardados</p>
+        {% include 'partials/_posts_list.html.twig' with { posts: savedPosts } %}
     </div>
     <div id="juegos" class="nav-content" style="display: none;">
         {{ include('partials/_userGames.html.twig') }}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
+use App\Repository\UserPostRepository;
 use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,17 +19,20 @@ class ProfileController extends AbstractController
     private Security $security;
     private PostRepository $postRepository;
     private UserRepository $userRepository;
+    private UserPostRepository $userPostRepository;
 
     public function __construct(
         SteamAppService $steamAppService,
         Security $security,
         PostRepository $postRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        UserPostRepository $userPostRepository,
     ) {
         $this->steamAppService = $steamAppService;
         $this->security = $security;
         $this->postRepository = $postRepository;
         $this->userRepository = $userRepository;
+        $this->userPostRepository = $userPostRepository;
     }
 
     #[Route('/user/{id}/games-list', name: 'user_specific_games_list', methods: ['GET'])]
@@ -68,11 +72,48 @@ class ProfileController extends AbstractController
             throw $this->createNotFoundException('User not found.');
         }
 
-        // Fetch posts by user
+        // Fetch posts by the user
         $posts = $this->postRepository->findBy(['postUser' => $user->getId()], ['publishedAt' => 'DESC']);
 
-        // Prepare posts with additional data
-        $postsWithImages = array_map(function ($post) {
+        // Prepare user's own posts with additional data
+        $postsWithImages = $this->getWithDetails($posts);
+
+        // Fetch saved posts by the user
+        $savedPosts = $this->userPostRepository->findBy(['user' => $user, 'saved' => true]);
+
+        // Prepare saved posts with additional data
+        $savedPostsWithImages = $this->getWithDetails($savedPosts);
+
+        // Fetch liked posts by the user
+        $likedPosts = $this->userPostRepository->findBy(['user' => $user, 'liked' => true]);
+
+        // Prepare liked posts with additional data
+        $likedPostsWithImages = $this->getWithDetails($likedPosts);
+
+        // Fetch the user's banner game ID and retrieve the banner URL
+        $bannerGameId = $user->getBanner();
+        $banner = $bannerGameId ? $this->steamAppService->getGameBannerUrl($bannerGameId) : null;
+
+        return $this->render('profile/index.html.twig', [
+            'user' => $user,
+            'posts' => $postsWithImages,
+            'savedPosts' => $savedPostsWithImages,
+            'likedPosts' => $likedPostsWithImages,
+            'isOwnProfile' => $user === $this->getUser(),
+            'banner' => $banner,
+        ]);
+    }
+
+    /**
+     * @param array $posts
+     * @return array|array[]
+     */
+    public function getWithDetails(array $posts): array
+    {
+        return array_map(function ($postEntity) {
+            // Determine if we are dealing with a Post or a UserPost
+            $post = ($postEntity instanceof \App\Entity\UserPost) ? $postEntity->getPost() : $postEntity;
+
             $steamID64 = $post->getPostUser()->getSteamId64();
             return [
                 'id' => $post->getId(),
@@ -83,16 +124,7 @@ class ProfileController extends AbstractController
                 'username' => $post->getPostUser()->getSteamUsername(),
             ];
         }, $posts);
-
-        // Fetch the user's banner game ID and retrieve the banner URL
-        $bannerGameId = $user->getBanner();
-        $banner = $bannerGameId ? $this->steamAppService->getGameBannerUrl($bannerGameId) : null;
-
-        return $this->render('profile/index.html.twig', [
-            'user' => $user,
-            'posts' => $postsWithImages,
-            'isOwnProfile' => $user === $this->getUser(),
-            'banner' => $banner,
-        ]);
     }
+
+
 }

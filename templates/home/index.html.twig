@@ -11,11 +11,16 @@
                 <li><a href="#" class="nav-element" ><h3>Steamwave</h3></a></li>
                 <li><a href="#" class="nav-element" ><h3>Siguiendo</h3></a></li>
             </ul>
-        </nav>
-        <!-- posts -->
-        <div class="feed">
-            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
-        </div>
+    </nav>
+    <!-- posts -->
+    <div class="feed">
+        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+    </div>
+
+    <!--    boton para postear  -->
+    <a href="{{ path('app_post_new') }}" class="post-button">
+        <img src="{{ asset('res/icons/wave.svg') }}" alt="Star Icon">
+    </a>
 
         <!--    boton para postear  -->
         <a href="{{ path('app_post_new') }}" class="post-button">
