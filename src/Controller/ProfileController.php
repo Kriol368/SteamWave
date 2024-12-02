@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\PostRepository;
 use App\Repository\UserPostRepository;
 use App\Repository\UserRepository;
 use App\Service\SteamAppService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProfileController extends AbstractController
@@ -103,6 +107,88 @@ class ProfileController extends AbstractController
             'banner' => $banner,
         ]);
     }
+
+    #[Route('/profile/{userId}/followers', name: 'user_followers')]
+    public function viewFollowers(int $userId, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Get the followers of the user
+        $followers = $user->getFollowers();
+
+        return $this->render('profile/followers.html.twig', [
+            'user' => $user,
+            'followers' => $followers,
+        ]);
+    }
+
+    #[Route('/profile/{userId}/following', name: 'user_following')]
+    public function viewFollowing(int $userId, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Get the users that this user is following
+        $following = $user->getFollowing();
+
+        return $this->render('profile/following.html.twig', [
+            'user' => $user,
+            'following' => $following,
+        ]);
+    }
+
+
+    #[Route('/profile/follow/{id}', name: 'follow_user')]
+    public function follow(int $id, EntityManagerInterface $entityManager, UserRepository $userRepository): RedirectResponse
+    {
+        $userToFollow = $userRepository->find($id);
+
+        if (!$userToFollow) {
+            $this->addFlash('error', 'User not found.');
+            return $this->redirectToRoute('view_profile', ['userId' => $id]);
+        }
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+
+        if ($userToFollow !== $currentUser && !$currentUser->getFollowing()->contains($userToFollow)) {
+            $currentUser->addFollowing($userToFollow);
+            $entityManager->flush();
+            $this->addFlash('success', 'You are now following ' . $userToFollow->getName() . '.');
+        }
+
+        return $this->redirectToRoute('view_profile', ['userId' => $userToFollow->getId()]);
+    }
+
+    #[Route('/profile/unfollow/{id}', name: 'unfollow_user')]
+    public function unfollow(int $id, EntityManagerInterface $entityManager, UserRepository $userRepository): RedirectResponse
+    {
+        $userToUnfollow = $userRepository->find($id);
+
+        if (!$userToUnfollow) {
+            $this->addFlash('error', 'User not found.');
+            return $this->redirectToRoute('view_profile', ['userId' => $id]);
+        }
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+
+        if ($userToUnfollow !== $currentUser && $currentUser->getFollowing()->contains($userToUnfollow)) {
+            $currentUser->removeFollowing($userToUnfollow);
+            $entityManager->flush();
+            $this->addFlash('success', 'You have unfollowed ' . $userToUnfollow->getName() . '.');
+        }
+
+        return $this->redirectToRoute('view_profile', ['userId' => $userToUnfollow->getId()]);
+    }
+
 
     /**
      * @param array $posts

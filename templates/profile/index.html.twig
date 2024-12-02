@@ -29,6 +29,34 @@
                 <span>Total games:</span> <span id="game_count_value">Loading...</span>
             </div>
         </div>
+        <div class="user-stats">
+            <div>
+                <a href="{{ path('user_followers', { userId: user.id }) }}" class="btn-followers">
+                    Followers ({{ user.followers|length }})
+                </a>
+            </div>
+            <div>
+                <a href="{{ path('user_following', { userId: user.id }) }}" class="btn-following">
+                    Following ({{ user.following|length }})
+                </a>
+            </div>
+        </div>
+        {% if not isOwnProfile %}
+            {% set isFollowing = user.followers.contains(app.user) %}
+
+            <div class="follow-button">
+                {% if isFollowing %}
+                    <form action="{{ path('unfollow_user', {id: user.id}) }}" method="post">
+                        <button type="submit" class="btn-unfollow">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{{ path('follow_user', {id: user.id}) }}" method="post">
+                        <button type="submit" class="btn-follow">Follow</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+
     </div>
     <nav class="nav-bar">
         <ul>

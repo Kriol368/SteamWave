@@ -55,11 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Chat::class, inversedBy: 'users')]
     private Collection $chats;
 
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'following')]
+    #[ORM\JoinTable(name: 'user_followers')]
     private Collection $followers;
 
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'followers')]
-    private Collection $users;
+    private Collection $following;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banner = null;
@@ -77,9 +78,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->messages = new ArrayCollection();
         $this->chats = new ArrayCollection();
         $this->followers = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        $this->following = new ArrayCollection();
         $this->userPosts = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -302,44 +304,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->followers;
     }
 
-    public function addFollower(self $follower): static
+    public function addFollower(self $user): static
     {
-        if (!$this->followers->contains($follower)) {
-            $this->followers->add($follower);
+        if (!$this->followers->contains($user)) {
+            $this->followers->add($user);
+            $user->addFollowing($this); // Add reciprocal relation
         }
 
         return $this;
     }
 
-    public function removeFollower(self $follower): static
+    public function removeFollower(self $user): static
     {
-        $this->followers->removeElement($follower);
+        if ($this->followers->removeElement($user)) {
+            $user->removeFollowing($this); // Remove reciprocal relation
+        }
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, self>
      */
-    public function getUsers(): Collection
+    public function getFollowing(): Collection
     {
-        return $this->users;
+        return $this->following;
     }
 
-    public function addUser(self $user): static
+
+    public function addFollowing(self $user): static
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addFollower($this);
+        if (!$this->following->contains($user)) {
+            $this->following->add($user);
+            $user->addFollower($this); // Add reciprocal relation
         }
 
         return $this;
     }
 
-    public function removeUser(self $user): static
+    public function removeFollowing(self $user): static
     {
-        if ($this->users->removeElement($user)) {
-            $user->removeFollower($this);
+        if ($this->following->removeElement($user)) {
+            $user->removeFollower($this); // Remove reciprocal relation
         }
 
         return $this;
