@@ -67,7 +67,7 @@ class ProfileController extends AbstractController
         return new JsonResponse($games);
     }
 
-    #[Route('/profile/{userId}', name: 'view_profile', defaults: ['userId' => null])]
+        #[Route('/profile/{userId}', name: 'view_profile', defaults: ['userId' => null])]
     public function viewProfile(?int $userId): Response
     {
         $user = $userId ? $this->userRepository->find($userId) : $this->getUser();
@@ -208,6 +208,7 @@ class ProfileController extends AbstractController
                 'image' => $post->getImage(),
                 'profilePicture' => $this->steamAppService->getUserProfileImage($steamID64),
                 'username' => $post->getPostUser()->getSteamUsername(),
+                'userId' => $post->getPostUser()->getId(),
             ];
         }, $posts);
     }
