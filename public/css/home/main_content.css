@@ -1,11 +1,17 @@
 /*bloque principal*/
 .main-container{
-    padding-right: 30%;
-    max-width: calc(70% - 100px);
+    max-width: calc(100% - 520px);
 }
+
+/* bloque feed */
+.feed{
+    padding-left: 10px;
+}
+
 /* estilo para la barra de arriba */
 .nav-home {
-    padding: 15px 0;
+    padding-top: 10px;
+    padding-left: 10px;
     width: 100%;
     display: flex;
 }
