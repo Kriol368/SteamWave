@@ -20,7 +20,14 @@ class PostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Post::class);
     }
-
+    public function findByContent($text): array // pa buscar por trozo de texto dentro del content
+    {
+        $qb = $this->createQueryBuilder('post')
+            ->andwhere('post.content LIKE :text')
+            ->setParameter('text', '%' . $text. '%')
+            ->getQuery();
+        return $qb->execute();
+    }
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
