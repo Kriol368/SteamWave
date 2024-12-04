@@ -18,8 +18,7 @@
             {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
         </div>
         <div class="feed" id="following" style="display: none;">
-            <h1>ELPEPE</h1>
-            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+            {% include 'partials/_posts_list.html.twig' with { posts: followingPosts } %}
         </div>
 
         <!-- Botón para postear -->
