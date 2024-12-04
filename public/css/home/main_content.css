@@ -46,12 +46,7 @@
 
 /* Estilo para el enlace seleccionado */
 .nav-home ul li a.selected {
-    color: #b0b0b0;
-    font-weight: bold;
-}
 
-.nav-home ul li a:hover {
-    color: #f0f0f0;
 }
 
 
@@ -75,7 +70,4 @@
 .post-button img {
     height: 60%;
     width: 60%;
-}
-.post-button:hover{
-    background-color: #5283ff;  /* Cambia el color al pasar el mouse */
 }
