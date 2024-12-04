@@ -39,6 +39,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    //  ==============================================00
+    //    funcion que busca usuarios por string y devuelve array
+    public function findByName($query): array
+    {
+        $qb = $this->createQueryBuilder('user')
+            ->andwhere('user.name LIKE :text') ->setParameter('text', '%' . $query. '%')
+            ->getQuery();
+        return $qb->execute();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
@@ -53,7 +63,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getResult()
 //        ;
 //    }
-
 //    public function findOneBySomeField($value): ?User
 //    {
 //        return $this->createQueryBuilder('u')

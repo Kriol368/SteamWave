@@ -28,6 +28,17 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery();
         return $qb->execute();
     }
+
+    public function findPostsByUsers(array $userIds): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.postUser', 'u')
+            ->andWhere('u.id IN (:userIds)')
+            ->setParameter('userIds', $userIds)
+            ->orderBy('p.publishedAt', 'DESC') 
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
