@@ -8,18 +8,19 @@
     <div class="main-container">
         <nav class="nav-home">
             <ul>
-                <li><a href="#" class="nav-element" data-target="all"><h3>Steamwave</h3></a></li>
                 <li><a href="#" class="nav-element" data-target="following"><h3>Siguiendo</h3></a></li>
+                <li><a href="#" class="nav-element" data-target="all"><h3>Steamwave</h3></a></li>
             </ul>
         </nav>
 
         <!-- Posts -->
-        <div class="feed" id="all">
-            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
-        </div>
-        <div class="feed" id="following" style="display: none;">
+        <div class="feed" id="following" >
             {% include 'partials/_posts_list.html.twig' with { posts: followingPosts } %}
         </div>
+        <div class="feed" id="all" style="display: none;">
+            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        </div>
+
 
         <!-- Botón para postear -->
         <a href="{{ path('app_post_new') }}" class="post-button">
