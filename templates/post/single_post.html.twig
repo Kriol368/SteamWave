@@ -33,13 +33,20 @@
                     {% else %}
                         <p>Unsupported media format.</p>
                     {% endif %}
-                    <form action="{{ path('app_post_like', {'id': post.id}) }}" method="post">
-                        <button class="btn btn-success" type="submit">Like</button>
-                    </form>
                 </div>
             {% else %}
                 <p>No media provided for this post.</p>
             {% endif %}
+
+            <!-- Like Button -->
+            <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
+                <button class="btn btn-success" type="submit">Like</button>
+            </form>
+
+            <!-- Save Button -->
+            <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
 
 
             <h3>Comments</h3>

@@ -4,7 +4,7 @@
     top: 10px;
     right: 10px;
     bottom: 10px;
-    width: 28%;
+    width: 500px;
     background: linear-gradient(#184352, #1a344f, #1e2d4b);
     border-radius: 10px;
     padding: 1rem;
@@ -16,41 +16,53 @@
 
 .chat-section {
     padding: 10px 10px 10px 10px;
-    flex: 1;
     overflow-y: auto;
     width: 80%;
-    height: 20%;
     border: 2px solid #c1dbf4;
     border-radius: 20px;
     margin: 20px auto;
     position: relative;
+    flex: 7;
 }
+/* profile section */
 
 .sideprofile-section {
-    flex-shrink: 0;
+    flex: 2;
+    max-height: 218px;
+    min-height: 218px;
     border-top: 2px solid #c1dbf4;
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: 100%;
     border-top: 2px solid #c1dbf4;
     position: relative;
     background-size: 100% auto; /* Asegura que la imagen cubra todo el fondo */
     background-position: right;
     background-repeat: no-repeat;
+    background: none; /* No establecer ninguna imagen por defecto */
+
 }
 
 .sideprofile-icon {
-    width: 20%;
-    height: auto;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .sideprofile-img{
     width: 100%;
     height: 100%;
     border-radius: 50%;
+}
+.sideprofile-text{
+    margin-top: 25px;
+    margin-right: 10px;
+}
+.sideprofile-content{
+    display: flex;
+    flex: 1;
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Colores predeterminados */
 }
 
 

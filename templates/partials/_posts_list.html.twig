@@ -9,12 +9,18 @@
             {% for post in posts %}
                     <li class="feed-entry">
                         <div class="profileImg">
+                            <a href="{{ path('view_profile', { userId: post.userId }) }}" class="username-link">
                             <img src="{{ post.profilePicture }}" alt="{{ post.username }}'s Profile Picture"
                                  class="post-profile-picture">
+                            </a>
                         </div>
                         <div class="post-content">
                             <div class="post-username">
-                                <h2 class="post-username">{{ post.username }}</h2>
+                                <h2 class="post-username">
+                                    <a href="{{ path('view_profile', { userId: post.userId }) }}" class="username-link">
+                                        {{ post.username }}
+                                    </a>
+                                </h2>
                             </div>
                             <a href="{{ path('app_post_show', { id: post.id }) }}">
                             <div class="post-text">
