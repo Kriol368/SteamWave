@@ -38,16 +38,17 @@
     background-size: 100% auto; /* Asegura que la imagen cubra todo el fondo */
     background-position: right;
     background-repeat: no-repeat;
-    background: none; /* No establecer ninguna imagen por defecto */
-
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .sideprofile-icon {
+    min-width: 100px;
+    min-height: 100px;
     width: 100px;
     height: 100px;
-    margin-top: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
 }
 
 .sideprofile-img{
@@ -56,13 +57,14 @@
     border-radius: 50%;
 }
 .sideprofile-text{
-    margin-top: 25px;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 .sideprofile-content{
     display: flex;
     flex: 1;
-    background: linear-gradient(135deg, #2c3e50, #34495e); /* Colores predeterminados */
+    justify-content: center;
+    align-items: center;
+    margin: 15px 15px 15px 15px;
 }
 
 

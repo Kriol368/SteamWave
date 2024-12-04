@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +20,10 @@ class SearchController extends AbstractController
 
 
     #[Route('/search/{input}', name: 'app_search_query')]
-    public function query($input, PostRepository $postRepository): Response
+    public function query($input, PostRepository $postRepo, UserRepository $userRepo): Response
     {
-        $posts = $postRepository->findByContent($input);
+        $posts = $postRepo->findByContent($input);
+        $users = $userRepo->findByName($input);
 
         $user = $this->getUser();
 
@@ -55,6 +57,7 @@ class SearchController extends AbstractController
             'posts' => $postsWithImages,
             //'user' => $user,
             //'banner' => $banner,
+            'user' => $user,
         ]);
     }
 
