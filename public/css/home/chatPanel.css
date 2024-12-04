@@ -38,14 +38,15 @@
     background-size: 100% auto; /* Asegura que la imagen cubra todo el fondo */
     background-position: right;
     background-repeat: no-repeat;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .sideprofile-icon {
     width: 100px;
     height: 100px;
-    margin-top: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
 }
 
 .sideprofile-img{
@@ -54,12 +55,13 @@
     border-radius: 50%;
 }
 .sideprofile-text{
-    margin-top: 25px;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 .sideprofile-content{
     display: flex;
     flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 
