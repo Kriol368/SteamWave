@@ -18,7 +18,7 @@ class SearchController extends AbstractController
         $this->steamAppService = $steamAppService;
     }
 
-    #[Route('search?searchQueryInput={input}', name: 'app_search_query')]
+    #[Route('/search?searchQueryInput={input}', name: 'app_search_query')]
     public function query($input, PostRepository $postRepo, UserRepository $userRepo): Response
     {
         $queryPosts = $postRepo->findByContent($input);
