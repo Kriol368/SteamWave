@@ -1,20 +1,21 @@
 {# templates/partials/_user_list.html.twig #}
 <link rel="stylesheet" href="{{ asset('css/post/feedEntry.css') }}"/>
-
+<!--    empieza parcioal -->
 <div class="example-wrapper">
     {% if users is empty %}
         <p>No posts available.</p>
     {% else %}
+        <!--    USEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEER-->
         <ul>
             {% for user in users %}
                     <li class="feed-entry">
                         <div class="profileImg">
-                            <img src="{{ user.image }}" alt="{{ user.name }}'s Profile Picture"
+                            <img src="{{ user.profilePicture }}" alt="{{ user.username }}'s Profile Picture"
                                  class="post-profile-picture">
                         </div>
                         <div class="post-content">
                             <div class="post-username">
-                                <h2 class="post-username">{{ user.name }}</h2>
+                                <h2 class="post-username">{{ user.username }}</h2>
                             </div>
                         </div>
                         {# User Profile Section #}

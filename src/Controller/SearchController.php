@@ -18,7 +18,7 @@ class SearchController extends AbstractController
         $this->steamAppService = $steamAppService;
     }
 
-    #[Route('/search/{input}', name: 'app_search_query')]
+    #[Route('search?searchQueryInput={input}', name: 'app_search_query')]
     public function query($input, PostRepository $postRepo, UserRepository $userRepo): Response
     {
         $queryPosts = $postRepo->findByContent($input);
@@ -55,16 +55,12 @@ class SearchController extends AbstractController
         $users = [];
         foreach ($queryUsers as $user) {
             // cogemos al user le joseamos el steam64 y de ahí encontramos la pfp
-            $steamID64 = $user->getUser()->getSteamId64();
+            $steamID64 = $user->getSteamId64();
             $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
             $users[] = [
-                'id'=>$post->getId(),
-                'content' => $post->getContent(),
-                'tag' => $gameName,
-                'image' => $post->getImage(),
                 'profilePicture' => $profileImage,
-                'username' => $post->getPostUser()->getSteamUsername(),
+                'username' => $user->getSteamUsername(),
             ];
         }
 
