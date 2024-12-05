@@ -62,6 +62,7 @@ class SearchController extends AbstractController
             $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
             $users[] = [
+                'userId'=>$user->getId(),
                 'profilePicture' => $profileImage,
                 'username' => $user->getSteamUsername(),
             ];
