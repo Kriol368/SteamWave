@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $steamUsername = null;
 
     #[ORM\OneToMany(mappedBy: 'postUser', targetEntity: Post::class)]
-    private Collection $images;
+    private Collection $posts;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
