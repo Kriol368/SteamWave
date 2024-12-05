@@ -68,6 +68,14 @@
             {{ form_row(commentForm.text, {'label': 'Your Comment'}) }}
             <button class="btn btn-primary" type="submit">Submit Comment</button>
             {{ form_end(commentForm) }}
+
+            {% if post.postUser == app.user %}
+                <form action="{{ path('app_post_delete', {'id': post.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_post_' ~ post.id) }}">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">Delete Post</button>
+                </form>
+            {% endif %}
+
         </div>
 
         <a href="{{ path('app_post') }}" class="btn btn-secondary">Back to all posts</a>
