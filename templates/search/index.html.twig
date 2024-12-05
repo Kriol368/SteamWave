@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/search/searchBar.css') }}"/>
     <div class="wrapper">
         <div class="searchBar">
-            <form method="get">
+            <form action="/search/q" method="get">
                 <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
                 <button id="searchQuerySubmit" type="submit" name="">
                     <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">

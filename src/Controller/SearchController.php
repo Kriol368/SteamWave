@@ -6,6 +6,7 @@ use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,9 +19,10 @@ class SearchController extends AbstractController
         $this->steamAppService = $steamAppService;
     }
 
-    #[Route('/search?searchQueryInput={input}', name: 'app_search_query')]
-    public function query($input, PostRepository $postRepo, UserRepository $userRepo): Response
+    #[Route('/search/{input}', name: 'app_search_query')]
+    public function query(PostRepository $postRepo, UserRepository $userRepo, Request $request): Response
     {
+        $input = $request->query->get('searchQueryInput', '');
         $queryPosts = $postRepo->findByContent($input);
         $queryUsers = $userRepo->findByName($input);
 
@@ -47,6 +49,7 @@ class SearchController extends AbstractController
                 'image' => $post->getImage(),
                 'profilePicture' => $profileImage,
                 'username' => $post->getPostUser()->getSteamUsername(),
+                'userId' => $post->getPostUser()->getId(),
             ];
         }
 
@@ -65,6 +68,7 @@ class SearchController extends AbstractController
         }
 
         return $this->render('search/index.html.twig', [
+
             'posts' => $postsWithImages,
             'user' => $loggedUser,
             //'banner' => $banner,
