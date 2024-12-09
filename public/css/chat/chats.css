@@ -7,7 +7,7 @@
     background-color: #00000000;
     border: 0;
 }
-a{
+a, p{
     color:black;
 }
 .chats-content{

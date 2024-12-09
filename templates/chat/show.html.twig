@@ -3,16 +3,29 @@
 {% block title %}Placeholder{% endblock %}
 
 {% block body %}
-    <h1>Chat:</h1>
+    <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
+    <div class="">
+        <h1>Chat:</h1>
+        <h3>Participants:</h3>
+        <ul>
+            {% for user in chat.users %}
+                <li>{{ user.name }}</li>
+            {% else %}
+                <li>No participants</li>
+            {% endfor %}
+        </ul>
 
-    <h3>Participants:</h3>
-    <ul>
-        {% for user in chat.users %}
-            <li>{{ user.name }}</li>
-        {% else %}
-            <li>No participants</li>
-        {% endfor %}
-    </ul>
+            <div class="chats-content">
+                <p>aqui hay cosas</p>
+            </div>
+
+            <div>
+                <input type="text">
+                <input type="button" value="enviar">
+            </div>
+    </div>
+
+
 
     <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
 {% endblock %}
