@@ -21,6 +21,19 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+    public function getAverageWavesForGame(string $appId): ?float
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->select('AVG(r.waves) as avg_waves')
+            ->where('r.game = :appId')
+            ->setParameter('appId', $appId)
+            ->getQuery();
+
+        $result = $qb->getSingleScalarResult();
+
+        return $result ? (float) $result : null;
+    }
+
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */

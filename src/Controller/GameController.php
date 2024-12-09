@@ -28,6 +28,8 @@ class GameController extends AbstractController
 
         $reviews = $reviewRepository->findBy(['game' => (string) $appId], ['publishedAt' => 'DESC']);
 
+        $averageWaves = $reviewRepository->getAverageWavesForGame((string) $appId);
+
         $review = new Review();
         $form = $this->createForm(ReviewFormType::class, $review);
         $form->handleRequest($request);
@@ -51,6 +53,7 @@ class GameController extends AbstractController
             'game' => $gameDetails,
             'reviews' => $reviews,
             'reviewForm' => $form->createView(),
+            'averageWaves' => $averageWaves,
         ]);
     }
 }

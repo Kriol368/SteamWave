@@ -30,6 +30,14 @@
         {% endfor %}
     </ul>
 
+    {# Display the average waves #}
+    <h3>Average Waves</h3>
+    {% if averageWaves is not null %}
+        <p><strong>{{ averageWaves|number_format(1) }} / 5</strong></p>
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+
     {# Include the partial for all reviews #}
     {% include 'partials/_reviews.html.twig' with { 'reviews': reviews } %}
 
