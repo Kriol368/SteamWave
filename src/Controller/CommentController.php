@@ -60,32 +60,57 @@ class CommentController extends AbstractController
 
     // src/Controller/CommentController.php
 
-    #[Route('/comment/{id}/like', name: 'comment_like', methods: ['POST'])]
-    public function like(Comment $comment, EntityManagerInterface $entityManager): JsonResponse
+    #[Route('/comment/{id}/like', name: 'comment_like', methods: ['POST','GET'])]
+    public function like(int $id, EntityManagerInterface $entityManager): JsonResponse
     {
-        $user = $this->getUser();
+        try {
+            $user = $this->getUser();
 
-        if (!$user) {
-            return new JsonResponse(['error' => 'Unauthorized'], 403);
+            if (!$user) {
+                return new JsonResponse(['error' => 'Unauthorized'], 403);
+            }
+
+            // Manually fetch the comment using the repository
+            $comment = $entityManager->getRepository(Comment::class)->find($id);
+            if (!$comment) {
+                return new JsonResponse(['error' => 'Comment not found'], 404);
+            }
+
+            $likeRepository = $entityManager->getRepository(CommentLike::class);
+            $existingLike = $likeRepository->findOneBy([
+                'comment' => $comment,
+                'user' => $user
+            ]);
+
+            if ($existingLike) {
+                // Unlike the comment if it was already liked
+                $entityManager->remove($existingLike);
+                $entityManager->flush();
+
+                return new JsonResponse([
+                    'success' => 'Like removed',
+                    'likes' => $comment->getLikes()->count()
+                ]);
+            }
+
+            // Create a new like
+            $like = new CommentLike();
+            $like->setComment($comment);
+            $like->setUser($user);
+
+            $entityManager->persist($like);
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'success' => 'Comment liked',
+                'likes' => $comment->getLikes()->count()
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
         }
-
-        // Check if the user already liked the comment
-        if ($comment->hasUserLiked($user)) {
-            return new JsonResponse(['error' => 'Already liked'], 400);
-        }
-
-        // Create a new like
-        $like = new CommentLike();
-        $like->setComment($comment);
-        $like->setUser($user);
-
-        $entityManager->persist($like);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'likes' => $comment->getLikes()->count()
-        ]);
     }
+
+
 
 
 }
