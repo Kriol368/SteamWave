@@ -3,17 +3,20 @@
 {% block title %}Create a New Chat{% endblock %}
 
 {% block body %}
-    <h1>Create a New Chat</h1>
+    <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
+        <div class="chats-content">
+            <h1>Create a New Chat</h1>
 
-    {{ form_start(form) }}
-    <div>
-        <label for="chat_users">Select Users</label>
-        {{ form_widget(form.users) }}
-    </div>
+            {{ form_start(form) }}
+            <div>
+                <label for="chat_users">Select Users</label>
+                {{ form_widget(form.users) }}
+            </div>
 
-    <button type="submit" class="btn btn-primary">Create Chat</button>
-    {{ form_end(form) }}
-
-    <br>
-    <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
+            <div class="btn-divider">
+                <button type="submit" class="boton-de-mierda create-chat">Create Chat</button> <!-- btn btn-primary -->
+                {{ form_end(form) }}
+                <a href="{{ path('app_chat') }}" class="">Back to Chats</a> <!-- btn-secondary -->
+            </div>
+        </div>
 {% endblock %}

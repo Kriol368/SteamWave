@@ -21,6 +21,12 @@ class Chat
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chats')]
     private Collection $users;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -85,6 +91,30 @@ class Chat
         if ($this->users->removeElement($user)) {
             $user->removeChat($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
