@@ -9,7 +9,6 @@ SteamWave is a place for gamers to connect, share posts, and discuss their favor
 
 - **Steam Integration**: Automatically sync your Steam library to share your latest games and achievements.
 - **Game Sharing**: Share posts, screenshots, and game recommendations with your friends and followers.
-- **Community**: Join discussions about the latest game updates, tips, and trends.
 - **User Profiles**: Create a personalized profile with your Steam stats, favorite games, and more.
 - **Game Reviews**: Rate and review games to help others find the best titles.
 
