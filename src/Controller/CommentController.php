@@ -110,6 +110,40 @@ class CommentController extends AbstractController
         }
     }
 
+    #[Route('/comment/{id}/unlike', name: 'comment_unlike', methods: ['POST','GET'])]
+    public function unlike(Comment $comment, EntityManagerInterface $entityManager): JsonResponse
+    {
+        try {
+            $user = $this->getUser();
+
+            if (!$user) {
+                return new JsonResponse(['error' => 'Unauthorized'], 403);
+            }
+
+            $likeRepository = $entityManager->getRepository(CommentLike::class);
+
+            // Check if the like exists
+            $existingLike = $likeRepository->findOneBy([
+                'comment' => $comment,
+                'user' => $user
+            ]);
+
+            if (!$existingLike) {
+                return new JsonResponse(['error' => 'You have not liked this comment'], 400);
+            }
+
+            // Remove the like from the database
+            $entityManager->remove($existingLike);
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'success' => 'Like removed',
+                'likes' => $comment->getLikes()->count() // Optionally show the updated like count
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
+        }
+    }
 
 
 
