@@ -38,9 +38,13 @@ class Comment
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentComment')]
     private Collection $comments;
 
+    #[ORM\OneToMany(targetEntity: CommentLike::class, mappedBy: 'comment', cascade: ['remove'])]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,5 +152,24 @@ class Comment
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, CommentLike>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function hasUserLiked(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

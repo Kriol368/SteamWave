@@ -22,7 +22,7 @@ class Post
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $publishedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'image')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     private ?User $postUser = null;
 
     #[ORM\Column(length: 255, nullable: true)]
