@@ -19,12 +19,14 @@
     {% endblock %}
 </head>
 <body>
-<!-- ===================================0
+<!-- ====================================0
         barra lateral izquierda     -    tecnicamente el header-->
 <header>
     <div class="sidenav"> <!-- parte de arriba  https://feathericons.com/ -->
         <a href="{{ path('app_home') }}"><button><img id="home-btn" src="{{ asset('res/icons/home.svg') }}" alt="Home button" class="sidenav-button-img"></button></a>
         <a href="{{ path('app_search') }}"><button><img id="search-btn" src="{{ asset('res/icons/search.svg') }}" alt="Likes button" class="sidenav-button-img"></button></a>
+
+        <a href="{{ path('app_chat') }}"><button><img id="chat-btn" src="{{ asset('res/icons/message-square.svg') }}" alt="Star button" class="sidenav-button-img"></button></a>
 
         <!--    --------------------
         las siguientes condicionales se prodrían hacer en solo una

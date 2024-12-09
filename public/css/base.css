@@ -3,14 +3,14 @@
     src: url('../res/fonts/Poppins-Bold.ttf');
 }
 .content{
-    padding-left: 7%;
-    padding-right: 25%;
-    max-width: 90%;
+    padding-left: 100px;
+    width: auto;
 }
 body {
     font-family: "Poppins", sans-serif;
     margin-left: auto;
-    background: linear-gradient(#1b2939, #213d58);
+    /*background: linear-gradient(#1b2939, #213d58);*/
+    background: linear-gradient(#184352, #1a344f, #1e2d4b); /* Fondo degradado */
     background-attachment: fixed;
 }
 
@@ -28,11 +28,9 @@ body {
 
 .sidenav button {
     border: 0;
-
     height: 60px;
     width: 60px;
     background-color: #171D25;
-
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 15px;

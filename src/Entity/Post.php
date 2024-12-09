@@ -22,7 +22,7 @@ class Post
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $publishedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'image')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     private ?User $postUser = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -37,9 +37,13 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tag = null;
 
+    #[ORM\OneToMany(targetEntity: UserPost::class, mappedBy: 'post')]
+    private Collection $userPosts;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->userPosts = new ArrayCollection();
     }
 
 
@@ -147,6 +151,36 @@ class Post
     public function setTag(?string $tag): static
     {
         $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserPost>
+     */
+    public function getUserPosts(): Collection
+    {
+        return $this->userPosts;
+    }
+
+    public function addUserPost(UserPost $userPost): static
+    {
+        if (!$this->userPosts->contains($userPost)) {
+            $this->userPosts->add($userPost);
+            $userPost->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPost(UserPost $userPost): static
+    {
+        if ($this->userPosts->removeElement($userPost)) {
+            // set the owning side to null (unless already changed)
+            if ($userPost->getPost() === $this) {
+                $userPost->setPost(null);
+            }
+        }
 
         return $this;
     }

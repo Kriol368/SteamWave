@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="{{ asset('css/search/searchBar.css') }}"/>
     <div class="wrapper">
         <div class="searchBar">
-            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
-            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
-            </button>
+            <form action="/search/q" method="get">
+                <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
+                <button id="searchQuerySubmit" type="submit" name="">
+                    <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
+                </button>
+            </form>
             <nav class="nav-bar">
                 <ul>
                     <li><a href="#" class="nav-link" data-target="posts">Publicaciones</a></li>
@@ -17,20 +19,24 @@
                 </ul>
             </nav>
         </div>
-
-        <!--//TODO =============================================0
-            hay que acabar de ratearle l codigo al marc pa que funcione y se vea bonito
-        -->
-
+        {% if posts is defined or users is defined %}
         <div id="posts" class="nav-content">
-            <p>busqueda de publicaciones</p>
+            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
         </div>
         <div id="usuarios" class="nav-content" style="display: none;">
-            <p>busqueda de usuarios</p>
+            {% include 'partials/_user_list.html.twig' with { users: users } %}
         </div>
     </div>
-
-    <script src="{{ asset('js/profile.js') }}"></script>
+        {% else %}
+        <div id="posts" class="nav-content">
+                <p>empieza a buscar entre posts</p>
+            </div>
+            <div id="usuarios" class="nav-content" style="display: none;">
+                <p>empieza a buscar entre posts usuarios</p>
+            </div>
+        </div>
+        {% endif %}
+    <script src="{{ asset('js/profile/profile.js') }}"></script>
     {# por increible que parezca este script es universal, puedes cambiar los ids y toddo sigue funcionando bien #}
 
     <!-- final de documento -->

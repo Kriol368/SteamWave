@@ -1,32 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}instagram 2{% endblock %}
+{% block title %}Steamwave{% endblock %}
 
 {% block body %}
-    <!-- barra de arriba -->
+    <!-- Barra de arriba -->
     <link rel="stylesheet" href="{{ asset('css/home/main_content.css') }}"/>
-    <nav class="nav-home">
-        <ul>
-            <li><a href="#" class="nav-element" ><h3>Steamwave</h3></a></li>
-            <li><a href="#" class="nav-element" ><h3>Siguiendo</h3></a></li>
+    <div class="main-container">
+        <nav class="nav-home">
+            <ul>
+                <li><a href="#" class="nav-element" data-target="following"><h3>Siguiendo</h3></a></li>
+                <li><a href="#" class="nav-element" data-target="all"><h3>Steamwave</h3></a></li>
             </ul>
-    </nav>
-    <!-- posts -->
-    <div class="feed">
-        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        </nav>
+
+        <!-- Posts -->
+        <div class="feed" id="following" >
+            {% include 'partials/_posts_list.html.twig' with { posts: followingPosts } %}
+        </div>
+        <div class="feed" id="all" style="display: none;">
+            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        </div>
+
+
+        <!-- Botón para postear -->
+        <a href="{{ path('app_post_new') }}" class="post-button">
+            <img src="{{ asset('res/icons/wave.svg') }}" alt="Wave Icon">
+        </a>
     </div>
 
-    <!--    boton para postear  -->
-    <a href="{{ path('app_post_new') }}" class="post-button">
-        <img src="{{ asset('res/icons/star.svg') }}" alt="Star Icon">
-    </a>
-
-
-    <!--    panel lateral derecho   -->
+    <!-- Panel lateral derecho -->
     <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
-
-        {{ include ('partials/_chatPanel.html.twig') }}
+        {% include 'partials/_chatPanel.html.twig' with { user: user } %}
     </aside>
 
+    <script src="{{ asset('js/home/home.js') }}"></script>
 {% endblock %}
