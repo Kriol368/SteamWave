@@ -1,0 +1,53 @@
+.feed-entry{
+    display: flex;
+    padding-top: 15px;
+}
+.example-wrapper{
+    width: 100%;
+}
+.profileImg{
+    max-height: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+ul{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
+.post-profile-picture{
+    border-radius: 50%;
+    max-height: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+.post-content {
+    flex: auto;
+    padding: 10px 20px 15px 20px;
+    width: 97%;
+    background-color: rgba(47, 60, 75, 0.7);
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
+    position: relative;
+}
+
+.post-content::after {
+    content: '';
+    position: absolute;
+    top: 34px; /* Ajusta según la posición vertical deseada */
+    left: -10px; /* Ajusta según la distancia horizontal desde el post-content */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0; /* Triángulo hacia la izquierda */
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent; /* Color del triángulo */
+}

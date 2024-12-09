@@ -1,0 +1,96 @@
+/* chat pannel */
+.container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: 500px;
+    background: linear-gradient(#184352, #1a344f, #1e2d4b);
+    border-radius: 10px;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.chat-section {
+    padding: 10px 10px 10px 10px;
+    overflow-y: auto;
+    width: 80%;
+    border: 2px solid #c1dbf4;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+    flex: 7;
+}
+/* profile section */
+
+.sideprofile-section {
+    flex: 2;
+    max-height: 218px;
+    min-height: 218px;
+    border-top: 2px solid #c1dbf4;
+    display: flex;
+    width: 100%;
+    border-top: 2px solid #c1dbf4;
+    position: relative;
+    background-size: 100% auto; /* Asegura que la imagen cubra todo el fondo */
+    background-position: right;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sideprofile-icon {
+    min-width: 100px;
+    min-height: 100px;
+    width: 100px;
+    height: 100px;
+}
+
+.sideprofile-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.sideprofile-text{
+    margin-left: 10px;
+}
+.sideprofile-content{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 15px 15px 15px;
+}
+
+
+/* scrollbar */
+/* Para navegadores basados en Webkit (Chrome, Edge, Safari) */
+.chat-section::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra */
+    background-color: transparent; /* Fondo transparente */
+}
+
+.chat-section::-webkit-scrollbar-thumb {
+    background-color: #c1dbf4; /* Color del "thumb" */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Simulación de espacio con borde semitransparente */
+}
+
+.chat-section::-webkit-scrollbar-thumb:hover {
+    background-color: #a1c2e0; /* Color del "thumb" al pasar el mouse */
+}
+
+.chat-section::-webkit-scrollbar-track {
+    background-color: transparent; /* Fondo del track transparente */
+}
+
+/* Para navegadores como Firefox */
+.chat-section {
+    scrollbar-color: #c1dbf4 transparent; /* Color del "thumb" y fondo transparente */
+    scrollbar-width: thin; /* Define el ancho como "fino" */
+}

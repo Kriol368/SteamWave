@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Settings</h2>
+
+        <div>
+            <p><a href="{{ path('edit_description') }}">Change Description</a></p>
+        </div>
+
+        <div>
+            <p><a href="{{ path('edit_banner') }}">Change Banner</a></p>
+        </div>
+
+        <div>
+            <form action="{{ path('delete_account') }}" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

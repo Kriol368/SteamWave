@@ -1,0 +1,12 @@
+<h1>Tus juegos</h1>
+
+<ul id="user_games_list">
+</ul>
+
+{% block javascripts %}
+    <script>
+        const gameRouteBase = "{{ path('app_game', {'appId': 0})|replace({'0': ''}) }}";  <!-- Base route for game -->
+    </script>
+    <script src="{{ asset('js/profile/fetchUserGames.js') }}"></script>
+{% endblock %}
+

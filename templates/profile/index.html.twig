@@ -3,18 +3,83 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/profile/profile.css') }}"/>
+    <body data-user-id="{{ user.id }}">
+    <div class="user-banner"
+         style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
+        <div class="profile-picture">
+            <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
+        </div>
+        <div class="user-data">
+            <div>
+                <span>Nombre:</span> {{ user.NAME }}
+            </div>
+            <div>
+                <span>Correo:</span> {{ user.email }}
+            </div>
+            <div>
+                <span>SteamUser:</span> {{ user.steamUsername }}
+            </div>
+            <div>
+                <span>Descripción:</span> {{ user.description }}
+            </div>
+        </div>
+        <div class="user-games">
+            <div id="user_game_count">
+                <span>Total games:</span> <span id="game_count_value">Loading...</span>
+            </div>
+        </div>
+        <div class="user-stats">
+            <div>
+                <a href="{{ path('user_followers', { userId: user.id }) }}" class="btn-followers">
+                    Followers ({{ user.followers|length }})
+                </a>
+            </div>
+            <div>
+                <a href="{{ path('user_following', { userId: user.id }) }}" class="btn-following">
+                    Following ({{ user.following|length }})
+                </a>
+            </div>
+        </div>
+        {% if not isOwnProfile %}
+            {% set isFollowing = user.followers.contains(app.user) %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <div class="follow-button">
+                {% if isFollowing %}
+                    <form action="{{ path('unfollow_user', {id: user.id}) }}" method="post">
+                        <button type="submit" class="btn-unfollow">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{{ path('follow_user', {id: user.id}) }}" method="post">
+                        <button type="submit" class="btn-follow">Follow</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/kriol/Nuevo vol 3/IDES/PhpstormProjects/SteamWave/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#" class="nav-link" data-target="publicaciones">Publicaciones</a></li>
+            <li><a href="#" class="nav-link" data-target="me-gusta">Me gusta</a></li>
+            <li><a href="#" class="nav-link" data-target="guardados">Guardados</a></li>
+            <li><a href="#" class="nav-link" data-target="juegos">Juegos</a></li>
+        </ul>
+    </nav>
+
+    <div id="publicaciones" class="nav-content">
+        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+    </div>
+    <div id="me-gusta" class="nav-content" style="display: none;">
+        {% include 'partials/_posts_list.html.twig' with { posts: likedPosts } %}
+    </div>
+    <div id="guardados" class="nav-content" style="display: none;">
+        {% include 'partials/_posts_list.html.twig' with { posts: savedPosts } %}
+    </div>
+    <div id="juegos" class="nav-content" style="display: none;">
+        {{ include('partials/_userGames.html.twig') }}
+    </div>
+
+    <script src="{{ asset('js/profile/profile.js') }}"></script>
+    <script src="{{ asset('js/profile/fetchUserGameCount.js') }}"></script>
 {% endblock %}

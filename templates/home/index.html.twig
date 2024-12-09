@@ -1,93 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}instagram 2{% endblock %}
+{% block title %}Steamwave{% endblock %}
 
 {% block body %}
-    <!--    ==========================================
-            barra de busqueda central
+    <!-- Barra de arriba -->
+    <link rel="stylesheet" href="{{ asset('css/home/main_content.css') }}"/>
+    <div class="main-container">
+        <nav class="nav-home">
+            <ul>
+                <li><a href="#" class="nav-element" data-target="following"><h3>Siguiendo</h3></a></li>
+                <li><a href="#" class="nav-element" data-target="all"><h3>Steamwave</h3></a></li>
+            </ul>
+        </nav>
 
-    <link rel="stylesheet" href="{{ asset('css/searchBar.css') }}"/>
-    <div class="wrapper">
-        <div class="searchBar">
-            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
-            <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
-            </button>
+        <!-- Posts -->
+        <div class="feed" id="following" >
+            {% include 'partials/_posts_list.html.twig' with { posts: followingPosts } %}
         </div>
-    </div>
-
-    -->
-    <link rel="stylesheet" href="{{ asset('css/main_content.css') }}"/>
-    <div class="feed-options">
-        <div class="feed-buttons">
-            <div class="feed-button">
-                <button> steamwave </button>
-            </div>
-            <div class="feed-button">
-                <button> feed </button>
-            </div>
+        <div class="feed" id="all" style="display: none;">
+            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
         </div>
-    </div>
-    <!--    feed    =====================================0
-               aqui debería haber un metodo que cargue posts en la feed y a partir de una plantilla parcial para cada post -->
-    <div class="feed">
-        {{ include ('partials/_feedEntry.html.twig') }}
-        <div>
-            <h2>el pepe</h2>
-            <!-- mucho texto -->
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere mollis urna at congue. Nullam ac euismod lorem. Curabitur orci diam, fermentum vel leo at, pharetra fermentum erat. Sed id diam vestibulum, dictum tellus a, venenatis neque. Maecenas leo sapien, interdum quis facilisis eu, vestibulum vel orci. Duis tincidunt, sem quis sollicitudin cursus, enim sem sollicitudin nibh, nec suscipit ex odio quis orci. Duis quis placerat ante, at maximus tortor. Proin semper tellus orci, at semper felis venenatis a. Curabitur malesuada erat eu neque posuere ultricies. Pellentesque odio nisl, vestibulum sit amet lobortis quis, tempus eget sapien. Phasellus rutrum, sem eu sagittis egestas, augue velit venenatis arcu, a porttitor ex lorem non elit.
 
-                Integer sagittis imperdiet ipsum eget congue. Duis ultricies mi egestas quam vestibulum rhoncus. Aliquam fermentum mi nulla, ut euismod justo pellentesque eget. Nulla eu accumsan odio, ac tempus massa. Donec bibendum, lacus quis viverra porta, lacus orci tincidunt lacus, ac dignissim enim dui quis nisi. Nam turpis mauris, varius quis nunc posuere, mollis maximus erat. Aliquam vitae nisi tincidunt, porta massa at, placerat velit. Fusce blandit orci sit amet aliquam rhoncus. Donec a nunc sit amet elit vulputate pulvinar egestas nec est.
 
-                Integer sit amet finibus enim. Donec venenatis consectetur lectus, ac faucibus neque volutpat non. Nullam condimentum facilisis felis, vitae gravida neque viverra ut. Donec eros nisl, tempor bibendum finibus at, accumsan id eros. Integer placerat mauris at varius sodales. Aenean et est porta, maximus quam in, porttitor odio. Vivamus ullamcorper, tellus ut lacinia interdum, ipsum dui vulputate felis, eget fringilla diam massa ut justo. Cras rhoncus neque velit, et dapibus nunc laoreet nec. Vestibulum dolor nulla, pulvinar a justo a, aliquam tincidunt purus. Praesent condimentum arcu eu laoreet condimentum.
-
-                Cras condimentum erat sit amet arcu tempor sollicitudin. Vivamus pretium nec purus sit amet blandit. Proin hendrerit malesuada velit, vitae faucibus dolor gravida vitae. Nunc ullamcorper tempor metus eget tempor. Aliquam finibus purus vitae pretium vestibulum. Aliquam aliquam mi sed sem semper, laoreet commodo enim rhoncus. Proin ut pulvinar risus. Praesent ultrices, nulla eget scelerisque congue, risus diam sollicitudin augue, in vulputate lorem lorem et lacus. Phasellus id pharetra arcu, eget mattis quam. Cras ut interdum libero.
-
-                Cras dignissim urna in tellus efficitur ullamcorper. Aliquam ultrices iaculis lectus. Nulla pulvinar rutrum sapien, sed congue nisl pharetra non. Aliquam pellentesque sapien erat, at dapibus dui semper et. Nulla gravida a diam vel faucibus. Nam et ante arcu. Donec hendrerit feugiat elementum. Morbi sapien enim, viverra at semper at, euismod et eros.
-
-                Morbi tempor ligula vitae turpis cursus, ut faucibus odio pharetra. Maecenas ac nulla justo. Sed eleifend odio et malesuada blandit. Suspendisse lobortis et mauris vitae sagittis. Donec porttitor enim at laoreet tincidunt. Nam vitae placerat lacus, ut fermentum odio. Vestibulum velit mauris, blandit at condimentum non, mollis at arcu. Nullam congue tortor sed cursus interdum. Integer tristique augue id nisi consequat commodo. Aenean aliquet felis sollicitudin nisi egestas congue. Nunc egestas dignissim enim non posuere. Vivamus metus est, sodales a semper ac, laoreet eu metus. Sed pretium, nunc in varius tempus, nibh quam pulvinar lorem, eget rhoncus sapien ex a metus.
-
-                Maecenas a bibendum velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor nisi quis mauris ornare sollicitudin. Duis nec turpis sodales, ultrices erat in, auctor sapien. Integer dictum consequat orci, at tincidunt ligula volutpat et. Sed suscipit enim eget felis hendrerit rutrum. Pellentesque vel velit et nibh posuere placerat. Nam sed erat non ante sollicitudin consectetur eu sit amet nisl. Nullam vitae volutpat ante. Cras at metus vulputate, placerat nibh non, euismod odio. Nullam sed est lacus. Proin a augue sed mauris hendrerit dapibus eu a eros. Cras bibendum mollis tortor, eget fringilla risus vehicula sed. Nullam blandit metus nec nulla commodo mollis. Vestibulum ac tellus sit amet urna vulputate aliquet.
-
-                Fusce at nisl mi. Etiam vehicula, nibh id ultrices tincidunt, justo ex consequat ipsum, et scelerisque lacus lacus in ipsum. Sed consectetur commodo bibendum. Aenean in urna odio. Aenean consectetur tellus non orci dictum, sit amet auctor felis viverra. Etiam id eros lacinia, posuere tortor nec, pharetra risus. Duis eget nisi felis.
-
-                Aliquam tempus a dolor quis dapibus. Mauris at velit ipsum. Aliquam ac tellus vel tortor gravida sagittis. Sed lorem libero, volutpat ac purus sed, consequat euismod lectus. Donec rhoncus luctus lacus, quis elementum lorem molestie sit amet. Nam faucibus tellus eu turpis finibus scelerisque. Quisque blandit tortor nibh, a varius turpis bibendum iaculis. Integer at ligula ac massa pretium volutpat. Nam consequat vitae nisl sed tempus.
-
-                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla eu odio at justo blandit ullamcorper eget eleifend velit. Integer efficitur quam sed massa consectetur, id finibus nibh imperdiet. Proin in tortor tortor. Curabitur euismod ante ac lectus efficitur, eu sodales quam ullamcorper. Integer ligula magna, interdum vel placerat a, interdum eget velit. Praesent in est iaculis, commodo augue dictum, malesuada diam. Maecenas eu nunc in neque venenatis facilisis. Vestibulum quis sem non nulla luctus finibus. Phasellus rutrum porta luctus. Vivamus eget ante vitae ex fermentum semper in quis leo. Nullam vulputate sodales ligula at vehicula. Curabitur cursus lobortis sapien in mattis. Maecenas consectetur ante et interdum dapibus. Donec sed sem nisl.
-
-                Nulla finibus sollicitudin volutpat. Nam sagittis justo sit amet neque euismod, in varius justo consequat. Nam aliquet lectus sed arcu mattis semper. Quisque venenatis lacinia semper. Nunc molestie diam congue varius pretium. Proin pellentesque vel orci ac facilisis. Pellentesque nec sapien vitae libero efficitur consectetur ullamcorper a neque. Maecenas magna metus, tempus id odio at, dictum tempor ipsum. Maecenas eu ex non justo scelerisque viverra.
-
-                Curabitur blandit nulla in dolor mollis malesuada. Duis auctor vestibulum laoreet. Morbi sagittis maximus pulvinar. Cras cursus purus quis ex egestas varius. Donec ut diam tempus, mattis risus at, cursus velit. Suspendisse potenti. Proin egestas blandit sodales. Fusce non aliquam metus, at accumsan ante.
-
-                Sed sed nulla ipsum. Nam at blandit nunc. Curabitur quis dolor eget magna commodo tincidunt. Pellentesque leo dui, tempor eu leo nec, semper elementum est. Pellentesque non metus nibh. Nullam posuere dictum justo, eget maximus dui blandit vel. In dapibus eu tortor in pellentesque. Proin ac felis non enim tincidunt tempus. Vivamus quis lacus eget lorem dictum efficitur eu non nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sagittis sem neque, eu ornare diam eleifend in. Donec mattis euismod lorem id consequat. Aliquam faucibus ex a arcu commodo, eleifend pellentesque magna tempus.
-
-                Vestibulum ullamcorper orci a nibh fringilla congue. Fusce lacinia vehicula neque. Aliquam pretium ligula aliquam sapien rhoncus aliquet. Morbi varius magna leo, a sollicitudin lorem fringilla sed. Mauris id mi elit. Ut risus ante, varius id euismod sed, bibendum non tellus. Nullam vel elit vitae eros luctus lacinia. In ac urna efficitur ante pharetra semper ac in orci. In elit nulla, fringilla vel imperdiet nec, commodo sit amet ipsum. Donec vitae tristique dolor.
-
-                Sed et semper orci. Cras viverra ante id orci dapibus auctor. Sed pharetra consectetur erat, sed consectetur mi dapibus id. Pellentesque congue velit id odio efficitur dapibus. Nunc id mi vel lorem fermentum tempus et at quam. Quisque bibendum dignissim ex ut suscipit. Ut imperdiet leo id metus bibendum, id mollis augue interdum.
-
-                Fusce dui lorem, tristique non diam at, commodo gravida urna. Integer dignissim diam ut volutpat sollicitudin. Praesent scelerisque tortor lacus. Donec odio ligula, tincidunt nec lacus nec, lobortis sagittis dolor. Nunc et nunc a massa porttitor consectetur. Donec et eros dapibus, suscipit justo at, suscipit quam. Integer ipsum felis, porttitor eu urna suscipit, auctor condimentum mauris. Aliquam erat volutpat. Morbi vel maximus dui, id egestas odio. Integer aliquam risus neque, in tristique tortor pretium a. Vivamus lobortis ipsum non dolor rhoncus vehicula.
-
-                Fusce posuere nunc at erat rutrum, vel pharetra nulla iaculis. Sed pharetra nisl orci, at tristique massa mollis eget. Pellentesque tellus ligula, finibus sed ultrices at, consequat a velit. Aenean id blandit nulla, non cursus sapien. Quisque nisl urna, dignissim vulputate augue vitae, finibus accumsan velit. Suspendisse mollis laoreet maximus. Cras vestibulum, dui in fermentum pulvinar, nisi enim sollicitudin elit, sed pharetra arcu ipsum eget lorem. Etiam malesuada mi sed turpis iaculis suscipit. Nulla eu sollicitudin justo, non semper neque.
-
-                Vivamus consequat mattis magna, ut malesuada elit. Donec non augue velit. Nunc suscipit libero vitae faucibus viverra. Nam condimentum ultrices est id imperdiet. Aenean velit dolor, mattis sit amet enim vitae, vehicula mollis elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus posuere odio id odio bibendum pharetra. Praesent consectetur quam sed augue hendrerit vehicula. Quisque ipsum massa, viverra at tristique et, sollicitudin et eros. Donec odio lorem, lacinia in mollis a, sollicitudin ut urna. Sed mollis rhoncus nunc, quis molestie velit rhoncus a. Donec ultrices ut ipsum non fermentum. Phasellus tincidunt lectus sem, convallis ornare ipsum feugiat vitae. Suspendisse felis sem, tempor vel cursus id, pharetra id sem.
-
-                Cras sed sem sodales, interdum orci quis, ultrices urna. Vivamus condimentum sapien sit amet nisl convallis, in ultricies libero viverra. Maecenas condimentum ultricies mi in mollis. Sed varius pellentesque sem et efficitur. Vivamus mauris purus, finibus sit amet efficitur id, posuere in leo. Aliquam nec lacus ac velit bibendum efficitur. Donec sit amet aliquam ipsum, ut vestibulum nisi. Suspendisse ante quam, pulvinar sollicitudin cursus eu, mattis at turpis. Donec malesuada mattis justo, eget tristique dolor eleifend et. Donec blandit libero at diam convallis pretium. Cras faucibus nibh ac lorem bibendum rutrum. Sed malesuada ornare justo ullamcorper pharetra. Nam ac arcu sem. Pellentesque fringilla volutpat libero eu ullamcorper. Proin et placerat orci.
-
-                Praesent auctor rutrum mollis. Morbi velit dolor, fringilla quis nunc sit amet, auctor iaculis mauris. Sed aliquet euismod mi, cursus mattis leo lobortis eget. Nullam tristique efficitur luctus. Aenean sit amet iaculis felis, non dapibus nisi. Proin felis mauris, pellentesque eget ex et, dapibus ultricies turpis. Nullam dui ante, iaculis eget tempus id, tempor non enim. Donec eu arcu rutrum, pretium elit ut, pulvinar velit. Duis leo lacus, aliquet ac tincidunt quis, ornare vel dolor. Pellentesque ipsum enim, vestibulum quis augue sit amet, venenatis accumsan lorem. Nulla facilisi. Vestibulum neque odio, euismod quis justo et, interdum efficitur mi. Duis in ante commodo leo consequat ultricies a sit amet velit. Duis fermentum nunc ut nisi condimentum, consectetur cursus ex rutrum. Nullam elementum sed quam sed semper. </p>
-        </div>
+        <!-- Botón para postear -->
+        <a href="{{ path('app_post_new') }}" class="post-button">
+            <img src="{{ asset('res/icons/wave.svg') }}" alt="Wave Icon">
+        </a>
     </div>
 
-    <!--    boton para postear  -->
-    <div class="post-button">
-        <img src="{{ asset('res/icons/star.svg') }}" alt="Star Icon">
-    </div>
-
-    <!--    panel lateral derecho   -->
-    <link rel="stylesheet" href="{{ asset('css/chatPanel.css') }}"/>
+    <!-- Panel lateral derecho -->
+    <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
-
-        {{ include ('partials/_chatPanel.html.twig') }}
+        {% include 'partials/_chatPanel.html.twig' with { user: user } %}
     </aside>
 
+    <script src="{{ asset('js/home/home.js') }}"></script>
 {% endblock %}

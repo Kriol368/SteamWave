@@ -1,0 +1,62 @@
+{# templates/partials/_posts_list.html.twig #}
+<link rel="stylesheet" href="{{ asset('css/post/feedEntry.css') }}"/>
+
+<div class="example-wrapper">
+    {% if posts is empty %}
+        <p>No posts available.</p>
+    {% else %}
+        <ul>
+            {% for post in posts %}
+                    <li class="feed-entry">
+                        <div class="profileImg">
+                            <a href="{{ path('view_profile', { userId: post.userId }) }}" class="username-link">
+                            <img src="{{ post.profilePicture }}" alt="{{ post.username }}'s Profile Picture"
+                                 class="post-profile-picture">
+                            </a>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-username">
+                                <h2 class="post-username">
+                                    <a href="{{ path('view_profile', { userId: post.userId }) }}" class="username-link">
+                                        {{ post.username }}
+                                    </a>
+                                </h2>
+                            </div>
+                            <a href="{{ path('app_post_show', { id: post.id }) }}">
+                            <div class="post-text">
+                                <strong></strong> {{ post.content }} <br>
+                            </div>
+                            <div class="post-image">
+                                {# Image or Video Preview #}
+                                {% if post.image %}
+                                    {% if post.image matches '/\.(mp4|webm|ogg)$/i' %}
+                                        <div>
+                                            <video class="post-video" controls>
+                                                <source src="{{ asset('uploads/media/' ~ post.image) }}"
+                                                        type="video/{{ post.image|slice(-3) }}">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    {% elseif post.image matches '/\.(jpg|jpeg|png|gif)$/i' %}
+                                        <div>
+                                            <img src="{{ asset('uploads/media/' ~ post.image) }}" alt="Post Image"
+                                                 class="post-image">
+                                        </div>
+                                    {% else %}
+                                        <p>Unsupported media format.</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                                <div class="post-tag">
+                                    {% if post.tag %}
+                                        <strong>Tag:</strong> {{ post.tag }} <br>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                        {# User Profile Section #}
+                    </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
