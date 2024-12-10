@@ -23,33 +23,40 @@ class PostFormType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, [
-                'label' => 'Post Content',
+                'label' => 'Contenido del Post',
                 'attr' => [
-                    'placeholder' => 'Write your post here...',
+                    'placeholder' => 'Escribe tu publicación aquí...',
                     'rows' => 5,
+                    'class' => 'form-control-content', // Clase para estilo
                 ],
             ])
             ->add('publishedAt', DateTimeType::class, [
                 'data' => new DateTime(),
                 'widget' => 'single_text',
-                'label' => false,
+                'label' => false, // Ocultar la etiqueta
                 'html5' => true,
                 'attr' => [
                     'style' => 'display:none;',
                 ],
             ])
             ->add('image', FileType::class, [
-                'label' => 'Attach Image or Video (Optional)',
+                'label' => 'Adjuntar Imagen o Video (Opcional)',
                 'required' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-file', // Clase para archivos
+                ],
             ])
             ->add('numLikes', HiddenType::class, [
                 'data' => 0,
             ])
             ->add('tag', ChoiceType::class, [
-                'label' => 'Tag',
+                'label' => 'Etiqueta',
                 'choices' => [],
-                'attr' => ['id' => 'tag-select'],
+                'attr' => [
+                    'id' => 'tag-select',
+                    'class' => 'form-control-tag', // Clase para el select
+                ],
                 'mapped' => true,
                 'expanded' => false,
                 'multiple' => false,
@@ -64,8 +71,11 @@ class PostFormType extends AbstractType
 
             if ($tag) {
                 $form->add('tag', ChoiceType::class, [
-                    'choices' => [$tag => $tag], // Ensure $tag is used here
-                    'attr' => ['id' => 'tag-select'],
+                    'choices' => [$tag => $tag], // Asegurar que el tag se mantenga
+                    'attr' => [
+                        'id' => 'tag-select',
+                        'class' => 'form-control-tag', // Clase para el select
+                    ],
                     'mapped' => false,
                     'expanded' => false,
                     'multiple' => false,
