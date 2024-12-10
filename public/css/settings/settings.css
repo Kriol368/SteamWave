@@ -1,0 +1,66 @@
+.settings-content{
+    display: flex;
+    flex-direction: column;
+}
+.setting{
+    border-top: #2D333C solid 2px;
+    flex: 1;
+    max-height: 60px;
+    padding: 10px;
+}
+.settings-title{
+    padding: 30px;
+    font-size: 36px;
+}
+
+.settings-editdescription{
+    width: 70%;
+    height: auto;         /* Altura dinámica */
+    min-height: 100%;     /* Asegura que comience cubriendo toda la pantalla */
+    background: none;     /* Fondo transparente */
+    color: white;         /* Color del texto */
+    border: none;         /* Sin bordes */
+    outline: none;        /* Sin contorno al hacer clic */
+    resize: none;         /* Desactiva el redimensionamiento manual */
+    overflow: hidden;     /* Evita que se muestre la barra de desplazamiento */
+    padding: 10px;        /* Espaciado interno */
+    margin-left: 10px;
+    box-sizing: border-box; /* Incluye el padding dentro de las dimensiones */
+}
+.submitButton{
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 1.625rem;
+    background-color: rgba(161, 194, 224, 0.8);
+    color: #171D25;
+    border: #2D333C solid 1px;
+}
+.bannerForm{
+    padding: 20px;
+    color: #a1c2e0;
+}
+.bannerForm select {
+    background: none;           /* Fondo transparente */
+    color: #a1c2e0;
+    border: #a1c2e0 solid 2px;    /* Bordes visibles */
+    border-radius: 0.5rem;      /* Bordes redondeados */
+    padding: 0.5em 1em;         /* Espaciado interno */
+    font-size: 16px;            /* Tamaño del texto */
+    font-family: Arial, sans-serif; /* Fuente personalizada */
+    width: auto;                /* Ocupa solo lo necesario */
+    cursor: pointer;            /* Indica que es interactivo */
+    appearance: none;           /* Elimina estilos predeterminados del navegador */
+}
+
+.bannerForm select:hover {
+    border-color: #a1c2e0;      /* Color del borde al pasar el cursor */
+}
+
+.bannerForm select:focus {
+    outline: none;              /* Elimina el contorno predeterminado */
+    border-color: #a1c2e0;      /* Color del borde al enfocar */
+}
+
+.bannerForm select option {
+    background: rgba(0, 0, 0, 0); /* Fondo semitransparente */
+}

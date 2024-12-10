@@ -3,12 +3,14 @@
 {% block title %}Edit Description{% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" href="{{ asset('css/settings/settings.css') }}"/>
     <div>
-        <h3>Edit Description</h3>
+        <h3 class="settings-title">Edit Description</h3>
 
         <form method="POST" action="{{ path('edit_description') }}">
-            <textarea name="description" maxlength="161" required>{{ app.user.description }}</textarea>
-            <button type="submit">Save Description</button>
+            <textarea name="description" maxlength="161" required class="settings-editdescription">{{ app.user.description }}</textarea>
+            <br>
+            <button type="submit" class="submitButton">Save Description</button>
         </form>
     </div>
 {% endblock %}

@@ -8,30 +8,37 @@
     <div class="profile-content">
         <div class="user-banner"
          style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
-        <div class="profile-picture">
-            <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
-        </div>
-        {% if not isOwnProfile %}
-            {% set isFollowing = user.followers.contains(app.user) %}
-
-            <div class="follow-button">
-                {% if isFollowing %}
-                    <form action="{{ path('unfollow_user', {id: user.id}) }}" method="post">
-                        <button type="submit" class="btn-unfollow">Unfollow</button>
-                    </form>
-                {% else %}
-                    <form action="{{ path('follow_user', {id: user.id}) }}" method="post">
-                        <button type="submit" class="btn-follow">Follow</button>
-                    </form>
-                {% endif %}
+        <div class="left-profile">
+            <div class="profile-picture">
+                <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
             </div>
-        {% endif %}
+            {% if isOwnProfile %}
+                <div class="follow-button">
+                    <button class="edit-button">Edit</button>
+                </div>
+            {% else %}
+                {% set isFollowing = user.followers.contains(app.user) %}
+
+                <div class="follow-form">
+                    {% if isFollowing %}
+                        <form action="{{ path('unfollow_user', {id: user.id}) }}" method="post">
+                            <div class="follow-form-button">
+                                <button type="submit" class="btn-unfollow">Unfollow</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('follow_user', {id: user.id}) }}" method="post">
+                            <div class="follow-form-button">
+                                <button type="submit" class="btn-follow">Follow</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
         <div class="user-data">
             <div>
                 <h2>{{ user.steamUsername }}</h2>
-            </div>
-            <div>
-                <p>{{ user.description }}</p>
             </div>
             <div class="userFollow">
                 <div>
@@ -42,6 +49,9 @@
                         <b>{{ user.following|length }}</b> Siguiendo
                     </a>
                 </div>
+            </div>
+            <div>
+                <p>{{ user.description }}</p>
             </div>
         </div>
             <div class="user-games">

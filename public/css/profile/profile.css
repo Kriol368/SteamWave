@@ -69,6 +69,7 @@ nav.nav-bar ul li {
 }
 
 nav.nav-bar ul li a {
+    padding: 5px 5px 5px 5px;
     text-decoration: none;
     color: #c1dbf4;
     font-size: 18px;
@@ -80,7 +81,6 @@ nav.nav-bar ul li a:hover {
     color: #c1dbf4;
     background: linear-gradient(to right, #4a596c, #55677a, #4a596c);
     border-radius: 7px;
-    padding: 5px 5px 5px 5px;
 }
 
 /* content */
@@ -90,4 +90,58 @@ nav.nav-bar ul li a:hover {
     border-radius: 10px;
     border: 2px solid #c1dbf4;
     padding: 15px;
+}
+
+/* followButton */
+.left-profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.follow-button{
+    margin-top: 10px;
+    margin-right: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+.edit-button, .btn-follow{
+    width: 60%;
+    border-radius: 1.625rem;
+    background-color: rgba(45, 51, 60, 0.8);
+    color: #a1c2e0;
+    border: #171D25 solid 1px;
+}
+
+.edit-button:hover, .btn-follow:hover{
+    background-color: rgba(161, 194, 224, 0.8);
+    color: #171D25;
+    border: #2D333C solid 1px;
+}
+
+.btn-unfollow{
+    width: 60%;
+    border-radius: 1.625rem;
+    background-color: rgba(161, 194, 224, 0.8);
+    color: #171D25;
+    border: #2D333C solid 1px;
+}
+.btn-unfollow:hover {
+    background-color: rgba(45, 51, 60, 0.8);
+    color: #a1c2e0;
+    border: #171D25 solid 1px;
+}
+.follow-form{
+    width: 100%;
+    margin-right: 20px;
+}
+
+.follow-form-button{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
 }
