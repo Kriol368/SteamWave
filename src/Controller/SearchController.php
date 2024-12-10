@@ -6,6 +6,7 @@ use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,47 +19,70 @@ class SearchController extends AbstractController
         $this->steamAppService = $steamAppService;
     }
 
-
     #[Route('/search/{input}', name: 'app_search_query')]
-    public function query($input, PostRepository $postRepo, UserRepository $userRepo): Response
+    public function query(PostRepository $postRepo, UserRepository $userRepo, Request $request): Response
     {
-        $posts = $postRepo->findByContent($input);
-        $users = $userRepo->findByName($input);
+        $input = $request->query->get('searchQueryInput', '');
 
-        $user = $this->getUser();
+        // ===============
+        //  esta condicional comprueba si hay query, si no hay
+        //  o está vacía te manda pal index otra vez.
 
-        if (!$user) {
-            throw $this->createAccessDeniedException();
+        if($input == "q?searchQueryInput=" || $input == null){
+            return $this->index();
         }
 
-        $bannerGameId = $user->getBanner();
-        $banner = $bannerGameId ? $this->steamAppService->getGameBannerUrl($bannerGameId) : null;
+        else {
+            $queryPosts = $postRepo->findByContent($input);
+            $queryUsers = $userRepo->findByName($input);
 
-        $postsWithImages = [];
-        foreach ($posts as $post) {
-            $steamID64 = $post->getPostUser()->getSteamId64();
-            $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
+            $loggedUser = $this->getUser();
+            if (!$loggedUser) { throw $this->createAccessDeniedException();}
 
-            // Fetch the game name using the post tag (Steam App ID)
-            $gameName = $this->steamAppService->getGameName($post->getTag());
+            // ========0
+            // este bloque organiza posts en un array para el partial
 
-            $postsWithImages[] = [
-                'id'=>$post->getId(),
-                'content' => $post->getContent(),
-                'tag' => $gameName,
-                'image' => $post->getImage(),
-                'profilePicture' => $profileImage,
-                'username' => $post->getPostUser()->getSteamUsername(),
-            ];
+            $posts = [];
+            foreach ($queryPosts as $post) {
+                $steamID64 = $post->getPostUser()->getSteamId64();
+                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
+
+                $gameName = $this->steamAppService->getGameName($post->getTag());
+
+                $posts[] = [
+                    'id' => $post->getId(),
+                    'content' => $post->getContent(),
+                    'tag' => $gameName,
+                    'image' => $post->getImage(),
+                    'profilePicture' => $profileImage,
+                    'username' => $post->getPostUser()->getSteamUsername(),
+                    'userId' => $post->getPostUser()->getId(),
+                ];
+            }
+
+            // ========12357890
+            // este bloque organiza usuarios en un array para el partial
+
+            $users = [];
+            foreach ($queryUsers as $user) {
+                // cogemos al user le joseamos el steam64 y de ahí encontramos la pfp
+                $steamID64 = $user->getSteamId64();
+                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
+
+                $users[] = [
+                    'userId' => $user->getId(),
+                    'profilePicture' => $profileImage,
+                    'username' => $user->getSteamUsername(),
+                ];
+            }
+
+            return $this->render('search/index.html.twig', [
+                'posts' => $posts,
+                'user' => $loggedUser,
+                //'banner' => $banner,
+                'users' => $users,
+            ]);
         }
-
-
-        return $this->render('search/index.html.twig', [
-            'posts' => $postsWithImages,
-            //'user' => $user,
-            //'banner' => $banner,
-            'user' => $user,
-        ]);
     }
 
     #[Route('/search', name: 'app_search')]

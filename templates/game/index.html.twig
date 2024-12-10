@@ -23,11 +23,33 @@
         <p><strong>Price:</strong> Free</p>
     {% endif %}
 
-
     <h3>Genres:</h3>
     <ul>
         {% for genre in game.genres %}
             <li>{{ genre.description }}</li>
         {% endfor %}
     </ul>
+
+    {# Display the average waves #}
+    <h3>Average Waves</h3>
+    {% if averageWaves is not null %}
+        <p><strong>{{ averageWaves|number_format(1) }} / 5</strong></p>
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+
+    {# Include the partial for all reviews #}
+    {% include 'partials/_reviews.html.twig' with { 'reviews': reviews } %}
+
+    {# Form to submit a new review #}
+    {% if app.user %}
+        <h3>Write a Review</h3>
+        {{ form_start(reviewForm) }}
+        {{ form_row(reviewForm.text) }}
+        {{ form_row(reviewForm.waves) }}
+        <button class="btn">Submit Review</button>
+        {{ form_end(reviewForm) }}
+    {% else %}
+        <p><a href="{{ path('app_login') }}">Log in</a> to leave a review.</p>
+    {% endif %}
 {% endblock %}

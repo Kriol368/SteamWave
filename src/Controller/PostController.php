@@ -215,4 +215,50 @@ class PostController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/post/delete/{id}', name: 'app_post_delete', methods: ['POST'])]
+    public function deletePost(int $id, Request $request, Security $security): RedirectResponse
+    {
+        // Get the current user
+        $user = $security->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
+
+        // Find the post by its ID
+        $post = $this->entityManager->getRepository(Post::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        // Check if the current user is the owner of the post
+        if ($post->getPostUser() !== $user) {
+            throw $this->createAccessDeniedException('You do not have permission to delete this post.');
+        }
+
+        // CSRF token validation
+        if (!$this->isCsrfTokenValid('delete_post_' . $id, $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('app_post_show', ['id' => $id]);
+        }
+
+        // Delete all comments associated with the post
+        $comments = $post->getComments();
+        foreach ($comments as $comment) {
+            $this->entityManager->remove($comment);
+        }
+
+        // Delete the post
+        $this->entityManager->remove($post);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Post and its comments have been deleted successfully.');
+
+        // Redirect to the homepage or another route
+        return $this->redirectToRoute('app_home');
+    }
+
 }

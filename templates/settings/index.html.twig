@@ -18,5 +18,12 @@
         <div class="setting">
             <p><a href="{{ path('edit_banner') }}">Change Banner</a></p>
         </div>
+
+        <div>
+            <form action="{{ path('delete_account') }}" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
