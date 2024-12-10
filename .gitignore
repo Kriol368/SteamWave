@@ -26,3 +26,5 @@
 /.idea/commandlinetools/Symfony_31_10_24__10_02.xml
 /.idea/vcs.xml
 /migrations/Version20241106123254.php
+/ca.pem
+/*.pem
