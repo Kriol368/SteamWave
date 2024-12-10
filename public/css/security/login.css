@@ -1,31 +1,167 @@
-.container{
-    margin-top: 10%;
-    padding: 20px;
-    height: auto;
-    width: 350px;
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e2d4b, #3c4857);
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
-.line{
-    border: 10px solid #38466a;
-    margin-bottom: 20px;
-    border-radius: 10px;
+
+.container {
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    text-align: center;
 }
-.center{
+
+.line {
+    border: 3px solid #38466a;
+    margin: 20px 0;
+    border-radius: 50px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
-.background{
-    border-radius: 30px;
-    background-color: #bfbfbf;
-}
-.btn{
-    margin-left: 235px;
-    border-radius: 25px;
-}
-.if{
-    margin-left: auto;
-    margin-right: auto;
 
+h1 {
+    text-align: center;
+    color: #1e2d4b;
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 700;
+}
 
-    padding: 20px;
-    width: 350px;
+.form-control {
+    width: 100%;
+    max-width: 350px; /* Máximo ancho */
+    padding: 12px; /* Espaciado interno */
+    margin: 10px auto; /* Espaciado vertical y centrado */
+    border: 2px solid #ddd; /* Borde básico */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de texto */
+    color: #555; /* Color del texto */
+    background: #f9f9f9; /* Fondo claro */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.form-control:focus {
+    border-color: #38466a; /* Color del borde al enfocarse */
+    box-shadow: 0 0 10px rgba(56, 70, 106, 0.4); /* Realce al enfocar */
+    outline: none; /* Quita el borde predeterminado */
+}
+
+.form-row {
+    margin-bottom: 20px; /* Espaciado entre cada fila */
+    text-align: left; /* Alineación a la izquierda para etiquetas */
+    width: 100%; /* Ocupa el ancho disponible */
+}
+
+label {
+    font-weight: bold; /* Destaca las etiquetas */
+    display: block; /* Asegura que estén sobre los inputs */
+    margin-bottom: 8px; /* Espacio entre etiqueta e input */
+    color: #38466a; /* Color distintivo */
+}
+
+/* Estilo del botón de submit */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #38466a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background: #2c3e5c;
+    transform: scale(1.03);
+}
+
+/* Estilo para los checkboxes */
+.checkbox {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.checkbox label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #555;
+}
+
+.checkbox input {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #38466a; /* Estilo moderno para el checkbox */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Cambia el color del checkbox al estar marcado */
+.checkbox input:checked {
+    background-color: #38466a;
+    border-color: #38466a;
+}
+
+/* Efecto de hover para el checkbox */
+.checkbox input:hover {
+    border-color: #2c3e5c;
+}
+
+.checkbox .terms-text {
+    font-size: 14px;
+    color: #6c7a93;
+    transition: color 0.3s ease;
+}
+
+.checkbox .terms-text:hover {
+    color: #38466a;
+}
+
+.checkbox input:checked + .terms-text {
+    color: #38466a;
+    font-weight: bold;
+}
+
+.if {
+    margin-top: 20px;
+    text-align: center;
+    color: #f5f5f5;
+    font-size: 14px;
+}
+
+.registrate {
+    font-weight: bold;
+    color: #6cb9f3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.registrate:hover {
+    color: #fff;
+}
+
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    color: #fff;
+    background: #e74c3c;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }

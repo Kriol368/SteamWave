@@ -3,14 +3,19 @@
 {% block title %}Settings{% endblock %}
 
 {% block body %}
-    <div>
-        <h2>Settings</h2>
+    <link rel="stylesheet" href="{{ asset('css/settings/settings.css') }}"/>
 
-        <div>
+    <div class="settings-content">
+        <div class="settings-title">
+            <h2>Settings</h2>
+        </div>
+
+
+        <div class="setting">
             <p><a href="{{ path('edit_description') }}">Change Description</a></p>
         </div>
 
-        <div>
+        <div class="setting">
             <p><a href="{{ path('edit_banner') }}">Change Banner</a></p>
         </div>
 

@@ -1,11 +1,9 @@
-{# templates/post/create_post.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <div class="post-creation">
         <link rel="stylesheet" href="{{ asset('css/post/post.css')}}"/>
-        <h1>Create a New Post</h1>
+        <h1>Crear una Nueva Publicación</h1>
 
         {{ form_start(form) }}
         {{ form_row(form.content) }}
@@ -15,7 +13,7 @@
             {{ form_row(form.tag) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
         {{ form_end(form) }}
     </div>
 

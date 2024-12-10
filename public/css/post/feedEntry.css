@@ -51,3 +51,6 @@ ul{
     border-width: 10px 10px 10px 0; /* Triángulo hacia la izquierda */
     border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent; /* Color del triángulo */
 }
+.username-link{
+    color: #c1dbf4;
+}
