@@ -25,10 +25,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class PostController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private SteamAppService $steamAppService;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SteamAppService  $steamAppService)
     {
         $this->entityManager = $entityManager;
+        $this->steamAppService = $steamAppService;
     }
 
     #[Route('/post', name: 'app_post')]
@@ -169,7 +171,7 @@ class PostController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         Security $security,
-        CloudinaryService $cloudinaryService
+        CloudinaryService $cloudinaryService,
     ): Response {
         $post = new Post();
         $user = $security->getUser();
@@ -209,6 +211,12 @@ class PostController extends AbstractController
                 $post->setTag($tag);
             }
 
+            if ($tag) {
+                $game = $this->steamAppService->getGameName($tag);
+                if ($game) {
+                    $post->setGameName($game);
+                }
+            }
             $entityManager->persist($post);
             $entityManager->flush();
 
