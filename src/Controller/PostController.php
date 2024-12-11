@@ -48,7 +48,8 @@ class PostController extends AbstractController
         int $id,
         EntityManagerInterface $entityManager,
         Request $request,
-        SteamAppService $steamAppService
+        SteamAppService $steamAppService,
+        CloudinaryService $cloudinaryService
     ): Response {
         $post = $entityManager->getRepository(Post::class)->find($id);
 
@@ -83,6 +84,7 @@ class PostController extends AbstractController
             'commentForm' => $form->createView(),
             'gameName' => $gameName ?? 'Unknown Game',
             'gameId' => $gameId ?? null,
+            'cloudinaryService' => $cloudinaryService,
         ]);
     }
 
@@ -188,7 +190,7 @@ class PostController extends AbstractController
             if ($imageFile) {
                 try {
                     $imagePath = $imageFile->getRealPath(); // Get real file path
-                    $uploadResult = $cloudinaryService->uploadFile($imagePath, 'posts');
+                    $uploadResult = $cloudinaryService->uploadPostFile($imagePath, 'posts');
                     $imageUrl = $uploadResult['secure_url'] ?? null;
 
                     if ($imageUrl) {

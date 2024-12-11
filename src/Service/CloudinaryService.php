@@ -3,28 +3,40 @@
 namespace App\Service;
 
 use Cloudinary\Cloudinary;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class CloudinaryService
 {
     private Cloudinary $cloudinary;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(string $cloudinaryUrl, string $apiKey, string $apiSecret)
     {
-        // Retrieve Cloudinary credentials from environment variables
         $this->cloudinary = new Cloudinary([
             'cloud' => [
-                'cloud_name' => $params->get('CLOUDINARY_CLOUD_NAME'),
-                'api_key' => $params->get('CLOUDINARY_API_KEY'),
-                'api_secret' => $params->get('CLOUDINARY_API_SECRET'),
+                'cloud_name' => $cloudinaryUrl,
+                'api_key' => $apiKey,
+                'api_secret' => $apiSecret,
             ],
         ]);
     }
 
-    public function uploadFile($filePath, $folder = 'posts')
+    public function uploadPostFile($filePath, $folder = 'posts')
     {
         return $this->cloudinary->uploadApi()->upload($filePath, [
             'folder' => $folder,
         ]);
+    }
+
+
+    // Method to retrieve the URL of an uploaded post file
+    public function getPostFileUrl(string $publicId)
+    {
+        // You can use Cloudinary API to generate a URL for the uploaded file (image/video)
+        try {
+            $url = $this->cloudinary->image($publicId)->getPublicId();
+        } catch (\Exception $e) {
+            $url = null; // If something goes wrong, return null
+        }
+
+        return $url;
     }
 }
