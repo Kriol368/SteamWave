@@ -1,0 +1,190 @@
+/* Contenedor de creación de post centrado en la pantalla con márgenes */
+.post-creation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: rgba(47, 60, 75, 0.7);
+    border-radius: 15px;
+    box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
+    margin: 40px auto; /* Centrado con márgenes arriba y abajo */
+    width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 900px; /* Máximo ancho del contenedor */
+    height: auto; /* El alto depende del contenido */
+    box-sizing: border-box;
+}
+
+/* Título */
+.post-creation h1 {
+    font-size: 2rem;
+    color: #a1c2e0;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Estilos para las filas del formulario */
+form .form-row {
+    margin-bottom: 15px;
+}
+
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para el contenedor de tags */
+#tag-container {
+    margin-top: 15px;
+}
+
+#tag-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+/* Botón de envío */
+button[type="submit"] {
+    margin-top: 10px;
+    background-color: #171D25; /* Verde */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    max-width: 810px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #363643; /* Verde más oscuro */
+}
+
+/* Estilos para las publicaciones en el feed */
+.feed-entry {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+
+.feed-entry:last-child {
+    border-bottom: none;
+}
+
+.example-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.profileImg {
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.post-profile-picture {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+/* Contenido del post */
+.post-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #2f3c4b;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 100%;
+}
+
+.post-content::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent;
+}
+
+.username-link {
+    color: #c1dbf4;
+    text-decoration: none;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+}
+
+.post-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Estilos para los tags */
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.post-tags .tag {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.post-tags .tag:hover {
+    background-color: #0056b3;
+}
+label {
+    color: #a1c2e0;
+}
+.form-control-content, .form-control-file{
+    max-width: 790px;
+}
+/* Fondo blanco con algo de transparencia para los campos con clase 'form-control' */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* Fondo blanco con 80% de opacidad */
+    border: 1px solid #ccc; /* Borde gris claro */
+    color: #000; /* Color del texto */
+}
+
+/* Fondo blanco con algo de transparencia para los campos con clase 'form-control-file' */
+.form-control-file, .form-control-content, .form-control-tag {
+    background-color: rgba(255, 255, 255, 0.8) !important; /* Fondo blanco con 80% de opacidad */
+    border: 1px solid #ccc; /* Borde gris claro */
+}
+.form-control-tag{
+    width: 810px;
+}
