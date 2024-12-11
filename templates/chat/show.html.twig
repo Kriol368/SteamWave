@@ -16,7 +16,19 @@
         </ul>
 
             <div class="chats-content">
-                <p>aqui hay cosas</p>
+                <ul class="chat-li">
+                {% for message in messages %}
+                    {% if message.user == user %}
+                        <div class="your-message message">
+                            <li>{{message.text}}</li>
+                            <li>{{message.sentAt}}</li>
+                        </div>
+
+                    {% else %}
+                        <li class="else-message message">{{message.text}}</li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
             </div>
 
             <div>
