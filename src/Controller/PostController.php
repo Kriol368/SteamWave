@@ -9,6 +9,7 @@ use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use App\Repository\UserPostRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -165,7 +166,8 @@ class PostController extends AbstractController
     public function newPost(
         Request $request,
         EntityManagerInterface $entityManager,
-        Security $security
+        Security $security,
+        CloudinaryService $cloudinaryService
     ): Response {
         $post = new Post();
         $user = $security->getUser();
@@ -182,17 +184,20 @@ class PostController extends AbstractController
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
 
-            if ($imageFile) {
-                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
 
+            if ($imageFile) {
                 try {
-                    $imageFile->move(
-                        $this->getParameter('uploads_directory'),
-                        $newFilename
-                    );
-                    $post->setImage($newFilename);
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Could not upload image.');
+                    $imagePath = $imageFile->getRealPath(); // Get real file path
+                    $uploadResult = $cloudinaryService->uploadFile($imagePath, 'posts');
+                    $imageUrl = $uploadResult['secure_url'] ?? null;
+
+                    if ($imageUrl) {
+                        $post->setImage($imageUrl);
+                    } else {
+                        $this->addFlash('error', 'Failed to upload image to Cloudinary.');
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Could not upload image: ' . $e->getMessage());
                 }
             }
 
