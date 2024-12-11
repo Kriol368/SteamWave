@@ -7,7 +7,9 @@
         <div class="post-card">
             <h2>Content</h2>
             <p>{{ post.content }}</p>
-
+            {% if post.image %}
+                <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
+            {% endif %}
             <h3>Details</h3>
             <ul>
                 <li><strong>Published At:</strong> {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
@@ -18,6 +20,7 @@
                     {% else %}
                         Not specified
                     {% endif %}
+
                 </li>
                 <li><strong>Likes:</strong> {{ post.numLikes }}</li>
             </ul>

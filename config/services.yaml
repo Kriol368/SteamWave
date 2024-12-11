@@ -24,6 +24,10 @@ services:
     App\Service\SteamAppService:
         arguments:
             $apiKey: '%steam_api_key%'
-
+    App\Service\CloudinaryService:
+        arguments:
+            $cloudinaryUrl: '%env(CLOUDINARY_CLOUD_NAME)%'
+            $apiKey: '%env(CLOUDINARY_API_KEY)%'
+            $apiSecret: '%env(CLOUDINARY_API_SECRET)%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
