@@ -46,6 +46,7 @@ class ChatController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chat->addUser($currentUser);
+            $chat->setCreatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($chat);
             $this->entityManager->flush();
 
