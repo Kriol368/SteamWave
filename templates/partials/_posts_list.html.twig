@@ -29,22 +29,7 @@
                             <div class="post-image">
                                 {# Image or Video Preview #}
                                 {% if post.image %}
-                                    {% if post.image matches '/\.(mp4|webm|ogg)$/i' %}
-                                        <div>
-                                            <video class="post-video" controls>
-                                                <source src="{{ asset('uploads/media/' ~ post.image) }}"
-                                                        type="video/{{ post.image|slice(-3) }}">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-                                    {% elseif post.image matches '/\.(jpg|jpeg|png|gif)$/i' %}
-                                        <div>
-                                            <img src="{{ asset('uploads/media/' ~ post.image) }}" alt="Post Image"
-                                                 class="post-image">
-                                        </div>
-                                    {% else %}
-                                        <p>Unsupported media format.</p>
-                                    {% endif %}
+                                    <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" class="post-image"/>
                                 {% endif %}
                             </div>
                                 <div class="post-tag">

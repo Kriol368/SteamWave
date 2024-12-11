@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\PostRepository;
 use App\Repository\UserPostRepository;
 use App\Repository\UserRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,7 +69,7 @@ class ProfileController extends AbstractController
     }
 
         #[Route('/profile/{userId}', name: 'view_profile', defaults: ['userId' => null])]
-    public function viewProfile(?int $userId): Response
+    public function viewProfile(?int $userId,CloudinaryService $cloudinaryService): Response
     {
         $user = $userId ? $this->userRepository->find($userId) : $this->getUser();
 
@@ -105,6 +106,7 @@ class ProfileController extends AbstractController
             'likedPosts' => $likedPostsWithImages,
             'isOwnProfile' => $user === $this->getUser(),
             'banner' => $banner,
+            'cloudinaryService' => $cloudinaryService,
         ]);
     }
 

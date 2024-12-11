@@ -15,10 +15,10 @@
 
         <!-- Posts -->
         <div class="feed" id="following" >
-            {% include 'partials/_posts_list.html.twig' with { posts: followingPosts } %}
+            {% include 'partials/_posts_list.html.twig' with { posts: followingPosts , cloudinaryService: cloudinaryService} %}
         </div>
         <div class="feed" id="all" style="display: none;">
-            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+            {% include 'partials/_posts_list.html.twig' with { posts: posts, cloudinaryService: cloudinaryService} %}
         </div>
 
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\PostRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class HomeController extends AbstractController
 
 
     #[Route('/', name: 'app_home')]
-    public function index(PostRepository $postRepository): Response
+    public function index(PostRepository $postRepository, CloudinaryService $cloudinaryService): Response
     {
         $posts = $postRepository->findBy([], ['publishedAt' => 'DESC']);
         $user = $this->getUser();
@@ -78,6 +79,7 @@ class HomeController extends AbstractController
             'followingPosts' => $followingPostsWithImages,
             'user' => $user,
             'banner' => $banner,
+            'cloudinaryService' => $cloudinaryService,
         ]);
     }
 }
