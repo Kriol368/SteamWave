@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Chat;
 use App\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends AbstractController
 {
-    private $entityManager=doc;
 
     #[Route('/send/message', name: 'app_message', methods: ['POST'])]
     public function sendMessage(Request $request): JsonResponse
@@ -19,7 +19,7 @@ class MessageController extends AbstractController
         $message = $data['message'] ?? null;    // le dices que dentro del array que saque la propiedad 'message' o sino que sea null. en este caso la única que hay.
 
         if ($message) {
-            $chat = $this->entityManager->getRepository(Product::class)->find($id);
+            $chat = $this->entityManager->getRepository(Chat::class)->find("1");
             new Message($message, $this->getUser(), $chat);
 
             return new JsonResponse(['status' => 'success', 'message' => $message]);
