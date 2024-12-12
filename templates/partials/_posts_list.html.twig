@@ -10,8 +10,8 @@
                     <li class="feed-entry">
                         <div class="profileImg">
                             <a href="{{ path('view_profile', { userId: post.userId }) }}" class="username-link">
-                            <img src="{{ post.profilePicture }}" alt="{{ post.username }}'s Profile Picture"
-                                 class="post-profile-picture">
+                                <img src="{{ cloudinaryService.getProfilePictureUrl(post.profilePicture) }}" alt="{{ post.username }}'s Profile Picture"
+                                     class="post-profile-picture">
                             </a>
                         </div>
                         <div class="post-content">

@@ -11,7 +11,7 @@
          style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
         <div class="sideprofile-content">
             <div class="sideprofile-icon">
-                <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil" class="sideprofile-img">
+                <img src="{{ cloudinaryService.getProfilePictureUrl(user.pfp) }}" alt="User Profile Picture" class="sideprofile-img"/>
             </div>
             <div class="sideprofile-text">
                 <div>
