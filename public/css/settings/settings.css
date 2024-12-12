@@ -50,10 +50,6 @@ body {
     font-weight: bold;
 }
 
-.setting a:hover {
-    text-decoration: underline;
-}
-
 /* Buttons */
 .submitButton {
     margin: 0 20px;

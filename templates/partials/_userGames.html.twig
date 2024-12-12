@@ -1,12 +1,19 @@
-<h1>Tus juegos</h1>
+<link rel="stylesheet" href="{{ asset('css/profile/userGames.css') }}"/>
 
-<ul id="user_games_list">
-</ul>
+<h1 class="games-header">Tus juegos</h1>
+
+<div id="user_games_container" class="games-container">
+    <div class="game-count">
+        Total de juegos: <span id="game_count_value">0</span>
+    </div>
+    <ul id="user_games_list" class="games-list">
+        <!-- Games will be dynamically added here -->
+    </ul>
+</div>
 
 {% block javascripts %}
     <script>
-        const gameRouteBase = "{{ path('app_game', {'appId': 0})|replace({'0': ''}) }}";  <!-- Base route for game -->
+        const gameRouteBase = "{{ path('app_game', {'appId': 0})|replace({'0': ''}) }}";  // Base route for game
     </script>
     <script src="{{ asset('js/profile/fetchUserGames.js') }}"></script>
 {% endblock %}
-
