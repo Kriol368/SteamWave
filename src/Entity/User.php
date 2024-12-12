@@ -74,6 +74,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'user')]
     private Collection $reviews;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pfp = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -436,6 +439,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $review->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPfp(): ?string
+    {
+        return $this->pfp;
+    }
+
+    public function setPfp(?string $pfp): static
+    {
+        $this->pfp = $pfp;
 
         return $this;
     }

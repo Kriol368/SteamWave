@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use App\Service\CloudinaryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,18 +15,20 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
     private HttpClientInterface $httpClient;
+    private CloudinaryService $cloudinaryService;
 
-    public function __construct(EmailVerifier $emailVerifier, HttpClientInterface $httpClient)
+    public function __construct(EmailVerifier $emailVerifier, HttpClientInterface $httpClient, CloudinaryService $cloudinaryService)
     {
         $this->emailVerifier = $emailVerifier;
         $this->httpClient = $httpClient;
+        $this->cloudinaryService = $cloudinaryService;
     }
 
     #[Route('/register', name: 'app_register')]
@@ -44,18 +47,31 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Retrieve Steam account information
+            // Retrieve Steam profile URL
             $steamProfileUrl = $form->get('steamProfileUrl')->getData();
             if ($steamProfileUrl) {
+                // Fetch Steam user data
                 $steamData = $this->fetchSteamData($steamProfileUrl);
-                dump($form->get('steamProfileUrl')->getData());
+
                 if ($steamData) {
+                    // Fetch profile image URL from Steam
+                    $profileImageUrl = $steamData['avatarfull'] ?? null;
+                    if ($profileImageUrl) {
+                        // Upload the profile image to Cloudinary
+                        $uploadedImageUrl = $this->cloudinaryService->uploadPfp($profileImageUrl);
+                        if ($uploadedImageUrl) {
+                            // Set the uploaded Cloudinary URL in the user entity
+                            $user->setPfp($uploadedImageUrl);
+                        }
+                    }
+
+                    // Set Steam-related information
                     $user->setSteamID64($steamData['steamid']);
-                    $user->setSteamUsername($steamData['personaname']);
+                    $user->setSteamUsername($steamData['personaname'] ?? ''); // Set username if available
                 }
             }
 
-            // Save the user
+            // Save the user entity
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -92,11 +108,9 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_home'); // or any appropriate route after verification
     }
 
-
     private function fetchSteamData(string $steamProfileUrl): ?array
     {
-        // Replace STEAM_API_KEY with your actual Steam Web API key
-        $steamApiKey = '562D15EBA45FEC235C627957E91296DE';
+        $steamApiKey = $_ENV['STEAM_API_KEY']; // Use an environment variable
         $steamId = $this->extractSteamIDFromUrl($steamProfileUrl);
 
         if ($steamId) {
@@ -113,15 +127,13 @@ class RegistrationController extends AbstractController
 
     private function extractSteamIDFromUrl(string $url): ?string
     {
-        // Check for profile URL with SteamID64
         if (preg_match('/https?:\/\/steamcommunity\.com\/profiles\/(\d+)/', $url, $matches)) {
             return $matches[1];
         }
 
-        // Check for vanity URL
         if (preg_match('/https?:\/\/steamcommunity\.com\/id\/([^\/]+)/', $url, $matches)) {
             $vanityName = $matches[1];
-            return $this->resolveVanityURLToSteamID($vanityName); // Resolves the vanity URL to a SteamID64
+            return $this->resolveVanityURLToSteamID($vanityName);
         }
 
         return null;
@@ -129,11 +141,10 @@ class RegistrationController extends AbstractController
 
     private function resolveVanityURLToSteamID(string $vanityName): ?string
     {
-        $steamApiKey = '562D15EBA45FEC235C627957E91296DE';
+        $steamApiKey = $_ENV['STEAM_API_KEY'];
         $response = $this->httpClient->request('GET', "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key={$steamApiKey}&vanityurl={$vanityName}");
         $data = $response->toArray();
 
         return $data['response']['success'] == 1 ? $data['response']['steamid'] : null;
     }
-
 }

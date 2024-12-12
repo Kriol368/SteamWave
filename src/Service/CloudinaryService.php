@@ -39,4 +39,18 @@ class CloudinaryService
 
         return $url;
     }
+
+    public function uploadPfp(string $fileUrl): ?string
+    {
+        try {
+            $uploadResponse = $this->cloudinary->uploadApi()->upload($fileUrl, [
+                'folder' => 'pfp'
+            ]);
+
+            return $uploadResponse['secure_url'] ?? null;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 }
