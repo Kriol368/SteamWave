@@ -40,6 +40,9 @@ class Post
     #[ORM\OneToMany(targetEntity: UserPost::class, mappedBy: 'post')]
     private Collection $userPosts;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $gameName = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -181,6 +184,18 @@ class Post
                 $userPost->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGameName(): ?string
+    {
+        return $this->gameName;
+    }
+
+    public function setGameName(?string $gameName): static
+    {
+        $this->gameName = $gameName;
 
         return $this;
     }

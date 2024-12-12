@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <link rel="stylesheet" href="{{ asset('css/post/post.css') }}"/>
     <div class="post-details">
         <h1>Post Details</h1>
         <div class="post-card">
             <h2>Content</h2>
             <p>{{ post.content }}</p>
-
+            {% if post.image %}
+                <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
+            {% endif %}
             <h3>Details</h3>
             <ul>
                 <li><strong>Published At:</strong> {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
@@ -17,23 +20,29 @@
                     {% else %}
                         Not specified
                     {% endif %}
+
                 </li>
                 <li><strong>Likes:</strong> {{ post.numLikes }}</li>
             </ul>
 
-            <!-- Like Button -->
-            <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post" class="like-form">
-                <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
-                <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
-                    Like ({{ post.numLikes }})
-                </button>
-            </form>
+            <!-- Contenedor para los botones de Like y Save -->
+            <div class="like-save-container">
+                <!-- Botón de Like -->
+                <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
+                    <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
+                        <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
+                    </button>
+                </form>
 
-            <!-- Save Button -->
-            <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token('save_post_' ~ post.id) }}">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </form>
+                <!-- Botón de Save -->
+                <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('save_post_' ~ post.id) }}">
+                    <button class="btn btn-save" type="submit">
+                        <img src="{{ asset('res/icons/bookmark.svg') }}" alt="save">
+                    </button>
+                </form>
+            </div>
 
             <h3>Comments</h3>
             {% if post.comments is not empty %}

@@ -1,66 +1,147 @@
-.settings-content{
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #171D25;
+    color: #a1c2e0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Title Styling */
+.settings-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2D333C;
+}
+
+/* Container Styles */
+.settings-content {
     display: flex;
     flex-direction: column;
-}
-.setting{
-    border-top: #2D333C solid 2px;
-    flex: 1;
-    max-height: 60px;
-    padding: 10px;
-}
-.settings-title{
-    padding: 30px;
-    font-size: 36px;
-}
-
-.settings-editdescription{
-    width: 70%;
-    height: auto;         /* Altura dinámica */
-    min-height: 100%;     /* Asegura que comience cubriendo toda la pantalla */
-    background: none;     /* Fondo transparente */
-    color: white;         /* Color del texto */
-    border: none;         /* Sin bordes */
-    outline: none;        /* Sin contorno al hacer clic */
-    resize: none;         /* Desactiva el redimensionamiento manual */
-    overflow: hidden;     /* Evita que se muestre la barra de desplazamiento */
-    padding: 10px;        /* Espaciado interno */
-    margin-left: 10px;
-    box-sizing: border-box; /* Incluye el padding dentro de las dimensiones */
-}
-.submitButton{
-    margin-top: 20px;
-    margin-left: 20px;
-    border-radius: 1.625rem;
-    background-color: rgba(161, 194, 224, 0.8);
-    color: #171D25;
-    border: #2D333C solid 1px;
-}
-.bannerForm{
+    align-items: center;
+    gap: 20px;
     padding: 20px;
-    color: #a1c2e0;
 }
+
+/* Individual Setting Links */
+.setting {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    border: 2px solid #2D333C;
+    border-radius: 10px;
+    background-color: rgba(45, 51, 60, 0.8);
+    text-align: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.setting:hover {
+    background-color: rgba(45, 51, 60, 1);
+    transform: scale(1.02);
+}
+
+.setting a {
+    color: #a1c2e0;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.setting a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.submitButton {
+    margin: 0 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #171D25;
+    background-color: rgba(161, 194, 224, 0.8);
+    border: 1px solid #2D333C;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+    background-color: rgba(161, 194, 224, 1);
+    transform: scale(1.05);
+}
+
+/* Textarea */
+.settings-editdescription {
+    width: 70%;
+    min-height: 120px;
+    max-width: 600px;
+    padding: 15px;
+    margin: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background: rgba(45, 51, 60, 0.8);
+    border: 2px solid #2D333C;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.settings-editdescription:focus {
+    border-color: #a1c2e0;
+}
+
+/* Banner Form */
+.bannerForm {
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto 0;
+    background-color: rgba(45, 51, 60, 0.8);
+    border-radius: 10px;
+    text-align: center;
+}
+
 .bannerForm select {
-    background: none;           /* Fondo transparente */
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    font-size: 16px;
     color: #a1c2e0;
-    border: #a1c2e0 solid 2px;    /* Bordes visibles */
-    border-radius: 0.5rem;      /* Bordes redondeados */
-    padding: 0.5em 1em;         /* Espaciado interno */
-    font-size: 16px;            /* Tamaño del texto */
-    font-family: Arial, sans-serif; /* Fuente personalizada */
-    width: auto;                /* Ocupa solo lo necesario */
-    cursor: pointer;            /* Indica que es interactivo */
-    appearance: none;           /* Elimina estilos predeterminados del navegador */
+    background: rgba(45, 51, 60, 0.8);
+    border: 2px solid #2D333C;
+    border-radius: 10px;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.2s ease;
 }
 
-.bannerForm select:hover {
-    border-color: #a1c2e0;      /* Color del borde al pasar el cursor */
-}
-
+.bannerForm select:hover,
 .bannerForm select:focus {
-    outline: none;              /* Elimina el contorno predeterminado */
-    border-color: #a1c2e0;      /* Color del borde al enfocar */
+    border-color: #a1c2e0;
 }
 
 .bannerForm select option {
-    background: rgba(0, 0, 0, 0); /* Fondo semitransparente */
+    background-color: #171D25;
+    color: #a1c2e0;
+}
+
+/* Delete Button */
+.btn-danger {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+    transform: scale(1.05);
 }

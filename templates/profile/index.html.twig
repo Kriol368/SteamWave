@@ -10,7 +10,7 @@
          style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
         <div class="left-profile">
             <div class="profile-picture">
-                <img src="{{ steam_profile_image(user.steamID64) }}" alt="Foto de perfil">
+                <img src="{{ cloudinaryService.getProfilePictureUrl(user.pfp) }}" alt="User Profile Picture"/>
             </div>
             {% if isOwnProfile %}
                 <div class="follow-button">
@@ -70,13 +70,13 @@
     </nav>
 
     <div id="publicaciones" class="nav-content">
-        {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
+        {% include 'partials/_posts_list.html.twig' with { posts: posts, cloudinaryService: cloudinaryService } %}
     </div>
     <div id="me-gusta" class="nav-content" style="display: none;">
-        {% include 'partials/_posts_list.html.twig' with { posts: likedPosts } %}
+        {% include 'partials/_posts_list.html.twig' with { posts: likedPosts, cloudinaryService: cloudinaryService } %}
     </div>
     <div id="guardados" class="nav-content" style="display: none;">
-        {% include 'partials/_posts_list.html.twig' with { posts: savedPosts } %}
+        {% include 'partials/_posts_list.html.twig' with { posts: savedPosts, cloudinaryService: cloudinaryService } %}
     </div>
     <div id="juegos" class="nav-content" style="display: none;">
         {{ include('partials/_userGames.html.twig') }}
