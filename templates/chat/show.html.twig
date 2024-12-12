@@ -21,11 +21,13 @@
                     {% if message.user == user %}
                         <div class="your-message message">
                             <li>{{message.text}}</li>
-                            <li>{{message.sentAt}}</li>
+                            <li>{{message.sentAt|date('H:i:s')}}</li>
                         </div>
-
                     {% else %}
-                        <li class="else-message message">{{message.text}}</li>
+                        <div class="1else-message message">
+                            <li>{{message.text}}</li>
+                            <li>{{message.sentAt|date('H:i:s')}}</li>
+                        </div>
                     {% endif %}
                 {% endfor %}
                 </ul>

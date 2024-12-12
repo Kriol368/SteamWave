@@ -62,10 +62,8 @@ a, p{
     width: fit-content;
 }
 .your-message{
-    border: 3px solid #73AD21;
+    border: 3px solid #73AD21; /* tu mensaje se muestra en verde */
     padding: 10px;
 
     position: relative;
-
-    float: right;
 }
