@@ -14,10 +14,9 @@ class CommentFormType extends AbstractType
     {
         $builder
             ->add('text', TextareaType::class, [
-                'label' => 'Comment',
                 'attr' => [
                     'class' => 'comment-form-text', // Añade la clase CSS aquí
-                    'placeholder' => 'Write your comment here...', // Placeholder
+                    'placeholder' => 'Escribe aquí tu comentario...', // Placeholder
                 ],
             ]);
     }
