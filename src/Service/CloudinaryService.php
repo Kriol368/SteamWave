@@ -53,4 +53,19 @@ class CloudinaryService
         }
     }
 
+    // Method to retrieve the URL of an uploaded profile picture (PFP)
+    public function getProfilePictureUrl(string $publicId)
+    {
+        // You can use Cloudinary API to generate a URL for the uploaded profile picture
+        try {
+            $url = $this->cloudinary->image($publicId)->getPublicId();
+        } catch (\Exception $e) {
+            $url = null; // If something goes wrong, return null
+        }
+
+        return $url;
+    }
+
+
+
 }

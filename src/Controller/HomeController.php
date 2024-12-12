@@ -38,13 +38,12 @@ class HomeController extends AbstractController
         $postsWithImages = [];
         foreach ($posts as $post) {
             $steamID64 = $post->getPostUser()->getSteamId64();
-            $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
             $postsWithImages[] = [
                 'id' => $post->getId(),
                 'content' => $post->getContent(),
                 'image' => $post->getImage(),
-                'profilePicture' => $profileImage,
+                'profilePicture' => $post->getPostUser()->getPfp(),
                 'username' => $post->getPostUser()->getSteamUsername(),
                 'userId' => $post->getPostUser()->getId(),
                 'gameName' => $post->getGamename(),
@@ -59,13 +58,12 @@ class HomeController extends AbstractController
         $followingPostsWithImages = [];
         foreach ($followingPosts as $followingPost) {
             $steamID64 = $followingPost->getPostUser()->getSteamId64();
-            $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
             $followingPostsWithImages[] = [
                 'id' => $followingPost->getId(),
                 'content' => $followingPost->getContent(),
                 'image' => $followingPost->getImage(),
-                'profilePicture' => $profileImage,
+                'profilePicture' => $post->getPostUser()->getPfp(),
                 'username' => $followingPost->getPostUser()->getSteamUsername(),
                 'userId' => $followingPost->getPostUser()->getId(),
                 'gameName' => $followingPost->getGamename(),

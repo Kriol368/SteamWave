@@ -208,7 +208,7 @@ class ProfileController extends AbstractController
                 'content' => $post->getContent(),
                 'tag' => $this->steamAppService->getGameName($post->getTag()),
                 'image' => $post->getImage(),
-                'profilePicture' => $this->steamAppService->getUserProfileImage($steamID64),
+                'profilePicture' => $post->getPostUser()->getPfp(),
                 'username' => $post->getPostUser()->getSteamUsername(),
                 'userId' => $post->getPostUser()->getId(),
                 'gameName' => $post->getGamename(),

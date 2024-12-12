@@ -1,6 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        cloudinaryService: '@App\Service\CloudinaryService'
 
 when@test:
     twig:
         strict_variables: true
+

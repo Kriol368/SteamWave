@@ -41,8 +41,7 @@
         {% if app.user %}
             <a href="{{ path('view_profile', { 'userId': app.user.id }) }}">
                 <button>
-                    <img id="user-btn" src="{{ steam_profile_image(app.user.steamID64) }}" alt="User profile picture"
-                         class="profileimg-button">
+                    <img src="{{ cloudinaryService.getProfilePictureUrl(app.user.pfp) }}" alt="User Profile Picture" class="profileimg-button"/>
                 </button>
             </a>
         {% else %}

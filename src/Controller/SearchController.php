@@ -46,14 +46,13 @@ class SearchController extends AbstractController
             $posts = [];
             foreach ($queryPosts as $post) {
                 $steamID64 = $post->getPostUser()->getSteamId64();
-                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
 
                 $posts[] = [
                     'id' => $post->getId(),
                     'content' => $post->getContent(),
                     'image' => $post->getImage(),
-                    'profilePicture' => $profileImage,
+                    'profilePicture' => $post->getPostUser()->getPfp(),
                     'username' => $post->getPostUser()->getSteamUsername(),
                     'userId' => $post->getPostUser()->getId(),
                     'gameName' => $post->getGamename(),
@@ -67,11 +66,10 @@ class SearchController extends AbstractController
             foreach ($queryUsers as $user) {
                 // cogemos al user le joseamos el steam64 y de ahí encontramos la pfp
                 $steamID64 = $user->getSteamId64();
-                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
                 $users[] = [
                     'userId' => $user->getId(),
-                    'profilePicture' => $profileImage,
+                    'profilePicture' => $user->getPfp(),
                     'username' => $user->getSteamUsername(),
                 ];
             }
