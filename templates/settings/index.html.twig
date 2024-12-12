@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Settings{% endblock %}
+{% block title %}Ajustes{% endblock %}
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/settings/settings.css') }}"/>
 
     <div class="settings-content">
         <div class="settings-title">
-            <h2>Settings</h2>
+            <h2>Ajustes</h2>
         </div>
 
 
         <div class="setting">
-            <p><a href="{{ path('edit_description') }}">Change Description</a></p>
+            <p><a href="{{ path('edit_description') }}">Cambiar Descripción</a></p>
         </div>
 
         <div class="setting">
-            <p><a href="{{ path('edit_banner') }}">Change Banner</a></p>
+            <p><a href="{{ path('edit_banner') }}">Cambiar Banner</a></p>
         </div>
 
         <div>
             <form action="{{ path('delete_account') }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
-                <button type="submit" class="btn btn-danger">Delete Account</button>
+                <button type="submit" class="btn btn-danger">Borrar Cuenta</button>
             </form>
         </div>
     </div>
