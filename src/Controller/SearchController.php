@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class SearchController extends AbstractController
     }
 
     #[Route('/search/{input}', name: 'app_search_query')]
-    public function query(PostRepository $postRepo, UserRepository $userRepo, Request $request): Response
+    public function query(PostRepository $postRepo, UserRepository $userRepo, Request $request, CloudinaryService $cloudinaryService): Response
     {
         $input = $request->query->get('searchQueryInput', '');
 
@@ -45,18 +46,16 @@ class SearchController extends AbstractController
             $posts = [];
             foreach ($queryPosts as $post) {
                 $steamID64 = $post->getPostUser()->getSteamId64();
-                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
-                $gameName = $this->steamAppService->getGameName($post->getTag());
 
                 $posts[] = [
                     'id' => $post->getId(),
                     'content' => $post->getContent(),
-                    'tag' => $gameName,
                     'image' => $post->getImage(),
-                    'profilePicture' => $profileImage,
+                    'profilePicture' => $post->getPostUser()->getPfp(),
                     'username' => $post->getPostUser()->getSteamUsername(),
                     'userId' => $post->getPostUser()->getId(),
+                    'gameName' => $post->getGamename(),
                 ];
             }
 
@@ -67,11 +66,10 @@ class SearchController extends AbstractController
             foreach ($queryUsers as $user) {
                 // cogemos al user le joseamos el steam64 y de ahí encontramos la pfp
                 $steamID64 = $user->getSteamId64();
-                $profileImage = $this->steamAppService->getUserProfileImage($steamID64);
 
                 $users[] = [
                     'userId' => $user->getId(),
-                    'profilePicture' => $profileImage,
+                    'profilePicture' => $user->getPfp(),
                     'username' => $user->getSteamUsername(),
                 ];
             }
@@ -81,6 +79,7 @@ class SearchController extends AbstractController
                 'user' => $loggedUser,
                 //'banner' => $banner,
                 'users' => $users,
+                'cloudinaryService' => $cloudinaryService,
             ]);
         }
     }

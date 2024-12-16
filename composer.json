@@ -4,9 +4,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": "8.1.2",
+        "php": "8.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "cloudinary/cloudinary_php": "^2.14",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",

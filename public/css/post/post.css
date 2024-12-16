@@ -1,0 +1,180 @@
+.post-details {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(47, 60, 75, 0.7);
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    color: #f0f4f8;
+    max-width: 800px;
+}
+
+.post-details h1, .post-details h2, .post-details h3 {
+    color: #c1dbf4;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.post-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Asegura que ocupe el 100% del espacio disponible */
+    max-width: 760px; /* Asegura que el máximo ancho sea 800px */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.comments-list li {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(47, 60, 75, 0.5);
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+ul.comments-list li small {
+    display: block;
+    margin-top: 10px;
+    color: #b0c5e2;
+}
+
+.like-section {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.btn {
+    padding: 8px 12px; /* Ajustamos el tamaño para que no sea demasiado grande */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-success {
+    background-color: transparent;
+    transition: transform 0.4s ease;
+    padding: 5px 9px;
+}
+
+.btn-success:active {
+    transform: scale(1.2);
+    transition: transform 0.1s ease;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-save {
+    padding: 5px 9px; /* Ajustamos el tamaño para que no sea demasiado grande */
+    background-color: transparent;
+    transition: transform 0.4s ease;
+}
+
+.btn-save:active {
+    transform: scale(1.2);
+    transition: transform 0.1s ease;
+}
+
+.btn-primary {
+    background-color: #1e2d4b;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #171D25;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.like-save-container {
+    display: flex;
+    justify-content: flex-start; /* Alinea los botones a la izquierda */
+    align-items: center; /* Asegura que los botones estén alineados verticalmente */
+    margin-top: 10px;
+    flex-wrap: nowrap; /* Asegura que los botones no se envuelvan */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.like-form {
+    margin-top: 10px;
+    /* Eliminamos text-align: right; */
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #d1d9e6;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #c1dbf4;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #9bbbd7;
+    text-decoration: underline;
+}
+
+.profileImg::after {
+    content: '';
+    position: absolute;
+    top: 34px;
+    left: 70px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent;
+}
+
+/* Estilos para el campo de texto del formulario de comentarios */
+.comment-form-text {
+    width: 97%; /* Asegura que el campo de texto ocupe todo el ancho disponible */
+    height: 30px; /* Ajusta la altura del campo de texto */
+    padding: 12px; /* Añade espacio dentro del campo de texto */
+    font-size: 14px; /* Tamaño de la fuente */
+    color: #fff; /* Color del texto */
+    background-color: rgb(0, 0, 0, 0); /* Fondo claro */
+    transition: all 0.3s ease; /* Transición suave al cambiar el estado */
+    border: none;
+}
+
+.comment-form-text:focus {
+    outline: none; /* Elimina el contorno por defecto */
+}
+
+.comment-form-text::placeholder {
+    font-style: italic; /* Estilo de fuente en cursiva */
+}
+.comment-user-name{
+    justify-self: left;
+}

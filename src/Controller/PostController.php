@@ -9,6 +9,7 @@ use App\Form\CommentFormType;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use App\Repository\UserPostRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,10 +25,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class PostController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private SteamAppService $steamAppService;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SteamAppService  $steamAppService)
     {
         $this->entityManager = $entityManager;
+        $this->steamAppService = $steamAppService;
     }
 
     #[Route('/post', name: 'app_post')]
@@ -47,7 +50,8 @@ class PostController extends AbstractController
         int $id,
         EntityManagerInterface $entityManager,
         Request $request,
-        SteamAppService $steamAppService
+        SteamAppService $steamAppService,
+        CloudinaryService $cloudinaryService
     ): Response {
         $post = $entityManager->getRepository(Post::class)->find($id);
 
@@ -82,6 +86,7 @@ class PostController extends AbstractController
             'commentForm' => $form->createView(),
             'gameName' => $gameName ?? 'Unknown Game',
             'gameId' => $gameId ?? null,
+            'cloudinaryService' => $cloudinaryService,
         ]);
     }
 
@@ -165,7 +170,8 @@ class PostController extends AbstractController
     public function newPost(
         Request $request,
         EntityManagerInterface $entityManager,
-        Security $security
+        Security $security,
+        CloudinaryService $cloudinaryService,
     ): Response {
         $post = new Post();
         $user = $security->getUser();
@@ -182,17 +188,20 @@ class PostController extends AbstractController
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
 
-            if ($imageFile) {
-                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
 
+            if ($imageFile) {
                 try {
-                    $imageFile->move(
-                        $this->getParameter('uploads_directory'),
-                        $newFilename
-                    );
-                    $post->setImage($newFilename);
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Could not upload image.');
+                    $imagePath = $imageFile->getRealPath(); // Get real file path
+                    $uploadResult = $cloudinaryService->uploadPostFile($imagePath, 'posts');
+                    $imageUrl = $uploadResult['secure_url'] ?? null;
+
+                    if ($imageUrl) {
+                        $post->setImage($imageUrl);
+                    } else {
+                        $this->addFlash('error', 'Failed to upload image to Cloudinary.');
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Could not upload image: ' . $e->getMessage());
                 }
             }
 
@@ -202,6 +211,12 @@ class PostController extends AbstractController
                 $post->setTag($tag);
             }
 
+            if ($tag) {
+                $game = $this->steamAppService->getGameName($tag);
+                if ($game) {
+                    $post->setGameName($game);
+                }
+            }
             $entityManager->persist($post);
             $entityManager->flush();
 

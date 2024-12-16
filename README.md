@@ -3,7 +3,7 @@
 Welcome to **SteamWave**, the social network built around gaming! 🚀  
 SteamWave is a place for gamers to connect, share posts, and discuss their favorite games, updates, and everything in between. Using Steam as its base, it allows users to share content directly related to games and gaming culture.
 
-![Logo](https://raw.githubusercontent.com/Kriol368/SteamWave/refs/heads/readememd/sketches/logo.png)
+![Logo](https://raw.githubusercontent.com/Kriol368/SteamWave/refs/heads/master/sketches/logo.png)
 
 ## Features
 

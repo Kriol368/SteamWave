@@ -71,6 +71,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserPost::class, mappedBy: 'user')]
     private Collection $userPosts;
 
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'user')]
+    private Collection $reviews;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pfp = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -80,6 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->followers = new ArrayCollection();
         $this->following = new ArrayCollection();
         $this->userPosts = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
 
@@ -402,6 +409,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userPost->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPfp(): ?string
+    {
+        return $this->pfp;
+    }
+
+    public function setPfp(?string $pfp): static
+    {
+        $this->pfp = $pfp;
 
         return $this;
     }

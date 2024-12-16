@@ -1,0 +1,10 @@
+{% for review in reviews %}
+    <div class="review">
+        <p><strong>{{ review.user.steamUsername }}</strong> ({{ review.publishedAt|date('Y-m-d H:i') }})</p>
+        <p>{{ review.text }}</p>
+        <p><strong>Waves:</strong> {{ review.waves }}</p>
+    </div>
+    <hr>
+{% else %}
+    <p>No reviews yet. Be the first to write one!</p>
+{% endfor %}
