@@ -20,13 +20,14 @@ class MessageController extends AbstractController
 
         $data = json_decode($request->getContent(), true); // pillas el json
         $message = $data['message'] ?? null;    // le dices que dentro del array que saque la propiedad 'message' o sino que sea null. en este caso la única que hay.
+        $chat = $data['chat'] ?? null;          // lo mismo pero con el id del chat
 
         if ($message) {
 
             //  TODO
             //  añadir seguridad para que ningun usuario qualquiera pueda enviar mensajes en qualquier cht.
 
-            $chat = $entityManager->getRepository(Chat::class)->find(1);
+            $chat = $entityManager->getRepository(Chat::class)->find($chat);
             $newMessage = new Message($message, $currentUser, $chat);
 
             $entityManager->persist($newMessage);
