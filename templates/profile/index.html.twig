@@ -14,8 +14,9 @@
             </div>
             {% if isOwnProfile %}
                 <div class="follow-button">
-                    <button class="edit-button">Edit</button>
+                    <button class="edit-button" onclick="window.location.href='{{ path('app_settings') }}'">Edit</button>
                 </div>
+
             {% else %}
                 {% set isFollowing = user.followers.contains(app.user) %}
 
