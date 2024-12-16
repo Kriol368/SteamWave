@@ -17,6 +17,9 @@
         <button type="submit" class="submitButton">Guardar</button>
         {{ form_end(form) }}
     </div>
+    <div class="back-button">
+        <button class="back-button" onclick="window.location.href='{{ path('app_settings') }}'">Volver</button>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
