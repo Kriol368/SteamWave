@@ -3,6 +3,9 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/post/post.css') }}"/>
     <div class="post-details">
+        <div>
+            <img src="{{ cloudinaryService.getProfilePictureUrl(post.postUser.pfp) }}" alt="User Profile Picture"/>
+        </div>
         <h1>{{ post.postUser ? post.postUser.name : 'Anonymous' }}</h1>
         <div class="post-card">
             <p>{{ post.content }}</p>
@@ -46,6 +49,9 @@
                 <ul class="comments-list">
                     {% for comment in post.comments %}
                         <li>
+                            <div>
+                                <img src="{{ cloudinaryService.getProfilePictureUrl(comment.user.pfp) }}" alt="User Profile Picture"/>
+                            </div>
                             <h3 class="comment-user-name">{{ comment.user.name }}</h3>
                             <p>{{ comment.text }}</p>
                             <small>{{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
