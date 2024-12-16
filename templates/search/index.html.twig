@@ -5,39 +5,47 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/search/searchBar.css') }}"/>
     <div class="wrapper">
-        <div class="searchBar">
-            <form action="/search/q" method="get">
-                <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="busca" value="" />
-                <button id="searchQuerySubmit" type="submit" name="">
-                    <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
-                </button>
+        <!-- Botón de búsqueda inicial -->
+        <div class="search-button-container">
+            <button class="search-button" type="button">
+                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
+            </button>
+        </div>
+
+        <!-- Contenedor de la barra de búsqueda (inicialmente oculto) -->
+        <div class="searchBar" style="display: none;">
+            <form action="/search/q" method="get" class="search-form" id="searchBarTransition">
+                <div class="search-container">
+                    <input class="search-input" type="text" name="searchQueryInput" placeholder="Busca" value=""/>
+                    <button class="search-submit-button" type="submit">
+                        <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
+                    </button>
+                </div>
             </form>
-            <nav class="nav-bar">
-                <ul>
-                    <li><a href="#" class="nav-link" data-target="posts">Publicaciones</a></li>
-                    <li><a href="#" class="nav-link" data-target="usuarios">Usuarios</a></li>
-                </ul>
-            </nav>
         </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#" class="nav-link" data-target="posts">Publicaciones</a></li>
+                <li><a href="#" class="nav-link" data-target="usuarios">Usuarios</a></li>
+            </ul>
+        </nav>
         {% if posts is defined or users is defined %}
-        <div id="posts" class="nav-content">
-            {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
-        </div>
-        <div id="usuarios" class="nav-content" style="display: none;">
-            {% include 'partials/_user_list.html.twig' with { users: users } %}
-        </div>
-    </div>
-        {% else %}
-        <div id="posts" class="nav-content">
-                <p>empieza a buscar entre posts</p>
+            <div id="posts" class="nav-content">
+                {% include 'partials/_posts_list.html.twig' with { posts: posts } %}
             </div>
             <div id="usuarios" class="nav-content" style="display: none;">
-                <p>empieza a buscar entre posts usuarios</p>
+                {% include 'partials/_user_list.html.twig' with { users: users } %}
             </div>
-        </div>
+        {% else %}
+            <div id="posts" class="nav-content">
+                <p>Empieza a buscar entre publicaciones</p>
+            </div>
+            <div id="usuarios" class="nav-content" style="display: none;">
+                <p>Empieza a buscar entre usuarios</p>
+            </div>
         {% endif %}
+    </div>
     <script src="{{ asset('js/profile/profile.js') }}"></script>
-    {# por increible que parezca este script es universal, puedes cambiar los ids y toddo sigue funcionando bien #}
+    <script src="{{ asset('js/search/search.js') }}"></script>
 
-    <!-- final de documento -->
 {% endblock %}

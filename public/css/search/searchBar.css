@@ -1,59 +1,89 @@
-/*  EN ESTE STYLESHEET HAY MUCHAS DECLARACIONES QUE SON REDUNDANTES
-    Y QUE POR "A" O POR "B" NO SE ACABAN APLICANDO.
-
-    MUCHO OJO
- */
-
-/*  ===================================
-    estilo para la barra de busqueda
- */
-.content{
-    padding-left: 100px;
-    padding-right: 0;
-    max-width: 100%;
+/* General */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
 }
+
+/* Wrapper */
 .wrapper {
     max-width: 100%;
-    margin: 1rem ;
+    margin: 1rem;
 }
 
+/* Search Bar */
 .searchBar {
     width: 100%;
-    display: block;
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 1rem;
 }
 
-#searchQueryInput {
-    /*width: 100%;*/
-    height: 2.8rem;
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
     background: #f0f0f0;
-    outline: none;
-    border: none;
-    border-radius: 1.625rem;
-    padding: 0 3.5rem 0 1.5rem;
-    font-size: 1rem;
-    text-align: center;
+    border-radius: 30px;
+    padding: 0 1rem;
+    border: 2px solid #ddd;
 }
 
-#searchQuerySubmit {
-    width: 3.5rem;
-    height: 2.8rem;
-    margin-left: -3.5rem;
+.search-input {
+    flex: 1;
+    height: 3rem;
+    border: none;
     background: none;
-    border: none;
     outline: none;
+    font-size: 1rem;
+    border-radius: 30px;
+    padding: 0 0.5rem;
+    transition: width 0.3s;
 }
 
-#searchQuerySubmit:hover {
+.search-button {
+    align-self: center;
+    justify-self: center;
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 0.5rem;
 }
-/* ==================================================
-    estilo rumaneado del marc
- */
 
-/* Barra de navegación horizontal */
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.search-button img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.search-submit-button{
+    border: none;
+    background-color: rgb(0,0,0,0);
+}
+.search-button-container{
+    display: flex;
+    width: 100%;
+}
+
+/* Navigation Bar */
 nav.nav-bar {
+    margin-top: 20px;
     width: 100%;
     background-color: #333;
     border-radius: 1.625rem;
@@ -77,7 +107,7 @@ nav.nav-bar ul li {
 
 nav.nav-bar ul li a {
     text-decoration: none;
-    color: white;
+    color: #b0b0b0;
     font-size: 18px;
     font-weight: bold;
     transition: color 0.3s;
@@ -85,12 +115,12 @@ nav.nav-bar ul li a {
 
 /* Estilo para el enlace seleccionado */
 nav.nav-bar ul li a.selected {
-    color: #b0b0b0;
+    color: #f0f0f0;
     font-weight: bold;
 }
 
 nav.nav-bar ul li a:hover {
-    color: #f0f0f0;
+    color: #b0b0b0;
 }
 
 /* content */
@@ -101,3 +131,16 @@ nav.nav-bar ul li a:hover {
     border: 2px solid #ddd;
     max-width: 100%;
 }
+
+/* profile */
+/* Estilo para .post-content */
+.user-post-content {
+    display: flex;
+    flex-direction:row ;
+    flex: auto;
+    padding: 10px 20px 15px 20px;
+    width: 97%;
+    background-color: rgba(47, 60, 75, 0.7);
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgb(0 0 0 / 20%);
+    position: relative;}
