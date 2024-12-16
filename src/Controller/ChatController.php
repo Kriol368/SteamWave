@@ -46,6 +46,7 @@ class ChatController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chat->addUser($currentUser);
+            $chat->setCreatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($chat);
             $this->entityManager->flush();
 
@@ -60,16 +61,19 @@ class ChatController extends AbstractController
     #[Route('/chat/{id}', name: 'chat_show')]
     public function show(int $id, ChatRepository $chatRepository): Response
     {
-        // Fetch the chat using the ChatRepository by id
+        $currentUser = $this->getUser();
+        $userId = $this->getUser()->getId();
         $chat = $chatRepository->find($id);
 
-        // Handle the case when chat is not found
         if (!$chat) {
             throw $this->createNotFoundException('Chat not found');
         }
 
+        $messages = $chat->getMessages();
         return $this->render('chat/show.html.twig', [
+            'user' => $currentUser,
             'chat' => $chat,
+            'messages' => $messages,
         ]);
     }
 }

@@ -7,7 +7,7 @@
     background-color: #00000000;
     border: 0;
 }
-a{
+a, p{
     color:black;
 }
 .chats-content{
@@ -43,6 +43,8 @@ a{
 .chat-li{
     margin-left: -30px;
     list-style-type: none;
+
+    display: block;
 }
 .chat{
     padding: 30px;
@@ -51,4 +53,17 @@ a{
 
     margin: 5px;
 }
+.message{
+    display: inline-list-item;
 
+    padding: 10px;
+    background-color: #a8a8a8;
+    border-radius: 30px;
+    width: fit-content;
+}
+.your-message{
+    border: 3px solid #73AD21; /* tu mensaje se muestra en verde */
+    padding: 10px;
+
+    position: relative;
+}

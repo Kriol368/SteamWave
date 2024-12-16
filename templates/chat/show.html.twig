@@ -3,16 +3,44 @@
 {% block title %}Placeholder{% endblock %}
 
 {% block body %}
-    <h1>Chat:</h1>
+    <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
+    <script src="{{ asset('js/chat/message.js')}}"></script>
+    <div class="">
+        <h1>Chat:</h1>
+        <h3>Participants:</h3>
+        <ul>
+            {% for user in chat.users %}
+                <li>{{ user.name }}</li>
+            {% else %}
+                <li>No participants</li>
+            {% endfor %}
+        </ul>
 
-    <h3>Participants:</h3>
-    <ul>
-        {% for user in chat.users %}
-            <li>{{ user.name }}</li>
-        {% else %}
-            <li>No participants</li>
-        {% endfor %}
-    </ul>
+            <div class="chats-content">
+                <ul class="chat-li">
+                {% for message in messages %}
+                    {% if message.user == user %}
+                        <div class="your-message message">
+                            <li>{{message.text}}</li>
+                            <li>{{message.sentAt|date('H:i:s')}}</li>
+                        </div>
+                    {% else %}
+                        <div class="1else-message message">
+                            <li>{{message.text}}</li>
+                            <li>{{message.sentAt|date('H:i:s')}}</li>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+
+            <div>
+                <input type="text" id="message" placeholder="Escribe tu mensaje.">
+                <input type="button" id="sendMessageButton" value="enviar">
+            </div>
+    </div>
+
+    <div id="response"></div>
 
     <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
 {% endblock %}
