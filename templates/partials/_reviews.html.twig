@@ -1,5 +1,8 @@
 {% for review in reviews %}
     <div class="review">
+        <div>
+            <img src="{{ cloudinaryService.getProfilePictureUrl(review.user.pfp) }}" alt="User Profile Picture"/>
+        </div>
         <p><strong>{{ review.user.steamUsername }}</strong> ({{ review.publishedAt|date('Y-m-d H:i') }})</p>
         <p>{{ review.text }}</p>
         <p><strong>Waves:</strong> {{ review.waves }}</p>
