@@ -53,7 +53,7 @@ class SearchController extends AbstractController
                     'content' => $post->getContent(),
                     'image' => $post->getImage(),
                     'profilePicture' => $post->getPostUser()->getPfp(),
-                    'username' => $post->getPostUser()->getSteamUsername(),
+                    'username' => $post->getPostUser()->getName(),
                     'userId' => $post->getPostUser()->getId(),
                     'gameName' => $post->getGamename(),
                 ];
@@ -70,7 +70,7 @@ class SearchController extends AbstractController
                 $users[] = [
                     'userId' => $user->getId(),
                     'profilePicture' => $user->getPfp(),
-                    'username' => $user->getSteamUsername(),
+                    'username' => $user->getName(),
                 ];
             }
 
