@@ -4,21 +4,34 @@ namespace App\Controller;
 
 use App\Entity\Chat;
 use App\Entity\Message;
-use phpDocumentor\Reflection\Types\Boolean;
+use App\Entity\User;
+use App\Repository\ChatRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 class MessageController extends AbstractController
 {
-    public function verifyUser(User $user, int $chatId): Boolean
+    public function __construct(ChatRepository $chatRepository, Security $security, EntityManagerInterface $entityManager)
     {
-        if(){
-
-        }
+        $this->chatRepository = $chatRepository;
+        $this->security = $security;
+        $this->entityManager = $entityManager;
     }
+    //  esta funcion verifica que el usuario introducido es parte del chat introducido.
+    public function verifyUser(User $user, Chat $chat): bool
+    {
+
+        if($chat->chatRepository->findByUser($user)){
+            return true;
+        }
+        else return false;
+    }
+
     #[Route('/send/message', name: 'app_message', methods: ['POST'])]
     public function sendMessage(ManagerRegistry $doctrine ,Request $request): JsonResponse
     {
@@ -31,15 +44,14 @@ class MessageController extends AbstractController
 
         if ($message || $chat) {
 
-            //  TODO
-            //  añadir seguridad para que ningun usuario qualquiera pueda enviar mensajes en qualquier cht.
+            if(!$this->verifyUser($currentUser,$chat,$doctrine)) { // esta condicional llama a una funcion que verifica cosas.
+                return new JsonResponse(['status' => 'error', 'message' => 'tonto o k¿'], 400);
+            }
 
+            $newMessage = new Message($message, $currentUser, $chat); //se crea el mensaje.
 
-
-            $newMessage = new Message($message, $currentUser, $chat);
-
-            $entityManager->persist($newMessage);
-            $entityManager->flush();
+            $entityManager->persist($newMessage);   // se guarda
+            $entityManager->flush();    // y se envía
 
             //  TODO
             //  hacer que la página muestre el nuevo mensaje sin tener que actualizar.

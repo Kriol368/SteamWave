@@ -26,7 +26,7 @@ class ChatRepository extends ServiceEntityRepository
      * @param User $user
      * @return Chat[]
      */
-    public function findByUser(User $user)
+    public function findByUser(User $user): array
     {
         return $this->createQueryBuilder('c')
             ->innerJoin('c.users', 'u')
