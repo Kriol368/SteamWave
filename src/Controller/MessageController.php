@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Chat;
 use App\Entity\Message;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,22 +13,29 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class MessageController extends AbstractController
 {
+    public function verifyUser(User $user, int $chatId): Boolean
+    {
+        if(){
+
+        }
+    }
     #[Route('/send/message', name: 'app_message', methods: ['POST'])]
     public function sendMessage(ManagerRegistry $doctrine ,Request $request): JsonResponse
     {
-        $entityManager = $doctrine->getManager();
         $currentUser = $this->getUser();
+        $entityManager = $doctrine->getManager();
 
         $data = json_decode($request->getContent(), true); // pillas el json
         $message = $data['message'] ?? null;    // le dices que dentro del array que saque la propiedad 'message' o sino que sea null. en este caso la única que hay.
-        $chat = $data['chat'] ?? null;          // lo mismo pero con el id del chat
+        $chat = $entityManager->getRepository(Chat::class)->find($data['chat'] ?? null);   // lo mismo pero con el id del chat, pero en este caso sacamos la entidad directamente.
 
-        if ($message) {
+        if ($message || $chat) {
 
             //  TODO
             //  añadir seguridad para que ningun usuario qualquiera pueda enviar mensajes en qualquier cht.
 
-            $chat = $entityManager->getRepository(Chat::class)->find($chat);
+
+
             $newMessage = new Message($message, $currentUser, $chat);
 
             $entityManager->persist($newMessage);
