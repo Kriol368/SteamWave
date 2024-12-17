@@ -23,11 +23,14 @@
                         <div class="your-message message">
                             <li>{{message.text}}</li>
                             <li>{{message.sentAt|date('H:i:s')}}</li>
+                            <img class="foto" src="{{ cloudinaryService.getProfilePictureUrl(app.user.pfp) }}" alt="User Profile Picture" class="profileimg-button"/>
+
                         </div>
                     {% else %}
                         <div class="1else-message message">
                             <li>{{message.text}}</li>
                             <li>{{message.sentAt|date('H:i:s')}}</li>
+                            <li>{{message.user.name}}</li>
                         </div>
                     {% endif %}
                 {% endfor %}
