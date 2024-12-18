@@ -20,12 +20,12 @@
                 <ul class="chat-li">
                 {% for message in messages %}
                     {% if message.user == user %}
-                        <div class="your-message message">
+                        <ul class="your-message message">
                             <li>{{message.text}}</li>
                             <li>{{message.sentAt|date('H:i:s')}}</li>
                             <img class="foto" src="{{ cloudinaryService.getProfilePictureUrl(app.user.pfp) }}" alt="User Profile Picture" class="profileimg-button"/>
 
-                        </div>
+                        </ul>
                     {% else %}
                         <div class="1else-message message">
                             <li>{{message.text}}</li>
