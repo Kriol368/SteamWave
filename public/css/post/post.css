@@ -11,7 +11,7 @@
 .post-details h1, .post-details h2, .post-details h3 {
     color: #c1dbf4;
     margin-bottom: 15px;
-    text-align: center;
+    text-align: left;
 }
 
 .post-card {
@@ -29,16 +29,31 @@ ul {
     padding: 0;
     margin: 0;
 }
+/* comentarios */
 
-ul.comments-list li {
+.comment-content {
+    position: relative;
+    margin-left: 15px;
+    flex: content;
     margin-bottom: 20px;
     padding: 15px;
     background-color: rgba(47, 60, 75, 0.5);
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+.comment-content::after {
+    content: '';
+    position: absolute;
+    top: 30px; /* Ajusta según la posición vertical deseada */
+    left: -10px; /* Distancia desde el borde izquierdo del contenedor */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0; /* Forma de triángulo apuntando hacia la izquierda */
+    border-color: transparent rgba(47, 60, 75, 0.5) transparent transparent; /* Color del triángulo */
+}
 
-ul.comments-list li small {
+ul.comments-list li div small {
     display: block;
     margin-top: 10px;
     color: #b0c5e2;
@@ -47,6 +62,19 @@ ul.comments-list li small {
 .like-section {
     margin-top: 10px;
     text-align: right;
+}
+
+.comment-profile-picture img{
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.singlecomment{
+    display: flex;
+    flex-direction: row;
 }
 
 .btn {
@@ -177,4 +205,46 @@ a:hover {
 }
 .comment-user-name{
     justify-self: left;
+}
+
+.viewpost-main-div {
+    display: flex; /* Asegura que los elementos se alineen en una fila */
+    flex-direction: row; /* Orden en línea horizontal */
+    align-items: flex-start; /* Alinea verticalmente en la parte superior */
+    gap: 20px; /* Espacio entre la imagen y los detalles */
+    margin: 20px auto; /* Centra el contenedor en la página */
+    max-width: 950px; /* Ancho máximo del contenedor */
+    position: relative;
+}
+
+.viewpost-profile-image-div {
+    margin-top: 50px ;
+    flex-shrink: 0; /* Evita que la imagen se reduzca */
+    display: flex; /* Centra la imagen dentro del contenedor */
+    align-items: center;
+    justify-content: center;
+}
+
+.viewpost-profile-image {
+    width: 80px; /* Tamaño fijo de la imagen */
+    height: 80px; /* Tamaño fijo de la imagen */
+    border-radius: 50%; /* Imagen redonda */
+    object-fit: cover; /* Asegura que la imagen no se deforme */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+.post-details::after {
+    content: '';
+    position: absolute;
+    top: 50px; /* Ajusta según la posición vertical deseada */
+    left: -20px; /* Distancia desde el borde izquierdo del contenedor */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 20px 0; /* Forma de triángulo apuntando hacia la izquierda */
+    border-color: transparent rgba(47, 60, 75, 0.7) transparent transparent; /* Color del triángulo */
+}
+
+.post-details {
+    position: relative; /* Necesario para que el pseudo-elemento se posicione correctamente */
+    flex-grow: 1; /* Ocupa el espacio restante */
 }
