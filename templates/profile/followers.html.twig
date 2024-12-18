@@ -8,6 +8,9 @@
     {% if followers|length > 0 %}
         <ul>
             {% for follower in followers %}
+                <div class="profile-picture">
+                    <img src="{{ cloudinaryService.getProfilePictureUrl(follower.pfp) }}" alt="User Profile Picture"/>
+                </div>
                 <li>
                     <a href="{{ path('view_profile', {userId: follower.id}) }}">{{ follower.getName }}</a>
                 </li>
