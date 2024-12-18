@@ -53,6 +53,16 @@ class CloudinaryService
         }
     }
 
+    public function deletePfp(string $publicId): void
+    {
+        try {
+            $this->cloudinary->admin()->deleteAssets(['public_ids' => [$publicId]]);
+        } catch (ApiError $e) {
+            // Handle error (log it, notify admin, etc.)
+            throw new \Exception('Error deleting image from Cloudinary: ' . $e->getMessage());
+        }
+    }
+
     // Method to retrieve the URL of an uploaded profile picture (PFP)
     public function getProfilePictureUrl(string $publicId)
     {
@@ -65,6 +75,8 @@ class CloudinaryService
 
         return $url;
     }
+
+
 
 
 

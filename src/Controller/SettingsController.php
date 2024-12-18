@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\BannerFormType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
+use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,18 +14,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SettingsController extends AbstractController
 {
     private $entityManager;
     private $userRepository;
     private $postRepository;
+    private $steamAppService;
+    private $cloudinaryService;
+    private HttpClientInterface $httpClient;
 
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, PostRepository $postRepository)
+
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, PostRepository $postRepository, SteamAppService $steamAppService, CloudinaryService $cloudinaryService,HttpClientInterface $httpClient)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->postRepository = $postRepository;
+        $this->steamAppService = $steamAppService;
+        $this->cloudinaryService = $cloudinaryService;
+        $this->httpClient = $httpClient;
     }
 
     #[Route('/settings', name: 'app_settings')]
@@ -32,6 +41,69 @@ class SettingsController extends AbstractController
     {
         return $this->render('settings/index.html.twig');
     }
+
+    #[Route('/settings/update', name: 'app_update')]
+    public function update(Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
+    {
+        // Get the authenticated user
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('No authenticated user found.');
+        }
+
+        $steamApiKey = $_ENV['STEAM_API_KEY']; // Use an environment variable
+        $steamId = $user->getSteamId64();
+
+        try {
+            // Get player summary from Steam API
+            $response = $this->httpClient->request('GET', "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={$steamApiKey}&steamids={$steamId}");
+            $data = $response->toArray();
+        } catch (\Exception $e) {
+            // Handle exceptions from the Steam API request
+            $this->addFlash('error', 'Unable to retrieve data from Steam API.');
+            return $this->redirectToRoute('app_settings');
+        }
+
+        if (isset($data['response']['players'][0])) {
+            $playerData = $data['response']['players'][0];
+
+            // Update user's Steam username if it exists
+            if (!empty($playerData['personaname'])) {
+                $user->setSteamUsername($playerData['personaname']);
+            }
+
+            // Update user's profile picture from Steam and upload it to Cloudinary
+            if (!empty($playerData['avatarfull'])) {
+                $profileImageUrl = $playerData['avatarfull'];
+
+                try {
+                    // Upload the profile image to Cloudinary
+                    $uploadedImageUrl = $this->cloudinaryService->uploadPfp($profileImageUrl);
+
+                    if ($uploadedImageUrl) {
+                        $user->setPfp($uploadedImageUrl);
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Failed to upload the profile image.');
+                }
+            }
+
+            // Persist and flush updated user information
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // Inform the user that the update was successful
+            $this->addFlash('success', 'Profile successfully updated.');
+        } else {
+            $this->addFlash('error', 'Unable to retrieve player data from Steam.');
+        }
+
+        // Redirect back to the settings page
+        return $this->redirectToRoute('app_settings');
+    }
+
+
 
     #[Route('/settings/description', name: 'edit_description', methods: ['GET', 'POST'])]
     public function editDescription(Request $request): Response
@@ -146,5 +218,6 @@ class SettingsController extends AbstractController
         // Redirect to the logout route to complete the process
         return $this->redirectToRoute('app_logout');
     }
+
 
 }
