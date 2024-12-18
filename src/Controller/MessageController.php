@@ -22,14 +22,18 @@ class MessageController extends AbstractController
         $this->security = $security;
         $this->entityManager = $entityManager;
     }
-    //  esta funcion verifica que el usuario introducido es parte del chat introducido.
-    public function verifyUser(User $user, Chat $chat): bool
-    {
 
-        if($chat->chatRepository->findByUser($user)){
-            return true;
+    //  esta funcion verifica que el usuario introducido es parte del chat introducido.
+    public function verifyUser($user, $chat): bool
+    {
+        $userChats = $this->chatRepository->findByUser($user); // Array con los chats que tiene el usuario.
+
+        for ($i = 0; $i < count($userChats); $i++) { // cada iteración compara las id del chat actual con el correspondiente.
+            if ($userChats[$i]->getId() == $chat->getId()) {
+                return true; // si coinciden, el usuario es valido.
+            }
         }
-        else return false;
+        return false; // si no, pues no.
     }
 
     #[Route('/send/message', name: 'app_message', methods: ['POST'])]
@@ -39,13 +43,13 @@ class MessageController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $data = json_decode($request->getContent(), true); // pillas el json
-        $message = $data['message'] ?? null;    // le dices que dentro del array que saque la propiedad 'message' o sino que sea null. en este caso la única que hay.
+        $message = $data['message'] ?? null;    // le dices que de dentro del array saque la propiedad 'message' o sino que sea null.
         $chat = $entityManager->getRepository(Chat::class)->find($data['chat'] ?? null);   // lo mismo pero con el id del chat, pero en este caso sacamos la entidad directamente.
 
-        if ($message || $chat) {
+        if (($message || $chat) && (($message ==""|| $chat==""))) {
 
-            if(!$this->verifyUser($currentUser,$chat,$doctrine)) { // esta condicional llama a una funcion que verifica cosas.
-                return new JsonResponse(['status' => 'error', 'message' => 'tonto o k¿'], 400);
+            if(!$this->verifyUser($currentUser, $chat)) { // verificación de usuario
+                return new JsonResponse(['status' => 'error', 'message' => 'tonto o k¿'], 400); // si el usuario no está autorizado devuelve un error.
             }
 
             $newMessage = new Message($message, $currentUser, $chat); //se crea el mensaje.
@@ -58,7 +62,8 @@ class MessageController extends AbstractController
 
             return new JsonResponse(['status' => 'success', 'message' => $message]);
         } else {
-            return new JsonResponse(['status' => 'error', 'message' => 'No message provided'], 400);
+            //  este mensaje no me acaba de convencer.
+            return new JsonResponse(['status' => 'error', 'message' => 'No message or chat provided'], 400);
         }
     }
 }
