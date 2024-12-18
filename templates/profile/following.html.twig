@@ -9,7 +9,7 @@
         <ul>
             {% for followedUser in following %}
                 <li>
-                    <a href="{{ path('view_profile', {userId: followedUser.id}) }}">{{ followedUser.getSteamUsername }}</a>
+                    <a href="{{ path('view_profile', {userId: followedUser.id}) }}">{{ followedUser.getName }}</a>
                 </li>
             {% endfor %}
         </ul>

@@ -44,7 +44,7 @@ class HomeController extends AbstractController
                 'content' => $post->getContent(),
                 'image' => $post->getImage(),
                 'profilePicture' => $post->getPostUser()->getPfp(),
-                'username' => $post->getPostUser()->getSteamUsername(),
+                'username' => $post->getPostUser()->getName(),
                 'userId' => $post->getPostUser()->getId(),
                 'gameName' => $post->getGamename(),
             ];
@@ -64,7 +64,7 @@ class HomeController extends AbstractController
                 'content' => $followingPost->getContent(),
                 'image' => $followingPost->getImage(),
                 'profilePicture' => $post->getPostUser()->getPfp(),
-                'username' => $followingPost->getPostUser()->getSteamUsername(),
+                'username' => $followingPost->getPostUser()->getName(),
                 'userId' => $followingPost->getPostUser()->getId(),
                 'gameName' => $followingPost->getGamename(),
             ];
