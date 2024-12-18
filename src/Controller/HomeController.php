@@ -63,7 +63,7 @@ class HomeController extends AbstractController
                 'id' => $followingPost->getId(),
                 'content' => $followingPost->getContent(),
                 'image' => $followingPost->getImage(),
-                'profilePicture' => $post->getPostUser()->getPfp(),
+                'profilePicture' => $followingPost->getPostUser()->getPfp(),
                 'username' => $followingPost->getPostUser()->getName(),
                 'userId' => $followingPost->getPostUser()->getId(),
                 'gameName' => $followingPost->getGamename(),
