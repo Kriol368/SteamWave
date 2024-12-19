@@ -3,22 +3,28 @@
 {% block title %}Siguiendo{% endblock %}
 
 {% block body %}
-    <h1>{{ user.getName }} is Following</h1>
+    <link rel="stylesheet" href="{{ asset('css/profile/follow.css') }}"/>
+    <div class="follow-section">
 
-    {% if following|length > 0 %}
-        <ul>
-            {% for followedUser in following %}
-                <div class="profile-picture">
-                    <img src="{{ cloudinaryService.getProfilePictureUrl(followedUser.pfp) }}" alt="User Profile Picture"/>
-                </div>
-                <li>
-                    <a href="{{ path('view_profile', {userId: followedUser.id}) }}">{{ followedUser.getName }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Not following anyone yet.</p>
-    {% endif %}
-
-    <a href="{{ path('view_profile', { userId: user.id }) }}">Back to Profile</a>
+        <div class="following">
+            <h1>{{ user.getName }} is Following</h1>
+            {% if following|length > 0 %}
+                <ul>
+                    {% for followedUser in following %}
+                        <li class="following-user">
+                            <div class="profile-picture">
+                                <img src="{{ cloudinaryService.getProfilePictureUrl(followedUser.pfp) }}"
+                                     alt="User Profile Picture"/>
+                            </div>
+                            <a href="{{ path('view_profile', {userId: followedUser.id}) }}"
+                               class="following-name">{{ followedUser.getName }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Not following anyone yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    <a href="{{ path('view_profile', { userId: user.id }) }}" class="back-to-profile">Back to Profile</a>
 {% endblock %}

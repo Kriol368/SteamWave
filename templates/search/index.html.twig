@@ -5,19 +5,12 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/search/searchBar.css') }}"/>
     <div class="wrapper">
-        <!-- Botón de búsqueda inicial -->
-        <div class="search-button-container">
-            <button class="search-button" type="button">
-                <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
-            </button>
-        </div>
-
         <!-- Contenedor de la barra de búsqueda (inicialmente oculto) -->
-        <div class="searchBar" style="display: none;">
+        <div class="searchBar">
             <form action="/search/q" method="get" class="search-form" id="searchBarTransition">
                 <div class="search-container">
                     <input class="search-input" type="text" name="searchQueryInput" placeholder="Busca" value=""/>
-                    <button class="search-submit-button" type="submit">
+                    <button class="search-button" type="submit">
                         <img src="{{ asset('res/icons/search.svg') }}" alt="Search Icon">
                     </button>
                 </div>
@@ -46,6 +39,5 @@
         {% endif %}
     </div>
     <script src="{{ asset('js/profile/profile.js') }}"></script>
-    <script src="{{ asset('js/search/search.js') }}"></script>
 
 {% endblock %}

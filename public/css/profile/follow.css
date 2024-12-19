@@ -1,0 +1,101 @@
+/* Estilos Generales para la Página de Seguidores y Seguidos */
+body {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+    margin: 0;
+    background-color: #2f3c4b;
+}
+
+.follow-section {
+    display: flex;
+    flex-direction: column; /* Apila las secciones en una columna */
+    gap: 40px;
+    width: 90%; /* Ancho máximo */
+    max-width: 1200px; /* Ancho máximo de la sección */
+    padding: 20px;
+    background-color: rgba(47, 60, 75, 0.8); /* Fondo translúcido */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #c1dbf4;
+    margin: 5px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #c1dbf4;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.follower, .following-user {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.follower .profile-picture, .following-user .profile-picture {
+    margin-right: 15px;
+}
+
+.profile-picture img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.follower-name, .following-name {
+    font-size: 1.2rem;
+    color: #f0f4f8;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.follower-name:hover, .following-name:hover {
+    color: #3a86ff;
+}
+
+.back-to-profile {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3a86ff;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+.back-to-profile:hover {
+    background-color: #2a68cc;
+    transform: scale(1.05);
+}
+
+.back-to-profile:active {
+    background-color: #1e4f9b;
+    transform: scale(0.95);
+}
