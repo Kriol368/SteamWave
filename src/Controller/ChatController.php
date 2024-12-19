@@ -62,7 +62,6 @@ class ChatController extends AbstractController
     public function show(int $id, ChatRepository $chatRepository): Response
     {
         $currentUser = $this->getUser();
-        $userId = $this->getUser()->getId();
         $chat = $chatRepository->find($id);
 
         if (!$chat) {
