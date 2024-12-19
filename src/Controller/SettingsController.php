@@ -76,14 +76,6 @@ class SettingsController extends AbstractController
             // Update user's profile picture from Steam and upload it to Cloudinary
             if (!empty($playerData['avatarfull'])) {
                 $profileImageUrl = $playerData['avatarfull'];
-                if ($profileImageUrl) {
-                    // Upload the profile image to Cloudinary
-                    $uploadedImageUrl = $this->cloudinaryService->uploadPfp($profileImageUrl);
-                    if ($uploadedImageUrl) {
-                        // Set the uploaded Cloudinary URL in the user entity
-                        $user->setPfp($uploadedImageUrl);
-                    }
-                }
 
                 try {
                     // Check if the user has an existing profile picture and delete it

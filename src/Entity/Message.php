@@ -27,7 +27,7 @@ class Message
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Chat $chat = null;
 
-    public function __construct(string $text, User $user, Chat $chat)
+    public function __construct(string $text,$user, Chat $chat)
     {
         $this->user = $user;
         $this->chat = $chat;
@@ -47,7 +47,6 @@ class Message
     {
         return $this->text;
     }
-
     public function setText(string $text): static
     {
         $this->text = $text;
