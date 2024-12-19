@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Placeholder{% endblock %}
+{% block title %}Chat{% endblock %}
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
     <script src="{{ asset('js/chat/message.js')}}"></script>
-    <div class="">
+
+    <div class="chat-container">
         <h1>Chat:</h1>
         <h3>Participants:</h3>
         <ul>
@@ -16,31 +17,24 @@
             {% endfor %}
         </ul>
 
-            <div class="chats-content">
-                <ul class="chat-li">
+        <div class="chats-content">
+            <ul class="chat-li">
                 {% for message in messages %}
-                    {% if message.user == user %}
-                        <ul class="your-message message">
-                            <li>{{message.text}}</li>
-                            <li>{{message.sentAt|date('H:i:s')}}</li>
-                            <img class="foto" src="{{ cloudinaryService.getProfilePictureUrl(app.user.pfp) }}" alt="User Profile Picture" class="profileimg-button"/>
-
-                        </ul>
-                    {% else %}
-                        <div class="1else-message message">
-                            <li>{{message.text}}</li>
-                            <li>{{message.sentAt|date('H:i:s')}}</li>
-                            <li>{{message.user.name}}</li>
+                    <li class="message-container {% if message.user == user %}your-message{% else %}else-message{% endif %}">
+                        <div class="message-content">
+                            <p class="message-text">{{ message.text }}</p>
+                            <p class="message-time">{{ message.sentAt|date('H:i:s') }}</p>
                         </div>
-                    {% endif %}
+                    </li>
                 {% endfor %}
-                </ul>
-            </div>
+            </ul>
 
-            <div>
-                <input type="text" id="message" placeholder="Escribe tu mensaje." value="">
-                <input type="button" id="sendMessageButton" value="enviar">
+            <!-- Barra de entrada de mensaje dentro del contenedor de mensajes -->
+            <div class="message-input">
+                <input type="text" id="message" placeholder="Escribe tu mensaje.">
+                <input type="button" id="sendMessageButton" value="Enviar">
             </div>
+        </div>
     </div>
 
     <div id="response"></div>
