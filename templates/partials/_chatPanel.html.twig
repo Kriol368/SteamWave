@@ -3,9 +3,21 @@
 <script src="{{ asset('js/home/sidebar.js') }}"></script>
 <div class="container">
     <div class="chat-section">
-        <p>
-
-        </p>
+            {% for chat in recentChats %}
+            <li class="chat-li">
+                <a href="{{ path('chat_show', {'id': chat.id}) }}">
+                    <div class="chat">
+                        Chat: ({{ chat.users|length }} participants)
+                        <!-- Display the names of the participants -->
+                        {% for user in chat.users %}
+                            <span>{{ user.name }}</span>
+                        {% endfor %}
+                    </div>
+                </a>
+            </li>
+            {% else %}
+        <p>No chats found</p>
+        {% endfor %}
     </div>
     <div class="sideprofile-section" id="sideprofile-background-img" data-user-id="{{ user.id }}"
          style="background-image: url('{{ banner ? banner : 'default_banner_image_url_here.jpg' }}');">
