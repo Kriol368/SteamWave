@@ -36,6 +36,18 @@ class ChatRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findLastFiveFromUser($user): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.users', 'u')
+            ->where('u = :user')
+            ->setParameter('user', $user)
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Chat[] Returns an array of Chat objects
 //     */
