@@ -3,53 +3,63 @@
 {% block title %}{{ game.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ game.name }}</h1>
-    <div>
-        <img src="{{ game.header_image }}" alt="{{ game.name }} Header">
+    <link rel="stylesheet" href="{{ asset('css/games/game.css') }}"/>
+
+    <div class="game-page-container">
+        <div class="game-header-container">
+            <img class="game-header-image" src="{{ game.header_image }}" alt="{{ game.name }} Header">
+
+            <div class="game-info-container">
+                <h1 class="game-title">{{ game.name }}</h1>
+                <h3>Platforms:</h3>
+                <ul class="platform-list">
+                    {% if game.platforms.windows %}
+                        <li>Windows</li>{% endif %}
+                    {% if game.platforms.mac %}
+                        <li>Mac</li>{% endif %}
+                    {% if game.platforms.linux %}
+                        <li>Linux</li>{% endif %}
+                </ul>
+
+                <h3>Genres:</h3>
+                <ul class="genre-list">
+                    {% for genre in game.genres %}
+                        <li>{{ genre.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="game-description">
+            <h3>Description:</h3>
+            <p>{{ game.short_description|raw }}</p>
+        </div>
+
+        <div class="review-section">
+            <h3>Average Waves</h3>
+            {% if averageWaves is not null %}
+                <p><strong>{{ averageWaves|number_format(1) }} / 5</strong></p>
+            {% else %}
+                <p>No reviews yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="reviews-container">
+            <h3>Reviews</h3>
+            {% include 'partials/_reviews.html.twig' with { 'reviews': reviews } %}
+        </div>
+
+        {% if app.user %}
+            <div class="review-form">
+                <h3>Write a Review</h3>
+                {{ form_start(reviewForm) }}
+                {{ form_row(reviewForm.text) }}
+                {{ form_row(reviewForm.waves) }}
+                <button class="btn">Submit Review</button>
+                {{ form_end(reviewForm) }}
+            </div>
+        {% else %}
+            <p><a href="{{ path('app_login') }}">Log in</a> to leave a review.</p>
+        {% endif %}
     </div>
-
-    <p><strong>Description:</strong> {{ game.short_description|raw }}</p>
-
-    <h3>Platforms:</h3>
-    <ul>
-        {% if game.platforms.windows %}<li>Windows</li>{% endif %}
-        {% if game.platforms.mac %}<li>Mac</li>{% endif %}
-        {% if game.platforms.linux %}<li>Linux</li>{% endif %}
-    </ul>
-
-    {% if game.price_overview is defined and game.price_overview is not empty %}
-        <p><strong>Price:</strong> {{ game.price_overview.final_formatted }}</p>
-    {% else %}
-        <p><strong>Price:</strong> Free</p>
-    {% endif %}
-
-    <h3>Genres:</h3>
-    <ul>
-        {% for genre in game.genres %}
-            <li>{{ genre.description }}</li>
-        {% endfor %}
-    </ul>
-
-    {# Display the average waves #}
-    <h3>Average Waves</h3>
-    {% if averageWaves is not null %}
-        <p><strong>{{ averageWaves|number_format(1) }} / 5</strong></p>
-    {% else %}
-        <p>No reviews yet.</p>
-    {% endif %}
-
-    {# Include the partial for all reviews #}
-    {% include 'partials/_reviews.html.twig' with { 'reviews': reviews } %}
-
-    {# Form to submit a new review #}
-    {% if app.user %}
-        <h3>Write a Review</h3>
-        {{ form_start(reviewForm) }}
-        {{ form_row(reviewForm.text) }}
-        {{ form_row(reviewForm.waves) }}
-        <button class="btn">Submit Review</button>
-        {{ form_end(reviewForm) }}
-    {% else %}
-        <p><a href="{{ path('app_login') }}">Log in</a> to leave a review.</p>
-    {% endif %}
 {% endblock %}

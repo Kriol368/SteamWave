@@ -14,10 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            const gameCountValue = document.getElementById('game_count_value');
-            const count = Object.keys(data).length;
+            const gameCountValues = document.querySelectorAll('.game-count-value');  // Select all elements with the class 'game-count'
+            if (gameCountValues.length > 0) {
+                const count = Object.keys(data).length;
 
-            gameCountValue.textContent = count; // Update the game count display
+                gameCountValues.forEach(element => {
+                    element.textContent = count;  // Update the textContent for each element
+                });
+            } else {
+                console.warn('No elements with the class "game-count-value" were found.');
+            }
         })
         .catch(error => console.error('There was a problem with the fetch operation:', error));
 });

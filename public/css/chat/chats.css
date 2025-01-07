@@ -1,69 +1,174 @@
-.content { /* overtriteamos el de base para que no exista la barra de la derecha */
-    padding-left: 100px;
+/* Botón de volver (Back Button) */
+.back-button{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: #2f3c4b solid 1px;
+    background-color: #1e2d4b;
+}
+
+.back-button-div{
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.back-button:hover{
+    background-color: #2D333C;
+    transform: scale(1.1);
+}
+
+/* Otros estilos que ya están definidos */
+
+/* Estilo del contenedor del chat */
+.content {
+    margin-left: 100px;
+    padding: 20px;
+}
+
+.chat-container {
+    background-color: rgba(47, 60, 75, 0.7);
+    padding: 20px;
+    border-radius: 10px;
     max-width: 100%;
-    padding-right: 20px;
+    margin: 0 auto;
+    color: #f0f4f8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.boton-de-mierda{
-    background-color: #00000000;
-    border: 0;
+
+/* Subtítulo de participantes */
+.chat-container h3 {
+    color: #c1dbf4;
+    font-size: 20px;
+    margin: 10px 0;
 }
-a, p{
-    color:black;
+
+/* Estilo de los participantes en fila */
+.participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
-.chats-content{
+
+.participant {
+    background-color: rgba(47, 60, 75, 0.5);
     padding: 10px;
-    margin-left: 20px;
-    margin-top: 20px;
-    background-color: #f0f0f0;
-    border-radius: 30px;
+    color: #f0f4f8;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-.title{
-    padding-left: 10px;
-}
-
-.create-btn p{
-    color: #f0f0f0;
-    padding: 5px;
-    border: #2e4681;
-    background-color: #2e4681;
-    border-radius: 30px;
-
+/* Contenedor de mensajes */
+.chats-content {
+    padding: 15px;
     margin-bottom: 20px;
+    background-color: rgba(47, 60, 75, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: calc(100vh - 230px);
+    overflow-y: auto;
 }
-.create-chat{
-    color: #f0f0f0;
-    padding: 5px;
-    border: #2e4681;
-    background-color: #2e4681;
-    border-radius: 30px;
 
-    margin-bottom: 20px;
-}
-.chat-li{
-    margin-left: -30px;
+/* Estilo de los mensajes */
+.chat-li {
+    margin-left: 0;
     list-style-type: none;
-
-    display: block;
+    padding: 0;
 }
-.chat{
-    padding: 30px;
-    background-color: #c3c3c3;
-    border-radius: 30px;
 
-    margin: 5px;
+.message-container {
+    display: flex;
+    margin: 10px 0;
 }
-.message{
-    display: inline-list-item;
 
+.your-message .message-content {
+    background-color: rgba(47, 60, 75, 0.8);
+    text-align: right;
+    margin-left: auto;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #f0f4f8;
+    max-width: 80%;
+}
+
+.else-message .message-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: left;
+    margin-right: auto;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #f0f4f8;
+    max-width: 80%;
+}
+
+.message-input-container {
     padding: 10px;
-    background-color: #a8a8a8;
-    border-radius: 30px;
-    width: fit-content;
+    background-color: rgba(47, 60, 75, 0.5);
+    border-radius: 10px;
+    margin-top: 20px;
 }
-.your-message{
-    border: 3px solid #73AD21; /* tu mensaje se muestra en verde */
-    padding: 10px;
 
-    position: relative;
+.message-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#message {
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #f0f4f8;
+    background-color: rgba(47, 60, 75, 0.5);
+    margin-right: 15px;
+}
+
+#sendMessageButton {
+    margin-left: -137px;
+    padding: 12px 25px;
+    background-color: #1e2d4b;
+    color: #f0f4f8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    min-width: 120px;
+}
+
+#sendMessageButton:hover {
+    background-color: #171D25;
+}
+
+/* Scrollbar personalizada */
+.chats-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chats-content::-webkit-scrollbar-track {
+    background-color: rgba(47, 60, 75, 0.3);
+    border-radius: 10px;
+}
+
+.chats-content::-webkit-scrollbar-thumb {
+    background-color: #1e2d4b;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.chats-content::-webkit-scrollbar-thumb:hover {
+    background-color: #171D25;
 }

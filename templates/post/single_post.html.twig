@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
+{% block title %}Post{% endblock %}
+
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/post/post.css') }}"/>
-    <div class="post-details">
-        <div>
-            <img src="{{ cloudinaryService.getProfilePictureUrl(post.postUser.pfp) }}" alt="User Profile Picture"/>
+    <div class="viewpost-main-div">
+        <div class="viewpost-profile-image-div">
+            <img src="{{ cloudinaryService.getProfilePictureUrl(post.postUser.pfp) }}" alt="User Profile Picture" class="viewpost-profile-image" />
         </div>
-        <h1>{{ post.postUser ? post.postUser.name : 'Anonymous' }}</h1>
-        <div class="post-card">
-            <p>{{ post.content }}</p>
-            {% if post.image %}
-                <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
-            {% endif %}
-            <ul>
-                <li>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
-                <li><strong>Tag:</strong>
-                    {% if gameId and gameName %}
-                        <a href="{{ path('app_game', {'appId': gameId}) }}">{{ gameName }}</a>
-                    {% else %}
-                        Not specified
-                    {% endif %}
 
-                </li>
-                <li><strong>Likes:</strong> {{ post.numLikes }}</li>
-            </ul>
+        <!-- Contenedor de los detalles del post -->
+        <div class="post-details">
+            <h1>{{ post.postUser ? post.postUser.name : 'Anonymous' }}</h1><div class="post-card">
+                <p>{{ post.content }}</p>
+                {% if post.image %}
+                    <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
+                {% endif %}
+                <ul>
+                    <li>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
+                    <li><strong>Tag:</strong>
+                        {% if gameId and gameName %}
+                            <a href="{{ path('app_game', {'appId': gameId}) }}">{{ gameName }}</a>
+                        {% else %}
+                            Not specified
+                        {% endif %}
 
             <!-- Contenedor para los botones de Like y Save -->
             <div class="like-save-container">
@@ -35,61 +35,74 @@
                     </button>
                 </form>
 
-                <!-- Botón de Save -->
-                <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token('save_post_' ~ post.id) }}">
-                    <button class="btn btn-save" type="submit">
-                        <img src="{{ asset('res/icons/bookmark.svg') }}" alt="save">
-                    </button>
-                </form>
+                <!-- Contenedor para los botones de Like y Save -->
+                <div class="like-save-container">
+                    <!-- Botón de Like -->
+                    <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
+                        <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
+                            <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
+                        </button>
+                    </form>
+
+                    <!-- Botón de Save -->
+                    <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token('save_post_' ~ post.id) }}">
+                        <button class="btn btn-save" type="submit">
+                            <img src="{{ asset('res/icons/bookmark.svg') }}" alt="save">
+                        </button>
+                    </form>
+                </div>
+
+                <h3>Comentarios</h3>
+                {% if post.comments is not empty %}
+                    <ul class="comments-list">
+                        {% for comment in post.comments %}
+                            <li class="singlecomment">
+                                <div class="comment-profile-picture">
+                                    <img src="{{ cloudinaryService.getProfilePictureUrl(comment.user.pfp) }}" alt="User Profile Picture"/>
+                                </div>
+                                <div class="comment-content">
+                                    <h3 class="comment-user-name">{{ comment.user.name }}</h3>
+                                    <p>{{ comment.text }}</p>
+                                    <small>{{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
+
+                                    <div class="like-section">
+                                        {% if comment.hasUserLiked(app.user) %}
+                                            <!-- Unlike button -->
+                                            <button class="btn btn-danger like-btn" data-id="{{ comment.id }}" data-csrf-token="{{ csrf_token('unlike_comment_' ~ comment.id) }}">
+                                                Unlike ({{ comment.likes|length }})
+                                            </button>
+                                        {% else %}
+                                            <!-- Like button -->
+                                            <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
+                                                <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Todavia no hay comentarios.</p>
+                {% endif %}
+                <h3>Añade un Comentario</h3>
+                {{ form_start(commentForm) }}
+                {{ form_row(commentForm.text) }}
+                <button class="btn btn-primary" type="submit">Enviar Comentario</button>
+                {{ form_end(commentForm) }}
+
+                {% if post.postUser == app.user %}
+                    <form action="{{ path('app_post_delete', {'id': post.id}) }}" method="post" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_post_' ~ post.id) }}">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Segur@ que quieres borrar este post?');">Borrar Post</button>
+                    </form>
+                {% endif %}
             </div>
 
-            <h3>Comentarios</h3>
-            {% if post.comments is not empty %}
-                <ul class="comments-list">
-                    {% for comment in post.comments %}
-                        <li>
-                            <div>
-                                <img src="{{ cloudinaryService.getProfilePictureUrl(comment.user.pfp) }}" alt="User Profile Picture"/>
-                            </div>
-                            <h3 class="comment-user-name">{{ comment.user.name }}</h3>
-                            <p>{{ comment.text }}</p>
-                            <small>{{ comment.publishedAt|date('Y-m-d H:i:s') }}</small>
-
-                            <div class="like-section">
-                                {% if comment.hasUserLiked(app.user) %}
-                                    <!-- Unlike button -->
-                                    <button class="btn btn-danger like-btn" data-id="{{ comment.id }}" data-csrf-token="{{ csrf_token('unlike_comment_' ~ comment.id) }}">
-                                        Unlike ({{ comment.likes|length }})
-                                    </button>
-                                {% else %}
-                                    <!-- Like button -->
-                                    <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
-                                        <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
-                                    </button>
-                                {% endif %}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Todavia no hay comentarios.</p>
-            {% endif %}
-            <h3>Añade un Comentario</h3>
-            {{ form_start(commentForm) }}
-            {{ form_row(commentForm.text) }}
-            <button class="btn btn-primary" type="submit">Enviar Comentario</button>
-            {{ form_end(commentForm) }}
-
-            {% if post.postUser == app.user %}
-                <form action="{{ path('app_post_delete', {'id': post.id}) }}" method="post" style="display: inline;">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete_post_' ~ post.id) }}">
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Segur@ que quieres borrar este post?');">Borrar Post</button>
-                </form>
-            {% endif %}
+            <a href="{{ path('app_home') }}" class="btn btn-secondary">Volver a todos los Posts</a>
         </div>
-
-        <a href="{{ path('app_home') }}" class="btn btn-secondary">Volver a todos los Posts</a>
     </div>
 {% endblock %}
 

@@ -1,13 +1,17 @@
 {% for review in reviews %}
     <div class="review">
-        <div>
-            <img src="{{ cloudinaryService.getProfilePictureUrl(review.user.pfp) }}" alt="User Profile Picture"/>
+        <div class="review-image-container">
+            <img src="{{ cloudinaryService.getProfilePictureUrl(review.user.pfp) }}" alt="User Profile Picture" class="review-profile-picture"/>
         </div>
-        <p><strong>{{ review.user.steamUsername }}</strong> ({{ review.publishedAt|date('Y-m-d H:i') }})</p>
-        <p>{{ review.text }}</p>
-        <p><strong>Waves:</strong> {{ review.waves }}</p>
+        <div class="review-content-container">
+            <div class="review-header">
+                <p class="review-username">{{ review.user.steamUsername }}</p>
+                <p class="review-waves"><strong>Waves:</strong> {{ review.waves }}</p>
+            </div>
+            <p class="review-text">{{ review.text }}</p>
+            <p class="review-date">{{ review.publishedAt|date('Y-m-d H:i') }}</p>
+        </div>
     </div>
-    <hr>
 {% else %}
     <p>No reviews yet. Be the first to write one!</p>
 {% endfor %}

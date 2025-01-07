@@ -12,8 +12,7 @@ body {
     font-size: 36px;
     font-weight: bold;
     text-align: center;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     border-bottom: 2px solid #2D333C;
 }
 
@@ -140,4 +139,23 @@ body {
 .btn-danger:hover {
     background-color: #c9302c;
     transform: scale(1.05);
+}
+
+.back-button{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: #2f3c4b solid 1px;
+    background-color: #1e2d4b;
+}
+.back-button-div{
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.back-button:hover{
+    background-color: #2D333C;
+    transform: scale(1.1);
 }

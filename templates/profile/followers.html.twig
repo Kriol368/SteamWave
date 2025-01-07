@@ -1,21 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ user.getName }}'s Followers{% endblock %}
+{% block title %}Seguidores{% endblock %}
 
 {% block body %}
-    <h1>{{ user.getName }}'s Followers</h1>
+    <link rel="stylesheet" href="{{ asset('css/profile/follow.css') }}"/>
 
-    {% if followers|length > 0 %}
-        <ul>
-            {% for follower in followers %}
-                <li>
-                    <a href="{{ path('view_profile', {userId: follower.id}) }}">{{ follower.getSteamUsername }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No followers yet.</p>
-    {% endif %}
+    <div class="follow-section">
+        <div class="followers">
+            <h1>{{ user.getName }}'s Followers</h1>
+            {% if followers|length > 0 %}
+                <ul>
+                    {% for follower in followers %}
+                        <li class="follower">
+                            <div class="profile-picture">
+                                <img src="{{ cloudinaryService.getProfilePictureUrl(follower.pfp) }}"
+                                     alt="User Profile Picture"/>
+                            </div>
+                            <a href="{{ path('view_profile', {userId: follower.id}) }}"
+                               class="follower-name">{{ follower.getName }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No followers yet.</p>
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{{ path('view_profile', { userId: user.id }) }}">Back to Profile</a>
+    <a href="{{ path('view_profile', { userId: user.id }) }}" class="back-to-profile">Back to Profile</a>
 {% endblock %}

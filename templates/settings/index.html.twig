@@ -9,16 +9,27 @@
         <div class="settings-title">
             <h2>Ajustes</h2>
         </div>
-
-
         <div class="setting">
-            <p><a href="{{ path('edit_description') }}">Cambiar Descripción</a></p>
-        </div>
+            <a href="{{ path('app_update') }}">
 
+                <p>Actualizar Perfil</p>
+            </a>
+        </div>
         <div class="setting">
-            <p><a href="{{ path('edit_banner') }}">Cambiar Banner</a></p>
+            <a href="{{ path('edit_description') }}">
+                <p>Cambiar Descripción</p>
+            </a>
         </div>
-
+        <div class="setting">
+            <a href="{{ path('edit_banner') }}">
+                <p>Cambiar Banner</p>
+            </a>
+        </div>
+        <div class="setting">
+            <a href="{{ path('app_logout') }}">
+                <p>Logout</p>
+            </a>
+        </div>
         <div>
             <form action="{{ path('delete_account') }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">

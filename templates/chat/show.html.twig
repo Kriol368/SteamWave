@@ -1,46 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Placeholder{% endblock %}
+{% block title %}Chat{% endblock %}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
-    <script src="{{ asset('js/chat/message.js')}}"></script>
-    <div class="">
-        <h1>Chat:</h1>
+    <link rel="stylesheet" href="{{ asset('css/chat/chats.css') }}"/>
+    <script src="{{ asset('js/chat/message.js') }}"></script>
+    <!-- New Back Button -->
+    <div class="back-button-div">
+        <button class="back-button" onclick="window.location.href='{{ path('app_settings') }}'">
+            <img id="home-btn" src="{{ asset('res/icons/arrow-left.svg') }}" alt="back button">
+        </button>
+    </div>
+    <div class="chat-container">
         <h3>Participants:</h3>
-        <ul>
+        <div class="participants">
             {% for user in chat.users %}
-                <li>{{ user.name }}</li>
+                <span class="participant">{{ user.name }}</span>
             {% else %}
-                <li>No participants</li>
+                <span>No participants</span>
             {% endfor %}
-        </ul>
+        </div>
 
-            <div class="chats-content">
-                <ul class="chat-li">
+        <div class="chats-content">
+            <ul class="chat-li">
                 {% for message in messages %}
-                    {% if message.user == user %}
-                        <div class="your-message message">
-                            <li>{{message.text}}</li>
-                            <li>{{message.sentAt|date('H:i:s')}}</li>
+                    <li class="message-container {% if message.user == user %}your-message{% else %}else-message{% endif %}">
+                        <div class="message-content">
+                            <p class="message-text">{{ message.text }}</p>
+                            <p class="message-time">{{ message.sentAt|date('H:i:s') }}</p>
                         </div>
-                    {% else %}
-                        <div class="1else-message message">
-                            <li>{{message.text}}</li>
-                            <li>{{message.sentAt|date('H:i:s')}}</li>
-                        </div>
-                    {% endif %}
+                    </li>
                 {% endfor %}
-                </ul>
-            </div>
+            </ul>
+        </div>
 
-            <div>
-                <input type="text" id="message" placeholder="Escribe tu mensaje.">
-                <input type="button" id="sendMessageButton" value="enviar">
+        <div class="message-input-container">
+            <div class="message-input">
+                <input type="text" id="message" placeholder="Write your message">
+                <input type="button" id="sendMessageButton" value="Send">
             </div>
+        </div>
     </div>
 
     <div id="response"></div>
-
-    <a href="{{ path('app_chat') }}" class="btn btn-secondary">Back to Chats</a>
 {% endblock %}

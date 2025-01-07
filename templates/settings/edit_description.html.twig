@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edita Descripción{% endblock %}
+{% block title %}Editar Descripción{% endblock %}
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/settings/settings.css') }}"/>
+    <div class="back-button-div">
+        <button class="back-button" onclick="window.location.href='{{ path('app_settings') }}'">
+            <img id="home-btn" src="{{ asset('res/icons/arrow-left.svg') }}" alt="back button">
+        </button>
+    </div>
     <div>
         <h3 class="settings-title">Edita Descripción</h3>
 
         <form method="POST" action="{{ path('edit_description') }}">
-            <textarea name="description" maxlength="161" required class="settings-editdescription">{{ app.user.description }}</textarea>
+            <textarea name="description" maxlength="161" required
+                      class="settings-editdescription">{{ app.user.description }}</textarea>
             <br>
             <button type="submit" class="submitButton">Guardar Descripción</button>
         </form>
-        <div class="back-button">
-            <button class="back-button" onclick="window.location.href='{{ path('app_settings') }}'">Volver</button>
-        </div>
     </div>
 {% endblock %}
