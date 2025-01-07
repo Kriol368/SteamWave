@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Calculate achievement progress
                 const totalAchievements = gameInfo.total_achievements ?? 0;
-                const unlockedAchievements = gameInfo.unlocked_achievements ?? 0;
+                const unlockedAchievements = gameInfo.achievements_unlocked ?? 0;
                 const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 0;
 
                 listItem.innerHTML = `
