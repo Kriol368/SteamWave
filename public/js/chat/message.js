@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#sendMessageButton').click(function() {
+    function sendMessage() {
         var url = $(location).attr('href'),
             parts = url.split("/"),
             chat = parts[parts.length-1];
@@ -25,6 +25,11 @@ $(document).ready(function() {
                 $('#response').text('Error: ' + xhr.message);
             }
         });
+    }
+
+    // Evento al hacer clic en el botón de enviar
+    $('#sendMessageButton').click(function() {
+        sendMessage();
     });
 
     // Evento al presionar Enter dentro del campo de texto
