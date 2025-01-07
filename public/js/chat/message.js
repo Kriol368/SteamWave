@@ -1,9 +1,13 @@
 $(document).ready(function() {
-    function sendMessage() {
+    $('#sendMessageButton').click(function() {
+        var url = $(location).attr('href'),
+            parts = url.split("/"),
+            chat = parts[parts.length-1];
+
         var message = $('#message').val();
-        var chatId = 1; // Asegúrate de obtener el ID del chat correctamente
 
         if (message.trim() === '') {
+            /* este alert se debería cambiar*/
             alert('Por favor, escribe un mensaje.');
             return;
         }
@@ -12,25 +16,15 @@ $(document).ready(function() {
             url: '/send/message',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ message: message, chat: chatId }), // Enviar el ID del chat
+            data: JSON.stringify({ message: message, chat: chat }),
             success: function(response) {
-                if (response.status === 'success') {
-                    $('#response').text('Mensaje enviado: ' + response.message);
-                    $('#message').val(''); // Limpiar el campo de entrada
-                    scrollToBottom(); // Desplazar hacia abajo después de enviar el mensaje
-                } else {
-                    $('#response').text('Error: ' + response.message);
-                }
+                $('#response').text('Mensaje enviado: ' + response.message);
+                $('#message').val("");
             },
-            error: function(xhr, status, error) {
-                $('#response').text('Error: ' + error);
+            error: function(xhr) {
+                $('#response').text('Error: ' + xhr.message);
             }
         });
-    }
-
-    // Evento al hacer clic en el botón de enviar
-    $('#sendMessageButton').click(function() {
-        sendMessage();
     });
 
     // Evento al presionar Enter dentro del campo de texto

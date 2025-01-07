@@ -31,7 +31,7 @@
     <!-- Panel lateral derecho -->
     <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
     <aside class="rigth-aside">
-        {% include 'partials/_chatPanel.html.twig' with { user: user } %}
+        {% include 'partials/_chatPanel.html.twig' with { user: user , recentChats: recentChats} %}
     </aside>
 
     <script src="{{ asset('js/home/home.js') }}"></script>

@@ -23,15 +23,27 @@ class ChatRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param User $user
+     * @param $user
      * @return Chat[]
      */
-    public function findByUser(User $user): array
+    public function findByUser($user): array
     {
         return $this->createQueryBuilder('c')
             ->innerJoin('c.users', 'u')
             ->where('u = :user')
             ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLastFiveFromUser($user): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.users', 'u')
+            ->where('u = :user')
+            ->setParameter('user', $user)
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }
