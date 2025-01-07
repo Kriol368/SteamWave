@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const totalAchievements = gameInfo.total_achievements ?? 0;
                 const unlockedAchievements = gameInfo.achievements_unlocked ?? 0;
                 const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 0;
-
                 listItem.innerHTML = `
                     <a href="${gameRouteBase}${gameId}" class="game-link">
                         <img class="game-icon-profile" src="${gameInfo.icon}" alt="${gameInfo.name} icon">
