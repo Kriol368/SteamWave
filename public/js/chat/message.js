@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     // Evento al presionar Enter dentro del campo de texto
     $('#message').keydown(function(event) {
-        if (event.which == 13) {  // 13 es el código de la tecla Enter
+        if (event.which === 13) {  // 13 es el código de la tecla Enter
             event.preventDefault();  // Evitar la acción predeterminada del Enter (salto de línea)
             sendMessage();
             $('#message').val('');  // Limpiar el campo de entrada después de presionar Enter
