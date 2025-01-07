@@ -26,4 +26,22 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Evento al presionar Enter dentro del campo de texto
+    $('#message').keydown(function(event) {
+        if (event.which == 13) {  // 13 es el código de la tecla Enter
+            event.preventDefault();  // Evitar la acción predeterminada del Enter (salto de línea)
+            sendMessage();
+            $('#message').val('');  // Limpiar el campo de entrada después de presionar Enter
+        }
+    });
+
+    // Función para desplazar la scrollbar hacia abajo
+    function scrollToBottom() {
+        var chatContainer = $('.chats-content');
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
+
+    // Desplazar hacia abajo cuando se carguen los mensajes al iniciar
+    scrollToBottom();
 });
