@@ -59,13 +59,22 @@ class CloudinaryService
             // Extract the public ID from the URL
             $publicId = $this->extractPublicIdFromUrl($imageUrl);
 
+            // Log the extracted public ID
+            error_log('Public ID: ' . $publicId);
+
             // Call Cloudinary's API to delete the asset using its public ID
-            $this->cloudinary->uploadApi()->destroy($publicId);
+            $response = $this->cloudinary->uploadApi()->destroy($publicId);
+
+            // Log the Cloudinary response
+            error_log('Cloudinary Response: ' . print_r($response, true));
+
         } catch (\Exception $e) {
             // Handle error (log it, notify admin, etc.)
             throw new \Exception('Error deleting image from Cloudinary: ' . $e->getMessage());
         }
     }
+
+
 
 
     // Method to retrieve the URL of an uploaded profile picture (PFP)
@@ -83,22 +92,40 @@ class CloudinaryService
     // Helper function to extract the public ID from the URL
     private function extractPublicIdFromUrl(string $url): string
     {
-        // Cloudinary URLs have the following format:
-        // https://res.cloudinary.com/{cloud_name}/image/upload/{folder}/{public_id}.{extension}
+        // Parse the URL to get the path
         $parsedUrl = parse_url($url);
         $path = $parsedUrl['path'] ?? '';
 
-        // Assuming the format is consistent with Cloudinary's URL structure
-        $segments = explode('/', trim($path, '/'));
+        // Remove the "upload/" part from the path (it comes right after "image/")
+        $pathSegments = explode('/upload/', $path);
 
-        // The public ID is usually in the last segment of the URL path, just before the extension
+        // If there's no upload path segment, return an empty string
+        if (count($pathSegments) < 2) {
+            return '';
+        }
+
+        // The remaining part of the path after "upload/" will contain the version, folder, and public ID
+        $pathAfterUpload = $pathSegments[1];
+
+        // Remove the versioning part (e.g., v1734599118/) if present
+        $pathAfterUpload = preg_replace('/^v\d+\//', '', $pathAfterUpload); // Remove version (e.g., v1734599118/)
+
+        // The path now includes the folder (if any) and the public ID, e.g., "pfp/ss9p6xgy956e4gflgx7o.jpg"
+        // Split by '/' to isolate the folder and public ID
+        $segments = explode('/', $pathAfterUpload);
+
+        // Remove the file extension (e.g., .jpg) from the last segment (public ID)
         $publicIdWithExtension = array_pop($segments);
-
-        // Remove the extension part (e.g., .jpg or .png)
         $publicId = pathinfo($publicIdWithExtension, PATHINFO_FILENAME);
+
+        // Rebuild the public ID by joining any folder structure with the public ID
+        $publicId = implode('/', $segments) . '/' . $publicId;
 
         return $publicId;
     }
+
+
+
 
 
 

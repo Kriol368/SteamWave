@@ -82,8 +82,7 @@ class SettingsController extends AbstractController
                     $currentPfpUrl = $user->getPfp();
                     if ($currentPfpUrl) {
                         // Extract the public ID from the URL (assumes the URL contains the public ID)
-                        $publicId = pathinfo(parse_url($currentPfpUrl, PHP_URL_PATH), PATHINFO_FILENAME);
-                        $this->cloudinaryService->deletePfp($publicId);
+                        $this->cloudinaryService->deletePfp($currentPfpUrl);
                     }
 
                     // Upload the new profile image to Cloudinary
