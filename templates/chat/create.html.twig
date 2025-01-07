@@ -4,19 +4,19 @@
 
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/chat/chats.css')}}"/>
-        <div class="chats-content">
+        <div class="create-chats-content">
             <h1>Create a New Chat</h1>
 
             {{ form_start(form) }}
             <div>
-                <label for="chat_users">Select Users</label>
+                <label for="create-chat_users">Select Users</label>
                 {{ form_widget(form.users) }}
             </div>
 
             <div class="btn-divider">
-                <button type="submit" class="boton-de-mierda create-chat">Create Chat</button> <!-- btn btn-primary -->
+                <button type="submit" class="create-chat-button create-chat">Create Chat</button> <!-- btn btn-primary -->
                 {{ form_end(form) }}
-                <a href="{{ path('app_chat') }}" class="">Back to Chats</a> <!-- btn-secondary -->
+                <a href="{{ path('app_chat') }}" class="back-to-chats">Back to Chats</a> <!-- btn-secondary -->
             </div>
         </div>
 {% endblock %}

@@ -172,3 +172,227 @@
 .chats-content::-webkit-scrollbar-thumb:hover {
     background-color: #171D25;
 }
+/* Título de la página */
+.title {
+    font-size: 32px;
+    color: #f0f4f8;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de crear chat */
+.create-btn {
+    display: inline-block;
+    margin: 15px auto;
+    text-align: center;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #f0f4f8;
+    background-color: #1e2d4b;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.create-btn:hover {
+    background-color: #171D25;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.create-btn p {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-li {
+    margin: 15px 0;
+    padding: 12px 15px;
+    background-color: rgba(47, 60, 75, 0.8);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.chat-li:hover {
+    background-color: rgba(47, 60, 75, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chat-li a {
+    text-decoration: none;
+    color: #c1dbf4;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.chat-li span {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #f0f4f8;
+}
+
+/* Contenedor principal de la página de crear chat */
+.create-chats-content {
+    padding: 40px;
+    background-color: rgba(30, 45, 75, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    margin: 40px auto;
+    max-width: 900px;
+    color: #f0f4f8;
+}
+
+/* Título de la página de crear chat */
+.create-chats-content h1 {
+    font-size: 36px;
+    color: #f0f4f8;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para el formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Etiqueta para la zona de selección de usuarios */
+label[for="create-chat_users"] {
+    font-size: 18px;
+    color: #c1dbf4;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Estilo para el widget del formulario (select de usuarios) */
+select,
+.form-control,
+.user-selection {
+    background-color: rgba(47, 60, 75, 0.5);
+    border: 1px solid #3c4e65;
+    padding: 14px;
+    border-radius: 8px;
+    color: #f0f4f8;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* Estilo al enfocarse en el campo select */
+select:focus,
+.form-control:focus,
+.user-selection:focus {
+    border-color: #1e2d4b;
+}
+
+/* Estilo para las casillas de verificación (checkboxes) */
+.user-selection input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #1e2d4b; /* Color personalizado para las casillas de verificación */
+}
+
+/* Espaciado y alineación para los botones de la sección */
+.btn-divider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+/* Botón de crear chat */
+.create-chat-button {
+    background-color: #1e2d4b;
+    color: #f0f4f8;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 45%;
+    text-align: center;
+}
+
+.create-chat-button:hover {
+    background-color: #171D25;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Enlace de vuelta a los chats */
+a.back-to-chats {
+    color: #c1dbf4;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 12px 18px;
+    background-color: rgba(47, 60, 75, 0.7);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 45%;
+    text-align: center;
+}
+
+a.back-to-chats:hover {
+    background-color: rgba(47, 60, 75, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para los participantes (sección de usuarios seleccionados) */
+.participant-container {
+    margin-top: 20px;
+    background-color: rgba(47, 60, 75, 0.6);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.participant-container h3 {
+    font-size: 18px;
+    color: #f0f4f8;
+    margin-bottom: 10px;
+}
+
+/* Estilo individual de cada usuario participante */
+.participant-item {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 6px;
+    background-color: rgba(47, 60, 75, 0.5);
+    border-radius: 6px;
+    font-size: 16px;
+    color: #f0f4f8;
+    text-align: center;
+    border: 1px solid #3c4e65;
+    transition: all 0.3s ease;
+}
+
+.participant-item:hover {
+    background-color: rgba(47, 60, 75, 0.7);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Para una mejor separación de los elementos */
+.participant-container .participant-item + .participant-item {
+    margin-left: 10px;
+}
