@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userId = document.body.dataset.userId; // This is just for fetching the games list
+    const userId = document.body.dataset.userId; // Fetch the user ID from the body data attribute
 
     fetch(`/user/${userId}/games-list`)
         .then(response => {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
                             </div>
                             <p class="achievement-info">
-                                ${unlockedAchievements} / ${totalAchievements} Achievements Unlocked
+                                Achievements: ${unlockedAchievements} / ${totalAchievements}
                             </p>
                         </div>
                     </a>

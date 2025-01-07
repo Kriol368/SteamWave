@@ -22,29 +22,41 @@ class SteamAppService
             'query' => [
                 'key' => $this->apiKey,
                 'steamid' => $steamID64,
-                'include_appinfo' => true,      // Include game info like name and icon
-                'include_played_free_games' => true,  // Include free games if available
+                'include_appinfo' => true,
+                'include_played_free_games' => true,
                 'format' => 'json',
             ],
         ]);
 
         $data = $response->toArray();
-
         $games = [];
 
         if (isset($data['response']['games'])) {
             foreach ($data['response']['games'] as $game) {
-                $games[$game['appid']] = [
+                // Initialize basic game info
+                $gameData = [
                     'name' => $game['name'] ?? 'Unknown Game',
-                    'playtime_forever' => $game['playtime_forever'] ?? 0, // in minutes
+                    'playtime_forever' => $game['playtime_forever'] ?? 0,
                     'icon' => $this->getGameIconUrl($game['appid'], $game['img_icon_url'] ?? null),
                     'logo' => $this->getGameLogoUrl($game['appid'], $game['img_logo_url'] ?? null),
+                    'achievements_unlocked' => 0, // Default value
+                    'total_achievements' => 0,   // Default value
                 ];
+
+                // Fetch achievement data for the game
+                $achievementData = $this->getGameAchievements($steamID64, $game['appid']);
+                if ($achievementData) {
+                    $gameData['achievements_unlocked'] = $achievementData['achievements_unlocked'];
+                    $gameData['total_achievements'] = $achievementData['total_achievements'];
+                }
+
+                $games[$game['appid']] = $gameData;
             }
         }
 
         return $games;
     }
+
 
     private function getGameIconUrl(int $appId, ?string $iconHash): ?string
     {
@@ -121,5 +133,35 @@ class SteamAppService
         return "https://cdn.akamai.steamstatic.com/steam/apps/{$appId}/header.jpg";
     }
 
+    private function getGameAchievements(string $steamID64, int $appId): ?array
+    {
+        try {
+            $response = $this->client->request('GET', 'http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/', [
+                'query' => [
+                    'key' => $this->apiKey,
+                    'steamid' => $steamID64,
+                    'appid' => $appId,
+                    'format' => 'json',
+                ],
+            ]);
+
+            $data = $response->toArray();
+
+            if (isset($data['playerstats']['achievements'])) {
+                $achievements = $data['playerstats']['achievements'];
+                $unlockedCount = count(array_filter($achievements, fn($ach) => $ach['achieved'] === 1));
+                $totalCount = count($achievements);
+
+                return [
+                    'achievements_unlocked' => $unlockedCount,
+                    'total_achievements' => $totalCount,
+                ];
+            }
+        } catch (\Exception $e) {
+            // Log the error or handle it as needed
+        }
+
+        return null; // Return null if data is unavailable or there's an error
+    }
 
 }
