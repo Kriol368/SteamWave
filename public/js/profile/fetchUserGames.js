@@ -22,7 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Calculate achievement progress
                 const totalAchievements = gameInfo.total_achievements ?? 0;
                 const unlockedAchievements = gameInfo.achievements_unlocked ?? 0;
-                const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 0;
+                const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 100; // Set to 100% if no achievements
+
+                // Achievement info text
+                const achievementText = totalAchievements > 0
+                    ? `Achievements: ${unlockedAchievements} / ${totalAchievements}`
+                    : `No achievements available`;
+
                 listItem.innerHTML = `
                     <a href="${gameRouteBase}${gameId}" class="game-link">
                         <img class="game-icon-profile" src="${gameInfo.icon}" alt="${gameInfo.name} icon">
@@ -37,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="achievement-progress">
                                 <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
                             </div>
-                            <p class="achievement-info">
-                                Achievements: ${unlockedAchievements} / ${totalAchievements}
-                            </p>
+                            <p class="achievement-info">${achievementText}</p>
                         </div>
                     </a>
                 `;
