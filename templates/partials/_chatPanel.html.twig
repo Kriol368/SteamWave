@@ -1,22 +1,26 @@
 <link rel="stylesheet" href="{{ asset('css/home/chatPanel.css') }}"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 <script src="{{ asset('js/home/sidebar.js') }}"></script>
-<div class="container">
+
+<div class="toggle-button">
+    <button id="toggleContentBtn"><img id="tabbutton" src="{{ asset('res/icons/menu.svg') }}" alt="Likes button"
+                                       class="sidenav-button-img"></button>
+</div>
+<div class="container" id="mainContent">
     <div class="chat-section">
-            {% for chat in recentChats %}
+        {% for chat in recentChats %}
             <li class="chat-li">
                 <a href="{{ path('chat_show', {'id': chat.id}) }}">
-                    <div class="chat">
+                    <div class="sidechat">
                         Chat: ({{ chat.users|length }} participants)
-                        <!-- Display the names of the participants -->
                         {% for user in chat.users %}
                             <span>{{ user.name }}</span>
                         {% endfor %}
                     </div>
                 </a>
             </li>
-            {% else %}
-        <p>No chats found</p>
+        {% else %}
+            <p>No chats found</p>
         {% endfor %}
     </div>
     <div class="sideprofile-section" id="sideprofile-background-img" data-user-id="{{ user.id }}"

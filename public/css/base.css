@@ -86,3 +86,33 @@ p, a {
     color: #ffffff;
     text-decoration: none;
 }
+
+/* Contenedor principal */
+#mainContent {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+    transform-origin: left;
+    overflow: hidden; /* Asegura que el contenido no desborde */
+}
+
+
+/* Estado oculto del contenedor */
+.hidden {
+    transform: translateX(100%); /* Desplaza el contenedor hacia la izquierda */
+    opacity: 0;
+    width: 50%; /* Disminuye el tamaño del contenedor cuando se oculta */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out; /* Transición suave */
+}
+
+/* Estado visible del contenedor */
+.visible {
+    opacity: 1;
+    max-width: calc(100% - 70px) !important;
+    width: 100%; /* Expande el tamaño del contenedor a su tamaño completo */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, width 0.3s ease-in-out; /* Transición suave */
+}
+
+/* Clase para desplazar el botón */
+.translateButton {
+    transform: translateX(450px); /* Desplaza el botón hacia la derecha */
+    transition: transform 0.3s ease-in-out; /* Transición suave para el botón */
+}
