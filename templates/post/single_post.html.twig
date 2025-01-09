@@ -14,8 +14,17 @@
             <h1>{{ post.postUser ? post.postUser.name : 'Anonymous' }}</h1><div class="post-card">
                 <p>{{ post.content }}</p>
                 {% if post.image %}
-                    <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
+                    {% if post.image ends with '.mp4' or post.image ends with '.webm' or post.image ends with '.ogg' %}
+                        <video controls>
+                            <source src="{{ post.image }}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    {% else %}
+                        <img src="{{ post.image }}" alt="Post Image" />
+                    {% endif %}
                 {% endif %}
+
+
                 <ul>
                     <li>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
                     <li><strong>Tag:</strong>
