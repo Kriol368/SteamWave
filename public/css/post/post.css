@@ -78,7 +78,6 @@ ul.comments-list li div small {
 }
 
 .btn {
-    margin: 10px;
     padding: 8px 12px; /* Ajustamos el tamaño para que no sea demasiado grande */
     border: none;
     border-radius: 5px;
