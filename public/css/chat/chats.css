@@ -1,151 +1,144 @@
+/* Botón de volver (Back Button) */
+.back-button{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: #2f3c4b solid 1px;
+    background-color: #1e2d4b;
+}
+
+.back-button-div{
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.back-button:hover{
+    background-color: #2D333C;
+    transform: scale(1.1);
+}
+
+/* Otros estilos que ya están definidos */
+
 /* Estilo del contenedor del chat */
-.content{
+.content {
     margin-left: 100px;
     padding: 20px;
 }
+
 .chat-container {
-    background-color: rgba(47, 60, 75, 0.7); /* Fondo similar al del post */
+    background-color: rgba(47, 60, 75, 0.7);
     padding: 20px;
     border-radius: 10px;
     max-width: 100%;
-    margin: 0 auto; /* Centrado horizontal */
-    color: #f0f4f8; /* Color de texto claro */
-}
-
-/* Título principal del chat */
-.chat-container h1 {
-    color: #c1dbf4; /* Color del título */
-    font-size: 28px;
-    margin-bottom: 15px; /* Espacio debajo del título */
-    text-align: center;
+    margin: 0 auto;
+    color: #f0f4f8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Subtítulo de participantes */
 .chat-container h3 {
-    color: #c1dbf4; /* Color del subtítulo */
+    color: #c1dbf4;
     font-size: 20px;
-    margin-bottom: 10px;
-    margin-left: 10px; /* Margen izquierdo */
-    margin-top: 15px; /* Margen superior */
+    margin: 10px 0;
 }
 
-/* Lista de participantes */
-.chat-container ul {
-    list-style: none;
+/* Estilo de los participantes en fila */
+.participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.participant {
     background-color: rgba(47, 60, 75, 0.5);
-    border-radius: 10px;
-    margin: 0 0 15px;
-    padding: 0 0 10px;
-}
-
-.chat-container ul li {
     padding: 10px;
     color: #f0f4f8;
-    font-size: 16px;
-    margin-left: 10px; /* Margen izquierdo */
-}
-
-.chat-container ul li:last-child {
-    border-bottom: none;
-}
-
-/* Estilo de los botones de acción (como Back to Chats) */
-.btn-secondary {
-    background-color: #1e2d4b; /* Fondo oscuro */
-    color: #f0f4f8; /* Color claro */
-    padding: 12px 22px; /* Más espacio en los bordes */
-    border: none;
     border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: inline-block;
-    margin-top: 20px; /* Más espacio arriba */
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    max-width: 220px; /* Ancho máximo del botón */
-}
-
-.btn-secondary:hover {
-    background-color: #171D25; /* Fondo más oscuro en hover */
+    font-size: 14px;
 }
 
 /* Contenedor de mensajes */
 .chats-content {
-    padding: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: rgba(47, 60, 75, 0.5); /* Fondo semitransparente */
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: rgba(47, 60, 75, 0.5);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: calc(100vh - 230px);
+    overflow-y: auto;
 }
 
-/* Lista de mensajes */
+/* Estilo de los mensajes */
 .chat-li {
     margin-left: 0;
     list-style-type: none;
     padding: 0;
 }
 
-/* Contenedor del mensaje */
 .message-container {
     display: flex;
-    margin: 10px 0; /* Margen superior e inferior para separar los mensajes */
+    margin: 10px 0;
 }
 
-/* Estilo para los mensajes propios (derecha) */
 .your-message .message-content {
-    background-color: rgba(47, 60, 75, 0.8); /* Fondo oscuro para los mensajes propios */
+    background-color: rgba(47, 60, 75, 0.8);
     text-align: right;
-    margin-left: auto; /* Alineación a la derecha */
-    padding: 12px 18px; /* Más espacio dentro del mensaje */
+    margin-left: auto;
+    padding: 12px 18px;
     border-radius: 10px;
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #f0f4f8; /* Texto claro */
-    max-width: 80%; /* Limita el ancho del mensaje */
+    color: #f0f4f8;
+    max-width: 80%;
 }
 
-/* Estilo para los mensajes ajenos (izquierda) */
 .else-message .message-content {
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco semi-transparente */
+    background-color: rgba(255, 255, 255, 0.1);
     text-align: left;
-    margin-right: auto; /* Alineación a la izquierda */
-    padding: 12px 18px; /* Más espacio dentro del mensaje */
+    margin-right: auto;
+    padding: 12px 18px;
     border-radius: 10px;
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #f0f4f8; /* Texto claro */
-    max-width: 80%; /* Limita el ancho del mensaje */
+    color: #f0f4f8;
+    max-width: 80%;
 }
 
-/* Barra de entrada de mensajes */
+.message-input-container {
+    padding: 10px;
+    background-color: rgba(47, 60, 75, 0.5);
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
 .message-input {
     display: flex;
     align-items: center;
-    margin-top: 20px; /* Espacio superior */
     justify-content: space-between;
 }
 
-/* Estilo para el campo de entrada del mensaje */
 #message {
     width: 100%;
-    padding: 12px 18px; /* Más espacio en los bordes */
+    padding: 12px 18px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
-    color: #f0f4f8; /* Texto claro */
-    background-color: rgba(47, 60, 75, 0.5); /* Fondo oscuro */
-    margin-right: 15px; /* Espacio entre el input y el botón */
+    color: #f0f4f8;
+    background-color: rgba(47, 60, 75, 0.5);
+    margin-right: 15px;
 }
 
-/* Estilo para el botón de enviar */
 #sendMessageButton {
     margin-left: -137px;
-    padding: 12px 25px; /* Más espacio en los bordes */
-    background-color: #1e2d4b; /* Fondo oscuro para el botón */
+    padding: 12px 25px;
+    background-color: #1e2d4b;
     color: #f0f4f8;
     border: none;
     border-radius: 5px;
@@ -153,13 +146,29 @@
     font-size: 14px;
     font-weight: bold;
     transition: background-color 0.3s;
-    min-width: 120px; /* Asegura que el botón tenga un ancho mínimo */
+    min-width: 120px;
 }
 
 #sendMessageButton:hover {
-    background-color: #171D25; /* Fondo más oscuro al hacer hover */
+    background-color: #171D25;
 }
-.foto{
-    width: 50px;
-    height: 50px;
+
+/* Scrollbar personalizada */
+.chats-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chats-content::-webkit-scrollbar-track {
+    background-color: rgba(47, 60, 75, 0.3);
+    border-radius: 10px;
+}
+
+.chats-content::-webkit-scrollbar-thumb {
+    background-color: #1e2d4b;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.chats-content::-webkit-scrollbar-thumb:hover {
+    background-color: #171D25;
 }
