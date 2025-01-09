@@ -40,7 +40,7 @@
                                     {% endif %}
                                 </div>
                             </a>
-                            <div class="like-save-container">
+                            <div class="post-like-save-container">
                                 <!-- Botón de Like -->
                                 <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
                                     <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
