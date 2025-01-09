@@ -131,11 +131,13 @@ ul.comments-list li div small {
 }
 
 .btn-secondary {
+    text-decoration: none;
     background-color: #6c757d;
     color: #fff;
 }
 
 .btn-secondary:hover {
+    text-decoration: none;
     background-color: #5a6268;
 }
 
