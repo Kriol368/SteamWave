@@ -19,12 +19,14 @@ class CloudinaryService
         ]);
     }
 
-    public function uploadPostFile($filePath, $folder = 'posts')
+    public function uploadPostFile($filePath, $folder = 'posts', $resourceType = 'auto')
     {
         return $this->cloudinary->uploadApi()->upload($filePath, [
             'folder' => $folder,
+            'resource_type' => $resourceType,
         ]);
     }
+
 
 
     // Method to retrieve the URL of an uploaded post file

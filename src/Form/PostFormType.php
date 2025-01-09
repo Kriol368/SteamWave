@@ -40,11 +40,12 @@ class PostFormType extends AbstractType
                 ],
             ])
             ->add('image', FileType::class, [
-                'label' => 'Adjuntar Imagen o Video (Opcional)',
+                'label' => 'Attach Image or Video (Optional)',
                 'required' => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control-file', // Clase para archivos
+                    'class' => 'form-control-file',
+                    'accept' => 'image/*,video/*',
                 ],
             ])
             ->add('numLikes', HiddenType::class, [
