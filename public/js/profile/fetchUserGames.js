@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userId = document.body.dataset.userId; // This is just for fetching the games list
+    const userId = document.body.dataset.userId; // Fetch the user ID from the body data attribute
 
     fetch(`/user/${userId}/games-list`)
         .then(response => {
@@ -21,8 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Calculate achievement progress
                 const totalAchievements = gameInfo.total_achievements ?? 0;
-                const unlockedAchievements = gameInfo.unlocked_achievements ?? 0;
-                const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 0;
+
+                const unlockedAchievements = gameInfo.achievements_unlocked ?? 0;
+                const progressPercentage = totalAchievements > 0 ? (unlockedAchievements / totalAchievements) * 100 : 100; // Set to 100% if no achievements
+
+                // Achievement info text
+                const achievementText = totalAchievements > 0
+                    ? `Achievements: ${unlockedAchievements} / ${totalAchievements}`
+                    : `No achievements available`;
+
 
                 listItem.innerHTML = `
                     <a href="${gameRouteBase}${gameId}" class="game-link">
@@ -38,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="achievement-progress">
                                 <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
                             </div>
-                            <p class="achievement-info">
-                                ${unlockedAchievements} / ${totalAchievements} Achievements Unlocked
-                            </p>
+
+                            <p class="achievement-info">${achievementText}</p>
+
                         </div>
                     </a>
                 `;

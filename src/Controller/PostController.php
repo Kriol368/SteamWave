@@ -77,8 +77,13 @@ class PostController extends AbstractController
         }
 
         // Get the game name and ID for redirection
-        $gameId = (int) $post->getTag();
-        $gameName = $steamAppService->getGameName($gameId);
+        if ($post->getTag() != null){
+            $gameId = (int) $post->getTag();
+            $gameName = $steamAppService->getGameName($gameId);
+        }else{
+            $gameId = null;
+            $gameName = null;
+        }
 
         return $this->render('post/single_post.html.twig', [
             'post' => $post,

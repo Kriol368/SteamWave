@@ -49,46 +49,36 @@ class MessageController extends AbstractController
     }
 
     #[Route('/send/message', name: 'app_message', methods: ['POST'])]
-    public function sendMessage(ManagerRegistry $doctrine, Request $request): JsonResponse
+    public function sendMessage(ManagerRegistry $doctrine ,Request $request): JsonResponse
     {
         $currentUser = $this->getUser();
         $entityManager = $doctrine->getManager();
 
-        // Obtener los datos del request
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true); // pillas el json
+        $message = $data['message'] ?? null;    // le dices que de dentro del array saque la propiedad 'message' o sino que sea null.
+        $chat = $entityManager->getRepository(Chat::class)->find($data['chat'] ?? null);   // lo mismo pero con el id del chat, pero en este caso sacamos la entidad directamente.
 
-        // Validar que los datos existen
-        $message = $data['message'] ?? null;
-        $chatId = $data['chat'] ?? null;
+        $newMessage = new MiMessage($message, $currentUser, $chat); //se crea el mensaje a envíar.
 
-        if (!$message || !$chatId) {
-            return new JsonResponse(['status' => 'error', 'message' => 'Missing message or chat'], 400);
+        if($this->verifyMessage($newMessage) && $this->verifyUser($currentUser, $chat)) // verificamos el mensaje
+        {
+            $entityManager->persist($newMessage);   // se guarda el nuevo mensaje
+            $entityManager->flush();    // y se envía
+
+            //  TODO
+            //  hacer que la página muestre el nuevo mensaje sin tener que actualizar.
+
+            return new JsonResponse(['status' => 'success', 'message' => $message]); // succesful.
         }
-
-        $chat = $entityManager->getRepository(Chat::class)->find($chatId);
-
-        if (!$chat) {
-            return new JsonResponse(['status' => 'error', 'message' => 'Chat not found'], 400);
-        }
-
-        $newMessage = new MiMessage($message, $currentUser, $chat);
-
-        if ($this->verifyMessage($newMessage) && $this->verifyUser($currentUser, $chat)) {
-            $entityManager->persist($newMessage);
-            $entityManager->flush();
-
-            return new JsonResponse(['status' => 'success', 'message' => $message]);
-        } else {
-            if (!$this->verifyUser($currentUser, $chat)) {
-                return new JsonResponse(['status' => 'error', 'message' => 'User not part of the chat'], 400);
+        else // si el mensaje no es valido hay diferentes errores dependiendo de lo que ha fallado.
+        {
+            if(!$this->verifyUser($currentUser, $chat)){
+                return new JsonResponse(['status' => 'error', 'message' => 'tonto o k¿'], 400);
             }
-
-            if (!$this->verifyMessage($newMessage)) {
+            if(!$this->verifyMessage($newMessage)){
                 return new JsonResponse(['status' => 'error', 'message' => 'Message not valid'], 400);
             }
-
-            return new JsonResponse(['status' => 'error', 'message' => 'Unknown error'], 400);
+            return new JsonResponse(['status' => 'error', 'message' => 'pues error desconocido mi loco'], 400);
         }
     }
-
 }

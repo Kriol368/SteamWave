@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ChatRepository;
 use App\Repository\PostRepository;
 use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
@@ -12,13 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     private SteamAppService $steamAppService;
+    private ChatRepository $chatRepository;
 
-    public function __construct(SteamAppService $steamAppService)
+    public function __construct(SteamAppService $steamAppService, ChatRepository $chatRepository)
     {
         $this->steamAppService = $steamAppService;
+        $this->chatRepository = $chatRepository;
     }
 
+    public function loadRecentChats($user): array
+    {
+        // TODO
+        // hacer que el array se ordene por la fecha del ultimo mensaje envíado.
+        // para que salgan mostrados los más recientes basicamnete.
 
+        /*
+        $chats = $this->chatRepository->findLastFiveFromUser($user);
+        $sortedChats = [];
+        for ($i = 0; $i<count($chats); $i++) {
+            $sortedChats[$i] =
+        }
+        */
+
+        return $this->chatRepository->findLastFiveFromUser($user);
+    }
 
     #[Route('/', name: 'app_home')]
     public function index(PostRepository $postRepository, CloudinaryService $cloudinaryService): Response
@@ -29,6 +47,8 @@ class HomeController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login'); // Redirect to login if not authenticated
         }
+
+        $recentChats = $this->loadRecentChats($user);
 
         // Fetch banner
         $bannerGameId = $user->getBanner();
@@ -76,6 +96,7 @@ class HomeController extends AbstractController
             'user' => $user,
             'banner' => $banner,
             'cloudinaryService' => $cloudinaryService,
+            'recentChats' => $recentChats
         ]);
     }
 }

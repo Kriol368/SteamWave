@@ -66,7 +66,6 @@ h1 {
 label {
     font-weight: bold; /* Destaca las etiquetas */
     display: block; /* Asegura que estén sobre los inputs */
-    margin-bottom: 8px; /* Espacio entre etiqueta e input */
     color: #38466a; /* Color distintivo */
 }
 

@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="{{ asset('css/chat/chats.css') }}"/>
     <script src="{{ asset('js/chat/message.js') }}"></script>
     <!-- New Back Button -->
-    <div class="back-button-div">
-        <button class="back-button" onclick="window.location.href='{{ path('app_settings') }}'">
-            <img id="home-btn" src="{{ asset('res/icons/arrow-left.svg') }}" alt="back button">
-        </button>
-    </div>
     <div class="chat-container">
+        <div class="back-button-div">
+            <button class="back-button" onclick="window.location.href='{{ path('app_chat') }}'">
+                <img id="home-btn" src="{{ asset('res/icons/arrow-left.svg') }}" alt="back button">
+            </button>
+        </div>
         <h3>Participants:</h3>
         <div class="participants">
             {% for user in chat.users %}
