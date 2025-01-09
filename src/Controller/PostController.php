@@ -21,7 +21,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
 class PostController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
