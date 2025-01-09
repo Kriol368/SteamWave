@@ -141,6 +141,7 @@ ul.comments-list li div small {
 }
 
 .like-save-container {
+    display: flex;
     justify-content: flex-start; /* Alinea los botones a la izquierda */
     align-items: center; /* Asegura que los botones estén alineados verticalmente */
     margin-top: 10px;
