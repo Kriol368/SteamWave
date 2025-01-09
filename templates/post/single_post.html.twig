@@ -19,10 +19,10 @@
                 <ul>
                     <li>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
                     <li><strong>Tag:</strong>
-                        {% if gameId and gameName %}
+                        {% if gameId != 0 %}
                             <a href="{{ path('app_game', {'appId': gameId}) }}">{{ gameName }}</a>
                         {% else %}
-                            Not specified
+                            Sin Tag
                         {% endif %}
 
             <!-- Contenedor para los botones de Like y Save -->
