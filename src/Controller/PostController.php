@@ -195,19 +195,30 @@ class PostController extends AbstractController
 
             if ($imageFile) {
                 try {
-                    $imagePath = $imageFile->getRealPath(); // Get real file path
-                    $uploadResult = $cloudinaryService->uploadPostFile($imagePath, 'posts');
-                    $imageUrl = $uploadResult['secure_url'] ?? null;
+                    $imagePath = $imageFile->getRealPath();
+                    $mimeType = $imageFile->getMimeType();
 
-                    if ($imageUrl) {
-                        $post->setImage($imageUrl);
+                    if (str_starts_with($mimeType, 'image/')) {
+                        $uploadResult = $cloudinaryService->uploadPostFile($imagePath, 'posts', 'image');
+                    } elseif (str_starts_with($mimeType, 'video/')) {
+                        $uploadResult = $cloudinaryService->uploadPostFile($imagePath, 'posts', 'video');
                     } else {
-                        $this->addFlash('error', 'Failed to upload image to Cloudinary.');
+                        throw new \Exception('Unsupported file type.');
+                    }
+
+                    $fileUrl = $uploadResult['secure_url'] ?? null;
+
+                    if ($fileUrl) {
+                        $post->setImage($fileUrl); // Use a more generic field name like `setFileUrl` if needed
+                    } else {
+                        $this->addFlash('error', 'Failed to upload file to Cloudinary.');
                     }
                 } catch (\Exception $e) {
-                    $this->addFlash('error', 'Could not upload image: ' . $e->getMessage());
+                    $this->addFlash('error', 'Could not upload file: ' . $e->getMessage());
                 }
             }
+
+
 
             // Retrieve and set the tag manually
             $tag = $form->get('tag')->getData();
