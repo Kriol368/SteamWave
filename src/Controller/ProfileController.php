@@ -201,12 +201,16 @@ class ProfileController extends AbstractController
         return array_map(function ($postEntity) {
             // Determine if we are dealing with a Post or a UserPost
             $post = ($postEntity instanceof \App\Entity\UserPost) ? $postEntity->getPost() : $postEntity;
-
+            if ($post->getTag() != null) {
+                $tag =  $this->steamAppService->getGameName($post->getTag());
+            }else{
+                $tag = null;
+            }
             $steamID64 = $post->getPostUser()->getSteamId64();
             return [
                 'id' => $post->getId(),
                 'content' => $post->getContent(),
-                'tag' => $this->steamAppService->getGameName($post->getTag()),
+                'tag' => $tag,
                 'image' => $post->getImage(),
                 'profilePicture' => $post->getPostUser()->getPfp(),
                 'username' => $post->getPostUser()->getName(),
