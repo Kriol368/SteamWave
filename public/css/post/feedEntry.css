@@ -54,3 +54,13 @@ ul{
 .username-link{
     color: #c1dbf4;
 }
+.post-like-save-container{
+    display: flex;
+    flex-direction: row;
+}
+.post-like-save-container button{
+    margin: 3px;
+    background: none;
+    border: none;
+
+}

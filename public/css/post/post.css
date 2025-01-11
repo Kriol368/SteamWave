@@ -78,7 +78,6 @@ ul.comments-list li div small {
 }
 
 .btn {
-    margin: 10px;
     padding: 8px 12px; /* Ajustamos el tamaño para que no sea demasiado grande */
     border: none;
     border-radius: 5px;
@@ -132,15 +131,18 @@ ul.comments-list li div small {
 }
 
 .btn-secondary {
+    text-decoration: none;
     background-color: #6c757d;
     color: #fff;
 }
 
 .btn-secondary:hover {
+    text-decoration: none;
     background-color: #5a6268;
 }
 
 .like-save-container {
+    display: flex;
     justify-content: flex-start; /* Alinea los botones a la izquierda */
     align-items: center; /* Asegura que los botones estén alineados verticalmente */
     margin-top: 10px;

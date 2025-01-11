@@ -94,3 +94,53 @@
     scrollbar-color: #c1dbf4 transparent; /* Color del "thumb" y fondo transparente */
     scrollbar-width: thin; /* Define el ancho como "fino" */
 }
+.chat-li{
+    list-style: none;
+    margin: 15px 0;
+    padding: 12px 15px;
+    background-color: rgba(47, 60, 75, 0.8);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.chat-li:hover {
+    background-color: rgba(47, 60, 75, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chat-li a {
+    text-decoration: none;
+    color: #c1dbf4;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.chat-li span {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #f0f4f8;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 10px;
+    right: 455px;
+    z-index: 1000;
+}
+
+#toggleContentBtn {
+    border-radius: 50%;
+    background-color: #2f3c4b;
+    color: white;
+    border: none;
+    padding: 13px;
+    cursor: pointer;
+}
+
+#mainContent {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform-origin: left;
+}
