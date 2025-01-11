@@ -41,23 +41,6 @@
                                     {% endif %}
                                 </div>
                             </a>
-                            <div class="like-save-container">
-                                <!-- Botón de Like -->
-                                <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
-                                    <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
-                                        <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
-                                    </button>
-                                </form>
-
-                                <!-- Botón de Save -->
-                                <form action="{{ path('app_post_save', {'postId': post.id}) }}" method="post">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('save_post_' ~ post.id) }}">
-                                    <button class="btn btn-save" type="submit">
-                                        <img src="{{ asset('res/icons/bookmark.svg') }}" alt="save">
-                                    </button>
-                                </form>
-                            </div>
                         </div>
                         {# User Profile Section #}
                     </li>
