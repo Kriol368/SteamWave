@@ -46,7 +46,6 @@
                                         <strong>Game:</strong> Sin Tag <br>
                                     {% endif %}
                                 </div>
-                            </a>
                             <div class="like-save-container">
                                 <!-- Botón de Like -->
                                 <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
@@ -64,6 +63,7 @@
                                     </button>
                                 </form>
                             </div>
+                            </a>
                         </div>
                         {# User Profile Section #}
                     </li>
