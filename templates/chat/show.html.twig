@@ -12,7 +12,6 @@
                 <img id="home-btn" src="{{ asset('res/icons/arrow-left.svg') }}" alt="back button">
             </button>
         </div>
-        <h3>Participants:</h3>
         <div class="participants">
             {% for user in chat.users %}
                 <span class="participant">{{ user.name }}</span>

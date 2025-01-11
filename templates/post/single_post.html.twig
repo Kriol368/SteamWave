@@ -14,8 +14,17 @@
             <h1>{{ post.postUser ? post.postUser.name : 'Anonymous' }}</h1><div class="post-card">
                 <p>{{ post.content }}</p>
                 {% if post.image %}
-                    <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" />
+                    {% if post.image ends with '.mp4' or post.image ends with '.webm' or post.image ends with '.ogg' %}
+                        <video controls>
+                            <source src="{{ post.image }}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    {% else %}
+                        <img src="{{ post.image }}" alt="Post Image" />
+                    {% endif %}
                 {% endif %}
+
+
                 <ul>
                     <li>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : 'Not available' }}</li>
                     <li><strong>Tag:</strong>
@@ -25,22 +34,12 @@
                             Sin Tag
                         {% endif %}
 
-            <!-- Contenedor para los botones de Like y Save -->
-            <div class="like-save-container">
-                <!-- Botón de Like -->
-                <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
-                    <button class="btn btn-success " type="submit" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
-                        <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
-                    </button>
-                </form>
-
                 <!-- Contenedor para los botones de Like y Save -->
                 <div class="like-save-container">
                     <!-- Botón de Like -->
                     <form action="{{ path('app_post_like', {'postId': post.id}) }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token('like_post_' ~ post.id) }}">
-                        <button class="btn btn-success like-btn" type="button" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
+                        <button class="btn btn-success " type="submit" data-id="{{ post.id }}" data-csrf-token="{{ csrf_token('like_post_' ~ post.id) }}">
                             <img src="{{ asset('res/icons/heart.svg') }}" alt="like">
                         </button>
                     </form>
@@ -100,6 +99,7 @@
                     </form>
                 {% endif %}
             </div>
+
 
             <a href="{{ path('app_home') }}" class="btn btn-secondary">Volver a todos los Posts</a>
         </div>
