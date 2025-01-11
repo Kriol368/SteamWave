@@ -12,7 +12,9 @@ use App\Repository\UserPostRepository;
 use App\Service\CloudinaryService;
 use App\Service\SteamAppService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,7 +96,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/like/{postId}', name: 'app_post_like')]
+    #[Route('/like/{postId}', name: 'app_post_like', methods: ['POST'])]
     public function likePost(
         int $postId,
         PostRepository $postRepository,
@@ -130,6 +132,26 @@ class PostController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_home');
+    }
+
+    // =====================================
+    // en esta funcion miramos si hemos dado like
+    #[Route('/like/get/', name: 'app_get_post_like')]
+    public function getLike(ManagerRegistry $doctrine, Request $request): JsonResponse
+    {
+        $currentUser = $this->getUser();
+        $entityManager = $doctrine->getManager();
+
+        $data = json_decode($request->getContent(), true); // pillas el json
+        $post = $entityManager->getRepository(Post::class)->find($data['postId']);
+
+        $userPost = $entityManager->getRepository(UserPost::class)->findOneBy(array('user' => $currentUser, 'post' => $post));
+
+        if (!$userPost) {
+            return new JsonResponse(['message' => 'no interaction yet'], 200);
+        }else {
+            return new JsonResponse(['like' => $userPost->isLiked() ], 200);
+        }
     }
 
     #[Route('/save/{postId}', name: 'app_post_save')]
@@ -168,6 +190,26 @@ class PostController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_home');
+    }
+
+    // =====================================
+    // en esta funcion miramos si hemos dado save
+    #[Route('/save/get/', name: 'app_get_post_save')]
+    public function getSave(ManagerRegistry $doctrine, Request $request): JsonResponse
+    {
+        $currentUser = $this->getUser();
+        $entityManager = $doctrine->getManager();
+
+        $data = json_decode($request->getContent(), true); // pillas el json
+        $post = $entityManager->getRepository(Post::class)->find($data['postId']);
+
+        $userPost = $entityManager->getRepository(UserPost::class)->findOneBy(array('user' => $currentUser, 'post' => $post));
+
+        if (!$userPost) {
+            return new JsonResponse(['message' => 'no interaction yet'], 200);
+        }else {
+            return new JsonResponse(['save' => $userPost->isSaved() ], 200);
+        }
     }
 
     #[Route('/post/new', name: 'app_post_new')]
