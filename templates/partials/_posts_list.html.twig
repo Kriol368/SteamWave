@@ -1,5 +1,6 @@
 {# templates/partials/_posts_list.html.twig #}
 <link rel="stylesheet" href="{{ asset('css/post/feedEntry.css') }}"/>
+<script src="{{ asset('js/profile/interactions.js') }}"></script>
 
 <div class="example-wrapper">
     {% if posts is empty %}
@@ -22,21 +23,14 @@
                                     </a>
                                 </h2>
                             </div>
-                            <a href="{{ path('app_post_show', { id: post.id }) }}">
+                            <a id="postLink" href="{{ path('app_post_show', { id: post.id }) }}">
                             <div class="post-text">
                                 <strong></strong> {{ post.content }} <br>
                             </div>
                             <div class="post-image">
                                 {# Image or Video Preview #}
                                 {% if post.image %}
-                                    {% if post.image ends with '.mp4' or post.image ends with '.webm' or post.image ends with '.ogg' %}
-                                        <video controls>
-                                            <source src="{{ post.image }}" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    {% else %}
-                                        <img src="{{ post.image }}" alt="Post Image" />
-                                    {% endif %}
+                                    <img src="{{ cloudinaryService.getPostFileUrl(post.image) }}" alt="Post Image" class="post-image"/>
                                 {% endif %}
                             </div>
                                 <div class="post-tag">
@@ -46,7 +40,6 @@
                                         <strong>Game:</strong> Sin Tag <br>
                                     {% endif %}
                                 </div>
-                            </div>
                             </a>
                         </div>
                         {# User Profile Section #}
