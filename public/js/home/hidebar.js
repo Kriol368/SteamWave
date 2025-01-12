@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('toggleContentBtn');
     const mainContent = document.getElementById('mainContent');
     const mainContainer = document.getElementById('mainContainer');
+    const postButton = document.getElementById('postButton');
 
     toggleButton.addEventListener('click', function () {
         // Comprobamos si el contenedor ya tiene la clase 'visible'
@@ -10,11 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
             mainContainer.classList.remove('visible');
             mainContent.classList.remove('hidden');
             toggleButton.classList.remove('translateButton'); // Quitar el desplazamiento del botón
+            postButton.classList.remove('translateButton'); // Quitar el desplazamiento del botón
+
         } else {
             // Si no tiene la clase 'visible', aplicamos las clases para ocultar
             mainContainer.classList.add('visible');
             mainContent.classList.add('hidden');
             toggleButton.classList.add('translateButton'); // Desplazar el botón
+            postButton.classList.add('translateButton'); // Quitar el desplazamiento del botón
         }
     });
 });
