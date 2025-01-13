@@ -74,11 +74,14 @@ class MessageController extends AbstractController
         {
             if(!$this->verifyUser($currentUser, $chat)){
                 return new JsonResponse(['status' => 'error', 'message' => 'tonto o k¿'], 400);
+                // echale salsa
             }
             if(!$this->verifyMessage($newMessage)){
                 return new JsonResponse(['status' => 'error', 'message' => 'Message not valid'], 400);
+                // dale picante
             }
             return new JsonResponse(['status' => 'error', 'message' => 'pues error desconocido mi loco'], 400);
+                // echale salsa
         }
     }
 }
